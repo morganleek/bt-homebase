@@ -1,34 +1,33 @@
 <?php
-	// function bone_theme_register_block_patterns() {
-	// 	$block_pattern_categories = array(
-	// 		'footer'   => array( 'label' => __( 'Footers', 'bone_theme' ) ),
-	// 		'header'   => array( 'label' => __( 'Headers', 'bone_theme' ) ),
-	// 		'query'    => array( 'label' => __( 'Query', 'bone_theme' ) ),
-	// 		'pages'    => array( 'label' => __( 'Pages', 'bone_theme' ) ),
-	// 	);
 
-	// 	$block_pattern_categories = apply_filters( 'bone_theme_block_pattern_categories', $block_pattern_categories );
+function bone_theme_register_block_patterns() {
+	$block_pattern_categories = [ 
+		'special-blocks' => [ 'label' => __( 'Special Blocks', 'bone_theme' ) ],
+	];
 
-	// 	foreach ( $block_pattern_categories as $name => $properties ) {
-	// 		if ( ! WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( $name ) ) {
-	// 			register_block_pattern_category( $name, $properties );
-	// 		}
-	// 	}
+	$block_pattern_categories = apply_filters( 'bone_theme_block_pattern_categories', $block_pattern_categories );
 
-	// 	$block_patterns = array(
-	// 		'query-custom',
-	// 	);
+	foreach ( $block_pattern_categories as $name => $properties ) {
+		if ( ! WP_Block_Pattern_Categories_Registry::get_instance()->is_registered( $name ) ) {
+			register_block_pattern_category( $name, $properties );
+		}
+	}
 
-	// 	$block_patterns = apply_filters( 'bone_theme_block_patterns', $block_patterns );
+	$block_patterns = [ 
+		'card',
+		'card-block-light',
+		'card-block-dark'
+	];
 
-	// 	foreach ( $block_patterns as $block_pattern ) {
-	// 		$pattern_file = get_theme_file_path( '/inc/patterns/' . $block_pattern . '.php' );
+	$block_patterns = apply_filters( 'bone_theme_block_patterns', $block_patterns );
 
-	// 		register_block_pattern(
-	// 			'bone_theme/' . $block_pattern,
-	// 			require $pattern_file
-	// 		);
-	// 	}
-	// }
-	
-	// add_action( 'init', 'bone_theme_register_block_patterns', 9 );
+	foreach ( $block_patterns as $block_pattern ) {
+		$pattern_file = get_theme_file_path( "/inc/patterns/$block_pattern.php" );
+
+		register_block_pattern(
+			"bone_theme/$block_pattern",
+			require $pattern_file
+		);
+	}
+}
+add_action( 'init', 'bone_theme_register_block_patterns', 9 );

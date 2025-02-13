@@ -1,0 +1,53 @@
+.wp-block-card {
+	gap: 0;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto;
+	overflow: hidden;
+	& > figure {
+		width: 100%;
+		min-height: 100px;
+		img {
+			min-width: 100%;
+			display: block;
+		}
+	}
+	&:not(:has(> figure)) {
+		&::before {
+			content: "";
+			width: 100%;
+			height: 200px;
+			background-image: linear-gradient(45deg, #f2f2f2 25%, transparent 25%), linear-gradient(-45deg, #f2f2f2 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f2f2f2 75%), linear-gradient(-45deg, transparent 75%, #f2f2f2 75%);
+			background-size: 20px 20px;
+			background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+			display: block;
+		}
+	}
+	&:is(.wp-block-card-block-dark):is(.wp-block-card-block-dark) {
+		border-radius: var(--home-base--radius);
+	}
+	&.wp-block-card-block-dark {
+		& > .wp-block-group {
+			padding: 24px 24px 24px 16px;
+			background: #000;
+			.wp-block-heading {
+				color: #fff;
+			}
+			* {
+				color: #A19A94;
+			}
+		}
+	}
+	&:not(:is(.wp-block-card-block-dark):is(.wp-block-card-block-dark)) {
+		& > figure {
+			border-radius: var(--home-base--radius);
+			overflow: hidden;
+		}
+		& > .wp-block-group {
+			padding-top: 24px;
+		}
+	}
+	& > .wp-block-group {
+		min-width: 100%;
+	}
+}

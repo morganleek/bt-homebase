@@ -10,14 +10,14 @@ module.exports = {
 	// If you intend to access it from your LAN (probably do?)
 	// If you keep null, then wpackio-scripts will try to determine your LAN IP
 	// on it's own, which might not always be satisfying. But it is in most cases.
-	host: undefined, // 49.176.255.9
+	host: "localhost", // 49.176.255.9
 	// Your WordPress development server address
-	proxy: "https://wordpress:8890",
+	proxy: "https://ho.1fo.au",
 	// PORT on your localhost where you would want live server to hook
-	port: 3000,
+	port: 3040,
 	// UI passed directly to browsersync
 	ui: {
-		port: 3001,
+		port: 3041,
 	},
 	// Whether to show the "BrowserSync Connected"
 	notify: false,

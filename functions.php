@@ -4,10 +4,13 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 // Other functions
 require get_template_directory() . '/inc/block-patterns.php';
-// WEI Images tools
-require get_template_directory() . '/inc/images.php';
 // Extra tools
 require get_template_directory() . '/inc/tools.php';
+// Inherited Libraries
+require get_template_directory() . '/inc/account.php';
+require get_template_directory() . '/inc/displays.php';
+require get_template_directory() . '/inc/inspiration.php';
+require get_template_directory() . '/inc/photos.php';
 
 // Do stuff through this plugin
 class BoneThemeInit
@@ -50,6 +53,8 @@ class BoneThemeInit
 	public function plugin_enqueue()
 	{
 		$this->enqueue->enqueue('app', 'main', []);
+
+		wp_enqueue_style( 'fonts', "https://cloud.typography.com/7503134/6320352/css/fonts.css", [], '1.0', 'all' );
 
 		// Inline styles for fonts
 		// wp_add_inline_style( 'bones-theme-style', $this->bones_theme_get_font_face_styles() );
@@ -119,11 +124,11 @@ class BoneThemeInit
 
 	public function bones_name_register_block_styles()
 	{
-		// Media & Text
-		// register_block_style( 'core/media-text', [
-		// 	'name' => 'stacked',
-		// 	'label' => __( 'Stacked', 'bones_name' )
-		// ] );
+		// Groups
+		register_block_style( 'core/group', [
+			'name' => 'overlap',
+			'label' => __( 'Overlap', 'bones_name' )
+		] );
 
 		// Cover
 		// register_block_style( 'core/cover', [
