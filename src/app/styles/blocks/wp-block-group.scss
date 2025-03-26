@@ -1,9 +1,41 @@
+:root {
+	--home-base--overlap--gap: 48px;
+}
+
 .wp-block-group {
 	&.is-style-overlap {
 		position: relative;
-		transform: translate(0, -28px);
-		margin-bottom: -28px !important;
+		transform: translate(0, calc(-1 * var(--home-base--overlap--gap)));
+    margin-bottom: calc(-1 * var(--home-base--overlap--gap)) !important;
 		z-index: 1;
-		border-radius: var(--home-base--radius) var(--home-base--radius) 0 0;
+		border-radius: var(--home-base--radius) var(--home-base--radius); // 0 0
+		& + .wp-block-group > .is-style-overlap {
+			opacity: .25;
+		}
+	}
+	// &:is(+ * > *:first-child:has(.is-style-overlap)) {
+	// 	opacity: 0.5;
+	// 	padding-bottom: 96px;
+	// }
+	&#newsletter-signup {
+		form {
+			display: grid;
+			grid-template-columns: 1fr auto;
+			gap: 1rem;
+		}
 	}
 }
+
+*:has(+ .wp-block-group > .is-style-overlap:first-child),
+*:has(+ .is-style-overlap) {
+	&::after {
+		content: "";
+		width: 100%;
+		height: var(--home-base--overlap--gap);
+		display: block;
+	}
+}
+
+// * + .wp-block-group > .is-style-overlap:first-child {
+// 	opacity: 0.5;
+// }

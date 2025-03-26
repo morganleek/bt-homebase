@@ -1,2 +1,5 @@
-// .wp-block-query {	
-// }
+.wp-block-query {	
+	.wp-block-post-excerpt__more-link {
+		color: var(--wp--preset--color--brand-yellow);
+	}
+}

@@ -1,6 +1,10 @@
 // h1, h2, h3, h4, h5, h6 {
 // }
 
+strong {
+	font-weight: 700;
+}
+
 .has-x-large-font-size {
 	line-height: var(--wp--custom--line-height--x-large);
 }
@@ -9,6 +13,12 @@
 }
 .has-small-font-size {
 	line-height: var(--wp--custom--line-height--small);
+}
+
+.has-brand-charcoal-background-color {
+	* {
+		color: var(--wp--preset--color--brand-dust);
+	}
 }
 
 @for $i from 1 through 6 {
@@ -25,5 +35,8 @@
 		&.has-small-font-size {
 			font-size: calc(var(--wp--custom--font-size--heading-#{$i}) * 0.85) !important;
 		}	
+		.has-brand-charcoal-background-color & {
+			color: #fff;
+		}
 	}
 }

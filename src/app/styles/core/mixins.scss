@@ -10,15 +10,31 @@
 }
 
 @mixin text-input {
-	border-radius: 0;
+	width: 100%;
+	height: 40px;
+	padding: 8px;
+	border-radius: 8px;
+	color: var(--wp--preset--color--brand-oliver);
+	border: none;
+	font-family: var(--wp--preset--font-family--gotham-narrow);
+	font-size: 1rem;
+	font-weight: 700;
 	&::placeholder {
-		color: #000;
+		color: #DBD6D1;
 	}
 	&:focus-visible {
-		outline: 1px auto blue;
+		outline: 1px auto #fff;
 	}
 }
 
 @mixin button {
-	border-radius: 0;
+	height: 40px;
+	padding: 8px 16px;
+	border-radius: 8px;
+	background-color: var(--wp--preset--color--brand-charcoal);
+	color: #fff;
+	border: 0 none;
+	font-family: var(--wp--preset--font-family--gotham-narrow);
+	font-size: 1rem;
+	font-weight: 700;
 }

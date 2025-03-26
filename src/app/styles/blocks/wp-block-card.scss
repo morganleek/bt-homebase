@@ -37,6 +37,11 @@
 				color: #A19A94;
 			}
 		}
+		& > figure {
+			img {
+				aspect-ratio: 2.916666 !important;
+			}
+		}
 	}
 	&:not(:is(.wp-block-card-block-dark):is(.wp-block-card-block-dark)) {
 		& > figure {

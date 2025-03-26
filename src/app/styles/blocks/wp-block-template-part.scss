@@ -17,6 +17,16 @@ header.wp-block-template-part {
 			}
 		}
 	}
+	.header-search-trigger,
+	.header-profile-trigger {
+		width: 24px;
+		height: 24px;
+		display: block;
+		.wp-block-button__link {
+			width: 24px;
+			height: 24px;
+		}
+	}
 }
 
 // footer.wp-block-template-part {

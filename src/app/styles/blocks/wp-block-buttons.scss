@@ -1,6 +1,15 @@
-// .wp-block-buttons {
-// 	.wp-block-button {
-// 		.wp-block-button__link {
-// 		}
-// 	}
-// }
+.wp-block-buttons {
+	.wp-block-button {
+		&.is-style-outline {
+			.wp-block-button__link {
+				border-width: 1px;
+				color: var(--wp--preset--color--brand-charcoal);
+				padding: 9px 16px 9px 16px;
+				line-height: 1.25em;
+				.has-brand-charcoal-background-color & {
+					color: var(--wp--preset--color--white);
+				}
+			}
+		}
+	}
+}

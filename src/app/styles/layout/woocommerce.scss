@@ -1,0 +1,12 @@
+.wc-block-mini-cart__button {
+	padding: 0;
+	.wc-block-mini-cart__quantity-badge {
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		.wc-block-mini-cart__icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+}

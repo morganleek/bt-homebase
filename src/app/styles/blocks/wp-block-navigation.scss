@@ -2,3 +2,16 @@
 // 	.wp-block-navigation__container {
 // 	}
 // }
+
+.wp-block-navigation {
+	.wp-block-navigation__responsive-container-open {
+		height: 24px;
+	}
+	.wp-block-navigation__responsive-container-content {
+		.wp-block-navigation__container {
+			header & {
+				gap: min(3.75vw, 54px);
+			}
+		}
+	}
+}
