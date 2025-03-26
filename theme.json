@@ -270,6 +270,14 @@
 					"color": "#ffffff",
 					"width": "1px"
 				},
+				"spacing": {
+					"padding": {
+						"bottom": "10px",
+						"top": "10px",
+						"left": "16px",
+						"right": "16px"
+					}
+				},
 				"color": {
 					"background": "#000000"
 				}

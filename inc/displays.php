@@ -6,6 +6,21 @@
  */
 
 // Display Post Type w/ WP Tags & Custom Cats - hbperth
+function hb_display_post_link( $post_link, $id = 0 ) {
+	$post = get_post( $id );
+
+	if ( is_object( $post ) && 'display' == $post->post_type ) {
+		$terms = wp_get_object_terms( $post->ID, 'display-category' );
+
+		if ( $terms ) {
+			return str_replace( '%display-category%', $terms[0]->slug, $post_link );
+		}
+	}
+
+	return $post_link;
+}
+
+add_filter( 'post_type_link', 'hb_display_post_link', 1, 3 );
 
 function display_posts() {
 	$labels = [ 
@@ -34,10 +49,22 @@ function display_posts() {
 		],
 		'capability_type' => 'post',
 		'has_archive'     => false,
+		'query_var'       => true,
 		'taxonomies'      => [ 'post_tag' ],
 		'rewrite'         => [ 'slug' => 'displays/%display-category%' ],
 		'menu_icon'				=> 'dashicons-cover-image',
-		'menu_position'			=> 54
+		'menu_position'			=> 54,
+		'exclude_from_search' => false,
+		'publicly_queryable'  => true,
+		'show_ui'             => true,
+		'show_in_nav_menus'   => true,
+		'show_in_admin_bar'   => true,
+		'show_in_rest'        => true,
+		'hierarchical'        => false,
+		// 'has_archive'         => true,
+		'can_export'          => true,
+		'rewrite_no_front'    => false,
+		'show_in_menu'        => true
 	];
 	register_post_type( 'display', $args );
 }

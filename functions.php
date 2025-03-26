@@ -228,3 +228,18 @@ class BoneThemeInit
 
 // Init
 new BoneThemeInit();
+
+add_action( 'breadcrumb_block_single_prepend', function ( $post, $breadcrumbs_instance ) {
+	if ( 'display' === $post->post_type ) {
+		$terms = get_the_terms( $post, 'display-category' );
+		if( !empty( $terms ) ) {
+			$breadcrumbs_instance->add_item( $terms[0]->name, get_term_link( $terms[0] ) );
+		}
+	}
+}, 10, 2 );
+
+// add_filter( 'breadcrumb_block_get_args', function ( $args ) {
+// 	// $args['separator'] = '<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" width="1em" height="1em" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/><path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/></svg>';
+// 	$args['separator'] = '<span>&gt;</span>';
+// 	return $args;
+// } );

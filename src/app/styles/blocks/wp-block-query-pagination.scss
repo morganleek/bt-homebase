@@ -1,2 +1,13 @@
-// .wp-block-query-pagination {
-// }
+.wp-block-query-pagination {
+	display: grid !important;
+	grid-template-columns: 1fr 1fr 1fr;	
+	margin-top: 48px;
+	.wp-block-query-pagination-numbers {
+		grid-area: 1 / 2 / 2 / 3;
+		justify-self: center;
+	}
+	.wp-block-query-pagination-next {
+		grid-area: 1 / 3 / 2 / 4;
+		justify-self: end;
+	}
+}
