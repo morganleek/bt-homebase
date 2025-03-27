@@ -53,3 +53,134 @@ input[type="submit"],
 button {
 	@include mixins.button;
 }
+
+.display-location {
+	ul {
+		list-style: none;
+		padding-left: 0;
+		display: flex;
+		column-gap: 24px;
+		row-gap: 8px;
+		align-items: center;
+		li {
+			display: flex;
+			gap: 8px;
+			flex-wrap: nowrap;
+			align-items: center;
+			color: #000;
+			font-size: 0.8125rem;
+			&::before {
+				content: "";
+				width: 24px;
+				height: 24px;
+				background: #000;
+				display: block;
+			}
+			&.display-number::before {
+				background: url(./images/hex.svg) 50% 50%/20px 22px no-repeat;
+			}
+			&.display-grid-ref::before {
+				background: url(./images/pin.svg) 50% 50%/18px 23px no-repeat;
+			}
+		}
+	}
+}
+
+.display-social-links {
+	display: flex;
+	column-gap: 32px;
+
+	button {
+		width: 24px;
+		height: 24px;
+		background: black;
+		border-radius: 0;
+		padding: 0;
+		cursor: pointer;
+		transition: opacity 0.2s;
+		position: relative;
+		@media (hover: hover) {
+			&:hover {
+				opacity: 0.6;
+			}
+		}
+		&.heart {
+			background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
+		}
+		&.facebook {
+			background: url(./images/facebook.svg) 50% 50%/20px 20px no-repeat;
+		}
+		&.instagram {
+			background: url(./images/instagram.svg) 50% 50%/20px 20px no-repeat;
+		}
+		&.display-lead-email {
+			background: url(./images/chat.svg) 50% 50%/20px 21px no-repeat;
+		}
+		&.display-lead-phone_number {
+			background: url(./images/phone.svg) 50% 50%/22px 22px no-repeat;
+		}
+		&.display-lead-url {
+			background: url(./images/mobile.svg) 50% 50%/19px 22px no-repeat;
+		}
+		a {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+	}
+}
+
+.display-image-gallery {
+	max-width: 928px;
+	margin-left: auto;
+	margin-right: auto;
+	ul {
+		padding-left: 0;
+		list-style: none;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		gap: 32px;
+		li {
+			width: 160px;
+			height: 160px;
+			position: relative;
+			img {
+				width: 100%;
+				aspect-ratio: 1;
+				object-fit: cover;
+				border-radius: 12px;
+			}
+			button {
+				position: absolute;
+				bottom: 16px;
+				right: 16px;
+				width: 24px;
+				height: 24px;
+				background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
+				padding: 0;
+			}
+		}
+	}
+}
+
+.instafeed-placeholder {
+	max-width: 920px;
+	margin-left: auto;
+	margin-right: auto;
+	ul {
+		list-style: none;
+		padding-left: 0;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+		li {
+			img {
+				width: 100%;
+				aspect-ratio: 1;
+				display: block;
+			}
+		}
+	}
+}

@@ -11,10 +11,13 @@ require get_template_directory() . '/inc/account.php';
 require get_template_directory() . '/inc/displays.php';
 require get_template_directory() . '/inc/inspiration.php';
 require get_template_directory() . '/inc/photos.php';
+// ACF
+require get_template_directory() . '/inc/acf.php';
 
 // Do stuff through this plugin
 class BoneThemeInit
 {
+	use advanced_custom_fields;
 	public $enqueue;
 
 	public function __construct()
@@ -45,6 +48,9 @@ class BoneThemeInit
 		add_action('wp_head', [$this, 'bones_theme_load_favicons']);
 		add_action('init', [$this, 'bones_name_register_block_styles'], 100);
 		add_action('enqueue_block_editor_assets', [$this, 'bones_theme_enqueue_block_variations']);
+
+		// ACF 
+		add_action( 'acf/init', [$this, 'bones_theme_acf_register_blocks'] );
 
 		// Gallery Sliders
 		// add_action( 'wp_print_styles', [ $this, 'update_styles' ] );

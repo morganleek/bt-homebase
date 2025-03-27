@@ -22,9 +22,9 @@
 	}	
 	.wp-block-card {
 		& > figure {
-			img {
-				aspect-ratio: 2.1 !important;
-			}
+			aspect-ratio: 2.1 !important;
+			// img {
+			// }
 		}
 		.wp-block-heading {
 			padding-left: 8px;
@@ -32,11 +32,18 @@
 		}
 	}
 	.wp-block-query {
-		.wp-block-post-featured-image {
-			border-radius: var(--home-base--radius);
-			overflow: hidden;
-			img {
-				aspect-ratio: 2.1 !important;
+		&.is-layout-grid,
+		&.is-layout-flow {
+			.wp-block-post-template {
+				.wp-block-post {
+					.wp-block-post-featured-image {
+						border-radius: var(--home-base--radius);
+						overflow: hidden;
+						aspect-ratio: 2.1 !important;
+						// img {
+						// }
+					}
+				}
 			}
 		}
 	}

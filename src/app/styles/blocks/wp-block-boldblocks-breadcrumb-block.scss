@@ -1,0 +1,7 @@
+.wp-block-boldblocks-breadcrumb-block {
+	.breadcrumb-item {
+		& > * {
+			line-height: 1.6em;
+		}
+	}	
+}
