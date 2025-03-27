@@ -1,6 +1,7 @@
 {
-  "main.css": "app/main-dd890d9b.css",
-  "main.css.map": "app/main-dd890d9b.css.map",
+  "app/assets/checker.png": "app/assets/checker-8b4b0069.png",
+  "main.css": "app/main-4eacc002.css",
+  "main.css.map": "app/main-4eacc002.css.map",
   "main.js": "app/main-1a9aafe6.js",
   "main.js.map": "app/main-1a9aafe6.js.map",
   "runtime.js": "app/runtime-c339366b.js",
@@ -17,10 +18,10 @@
           "app/main-1a9aafe6.js.map"
         ],
         "css": [
-          "app/main-dd890d9b.css"
+          "app/main-4eacc002.css"
         ],
         "css.map": [
-          "app/main-dd890d9b.css.map"
+          "app/main-4eacc002.css.map"
         ]
       }
     }

@@ -19,6 +19,7 @@
 		}
 		.select-wrapper {
 			position: relative;
+			pointer-events: none;
 			&::after {
 				content: '';
 				position: absolute;

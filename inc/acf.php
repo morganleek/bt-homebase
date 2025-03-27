@@ -57,6 +57,17 @@
 					'icon'            => 'admin-comments',
 					'keywords'        => [],
 				] );
+
+				// Display Categories Grid
+				acf_register_block_type( [ 
+					'name'            => 'display-categories-grid',
+					'title'           => __( 'Display Categories Grid' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/display-categories-grid.php',
+					'category'        => 'formatting',
+					'icon'            => 'grid-view',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}

@@ -146,11 +146,42 @@ button {
 			width: 160px;
 			height: 160px;
 			position: relative;
+			.overlay {
+				position: absolute;
+				background: rgba(0, 0, 0, 0.8);
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				border-radius: 12px;
+				padding: 8px;
+				z-index: 10;
+				opacity: 0;
+				transition: opacity 0.2s;
+				* { 
+					color: #fff;
+					margin: 0.5em 0;
+					&:first-child {
+						margin-top: 0;
+					}
+					&:last-child {
+						margin-bottom: 0;
+					}
+				}
+				@media (hover: hover) {
+					&:hover {
+						opacity: 1;
+					}
+				}
+			}
 			img {
 				width: 100%;
-				aspect-ratio: 1;
+				height: 100%;
 				object-fit: cover;
 				border-radius: 12px;
+				display: block;
 			}
 			button {
 				position: absolute;
@@ -160,6 +191,7 @@ button {
 				height: 24px;
 				background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
 				padding: 0;
+				z-index: 20;
 			}
 		}
 	}
@@ -173,8 +205,11 @@ button {
 		list-style: none;
 		padding-left: 0;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(2, 1fr);
 		gap: 10px;
+		@media (min-width: 992px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
 		li {
 			img {
 				width: 100%;

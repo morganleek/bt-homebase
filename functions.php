@@ -13,6 +13,8 @@ require get_template_directory() . '/inc/inspiration.php';
 require get_template_directory() . '/inc/photos.php';
 // ACF
 require get_template_directory() . '/inc/acf.php';
+// P2P Connections 
+require get_template_directory() . '/inc/p2p.php';
 
 // Do stuff through this plugin
 class BoneThemeInit

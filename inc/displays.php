@@ -72,27 +72,31 @@ add_action( 'init', 'display_posts' );
 
 function create_display_categories() {
 	// Add new taxonomy, make it hierarchical (like categories)
-	$labels = [ 
-		'name'              => _x( 'Display Categories', 'taxonomy general name' ),
-		'singular_name'     => _x( 'Display Category', 'taxonomy singular name' ),
-		'search_items'      => __( 'Search Display Categories' ),
-		'all_items'         => __( 'All Display Categories' ),
-		'parent_item'       => __( 'Parent Display Category' ),
-		'parent_item_colon' => __( 'Parent Display Category:' ),
-		'edit_item'         => __( 'Edit Display Category' ),
-		'update_item'       => __( 'Update Display Category' ),
-		'add_new_item'      => __( 'Add New Display Category' ),
-		'new_item_name'     => __( 'New Display Category Name' ),
-		'menu_name'         => __( 'Display Category' ),
+	$labels = [
+		"name" => esc_html__( "Display Categories", "twentytwentyfive" ),
+		"singular_name" => esc_html__( "Display Category", "twentytwentyfive" ),
 	];
-
-	$args = [ 
-		'hierarchical'      => true,
-		'labels'            => $labels,
-		'show_ui'           => true,
-		'show_admin_column' => true,
-		'query_var'         => true,
-		'has_archive'       => true,
+	
+	$args = [
+		"label" => esc_html__( "Display Categories", "twentytwentyfive" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => [ 'slug' => 'display-category', 'with_front' => true, ],
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"show_tagcloud" => false,
+		"rest_base" => "display-category",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"rest_namespace" => "wp/v2",
+		"show_in_quick_edit" => false,
+		"sort" => false,
+		"show_in_graphql" => false,
 	];
 
 	register_taxonomy( 'display-category', [ 'display' ], $args );
