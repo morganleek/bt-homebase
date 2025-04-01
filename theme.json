@@ -174,7 +174,8 @@
 		},
 		"typography": {
 			"fontFamily": "var(--wp--preset--font-family--gotham-narrow)",
-			"fontWeight": "500"
+			"fontWeight": "500",
+			"lineHeight": "1.5em"
 		},
 		"color": {
 			"text": "var(--wp--preset--color--brand-oliver)"

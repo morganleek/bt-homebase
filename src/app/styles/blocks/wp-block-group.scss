@@ -51,6 +51,22 @@
 	&.alignfull:has(.wp-block-query > .wp-block-post-template.wp-block-post-template-is-layout-flow) {
 		background-color: #F0EFED;
 	}
+	&.about-menu {
+		& > * {
+			min-width: 108px;
+			text-align: center;
+			a {
+				display: block;
+			}
+			&:first-child {
+				& > a {
+					border-bottom: 1px solid var(--wp--preset--color--brand-yellow);
+				}
+			}
+
+		}
+
+	}
 }
 
 *:not(.wp-block-cover):has(+ .wp-block-group > .is-style-overlap:first-child),

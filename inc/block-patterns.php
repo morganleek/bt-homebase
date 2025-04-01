@@ -16,7 +16,8 @@ function bone_theme_register_block_patterns() {
 	$block_patterns = [ 
 		'card',
 		'card-block-light',
-		'card-block-dark'
+		'card-block-dark',
+		'icon-text'
 	];
 
 	$block_patterns = apply_filters( 'bone_theme_block_patterns', $block_patterns );

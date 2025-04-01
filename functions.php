@@ -139,7 +139,7 @@ class BoneThemeInit
 
 	public function bones_theme_load_favicons()
 	{
-		print '<link rel="icon" href="' . get_theme_file_uri('assets/favicon/favicon.svg') . '" type="image/svg+xml">';
+		print '<link rel="icon" href="' . get_theme_file_uri('assets/favicon/favicon.svg?v=1.0.0') . '" type="image/svg+xml">';
 	}
 
 	// public function bones_theme_editor_styles() {
