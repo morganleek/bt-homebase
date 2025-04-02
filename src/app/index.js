@@ -18,7 +18,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		button.addEventListener( "click", ( e ) => {
 			const button = e.target.closest( "button" );
 			if( !button.classList.contains("is-active") ) {
-				const postTemplate = document.querySelector( ".wp-block-query .wp-block-post-template" );
+				const postTemplate = document.querySelector( ".wp-block-query .wp-block-post-template, .wp-block-display-categories-grid .wp-block-post-template" );
 				
 				button.closest( ".wp-block-home-base-post-grid-list" )?.querySelector( ".is-active" )?.classList.remove( "is-active" );
 				button.classList.add( "is-active" );

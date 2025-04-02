@@ -1,0 +1,33 @@
+.wp-block-tag-cloud {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	.tag-cloud-link {
+		border: 1px solid;
+    display: flex;
+    align-items: center;
+    padding: 6px 8px 6px 16px;
+    white-space: nowrap;
+    border-radius: 8px;
+    border-color: #938F99;
+    color: #38332F;
+    line-height: 1.23em;
+		&::before {
+			content: "#";
+		}
+		&::after {
+			content: "";
+			width: 18px;
+			height: 18px;
+			background: url(./images/close.svg) 0 0/100% auto no-repeat;
+			margin-left: 8px;
+		}
+		@media (hover: hover) {
+			transition: all 0.2s;
+			&:hover {
+				text-decoration: none;
+				color: var(--wp--preset--color--brand-yellow);
+			}
+		}
+	}
+}

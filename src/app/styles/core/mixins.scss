@@ -38,3 +38,23 @@
 	font-size: 1rem;
 	font-weight: 700;
 }
+
+@mixin arrow-after {
+	&::after {
+		content: "";
+		display: inline-block;
+		width: 10px;
+		height: 12px;
+		background: var(--wp--preset--color--brand-yellow);
+		clip-path: path("M8.16868 4.09641L1.30121 11.0121L0 9.71087L6.91566 2.8193H2V0.987976H10V9.01207H8.16868V4.09641Z");
+		margin-left: 15px;
+		transition: all .2s;
+	}
+	@media (hover: hover) {
+		&:hover {
+			&::after {
+				transform: translate(2px, -2px);
+			}
+		}
+	}
+}

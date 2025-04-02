@@ -68,6 +68,17 @@
 					'icon'            => 'grid-view',
 					'keywords'        => [],
 				] );
+
+				// Tags Selector
+				acf_register_block_type( [ 
+					'name'            => 'tags-selector',
+					'title'           => __( 'Tags Selector' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/tags-selector.php',
+					'category'        => 'formatting',
+					'icon'            => 'button',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}
