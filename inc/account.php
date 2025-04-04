@@ -117,9 +117,9 @@ function homebase_save_button( $post_ID, $post_type ) {
 		$post_title = get_the_title( $post_ID );
 
 		if ( homebase_save_record( $post_ID, $current_user_ID ) ) {
-			echo '<a href="#" class="myaccount unsave" data-post-type="' . $post_type . '" data-post-id="' . $post_ID . '" data-post-title="' . $post_title . '" data-user-id="' . $current_user_ID . '" title="Remove from My Account"></a>';
+			echo "<button class=\"heart myaccount unsave\" data-post-type=\"$post_type\" data-post-id=\"$post_ID\" data-post-title=\"$post_title\" data-user-id=\"$current_user_ID\" title=\"Remove from My Account\"></button>";
 		} else {
-			echo '<a href="#" class="myaccount save" data-post-type="' . $post_type . '" data-post-id="' . $post_ID . '" data-post-title="' . $post_title . '" data-user-id="' . $current_user_ID . '" title="Save to My Account"></a>';
+			echo "<button class=\"heart myaccount save\" data-post-type=\"$post_type\" data-post-id=\"$post_ID\" data-post-title=\"$post_title\" data-user-id=\"$current_user_ID\" title=\"Save to My Account\"></button>";
 		}
 
 	} else {
@@ -144,37 +144,32 @@ function homebase_save_record( $post_ID, $current_user_ID ) {
 	];
 
 	$saves = new WP_Query( $args );
-
-	return $saves->post_count;
+	return $saves->have_posts();
 
 }
 
 ///////// SAVE BUTTON ACTIONS
 
 function homebase_save() {
-	$post_ID = $_POST['post_ID'];
+	$post_ID = $_REQUEST['post_ID'];
 	$current_user = wp_get_current_user();
-	$current_user_ID = $current_user->ID;
 
-	if ( ! homebase_save_record( $post_ID, $current_user_ID ) ) {
+	if ( ! homebase_save_record( $post_ID, $current_user->ID ) ) {
+		error_log( 'no save', 0 );
 
-		$args = [ 
+		wp_insert_post( [ 
 			'post_type'   => 'save',
 			'post_title'  => $post_ID,
 			'post_status' => 'publish',
 			'meta_input'  => [ 'saved' => $post_ID ],
-		];
-
-		$post_id = wp_insert_post( $args );
-
+		] );
 	}
 
 	wp_send_json_success();
-
 }
 
 function homebase_unsave() {
-	$post_ID = $_POST['post_ID'];
+	$post_ID = $_REQUEST['post_ID'];
 	$current_user = wp_get_current_user();
 	$current_user_ID = $current_user->ID;
 
@@ -204,7 +199,7 @@ function homebase_unsave() {
 }
 
 function homebase_fetch_notes() {
-	$post_ID = $_POST['post_ID'];
+	$post_ID = $_REQUEST['post_ID'];
 	$notes = get_post_meta( $post_ID, 'notes', true );
 
 	$return = [ 
@@ -216,8 +211,8 @@ function homebase_fetch_notes() {
 }
 
 function homebase_save_notes() {
-	$post_ID = $_POST['post_ID'];
-	$notes = $_POST['notes'];
+	$post_ID = $_REQUEST['post_ID'];
+	$notes = $_REQUEST['notes'];
 
 	$args = [ 
 		'ID'         => $post_ID,
@@ -228,6 +223,7 @@ function homebase_save_notes() {
 
 	wp_send_json_success();
 }
+
 add_action( 'wp_ajax_homebase_unsave', 'homebase_unsave' );
 add_action( 'wp_ajax_homebase_save', 'homebase_save' );
 add_action( 'wp_ajax_homebase_save_brochure', 'homebase_save_brochure' );
@@ -275,15 +271,14 @@ add_action( 'init', 'homebase_collections' );
 
 function homebase_save_to_collection_button( $post_ID, $display_ID = 0 ) {
 	if ( is_user_logged_in() ) {
-		$current_user = wp_get_current_user();
-		$current_user_ID = $current_user->ID;
-
+		// $current_user = wp_get_current_user();
+		// $current_user_ID = $current_user->ID;
 		if ( homebase_image_saved( $post_ID ) ) {
-			echo '<a href="#" class="myaccount unsaveimage" data-post-id="' . $post_ID . '" title=""></a>';
+			echo "<button class=\"heart myaccount unsaveimage\" data-post-id=\"$post_ID\" title=\"\"></button>";
 		} else {
 			$photo = get_field( "file", $post_ID );
 			$photo_thumb_URL = wp_get_attachment_image_src( $photo, "thumbnail" );
-			echo '<a href="#" class="myaccount saveimage" data-post-id="' . $post_ID . '" data-image-thumb-url="' . $photo_thumb_URL[0] . '" title=""></a>';
+			echo "<button class=\"heart myaccount saveimage\" data-post-id=\"$post_ID\" data-image-thumb-url=\"$photo_thumb_URL[0]\" title=\"\"></button>";
 		}
 	} else {
 		echo '<a href="/my-account" class="myaccount saveimage"></a>';
@@ -305,7 +300,7 @@ function homebase_collection_dialog() {
 
 		$collections = get_posts( $args );
 
-		echo '<div class="account_modal_collection_mask">';
+		echo '<div class="account_modal_collection_mask wp-block-account-modal-collection-mask">';
 		echo '<div class="account_modal_collection"><span class="account_modal_close"></span><div class="account_modal_content">';
 
 		// Save Image
@@ -317,26 +312,24 @@ function homebase_collection_dialog() {
 		echo '<ul class="save_collections">';
 
 		foreach ( $collections as $collection ) {
-
 			$images = json_decode( get_post_meta( $collection->ID, 'images', true ), TRUE );
 
 			if ( count( $images ) > 0 ) {
 				$image1 = array_values( $images )[0];
 				$photo = get_field( "file", $image1 );
 				$photo_thumb = wp_get_attachment_image_src( $photo, "thumbnail" );
-				$bg_img = $photo_thumb[0];
-
+				$bg_img = $photo_thumb[0] ?? "";
 			} else {
 				$bg_img = '';
 			}
 
-			echo '<li><input type="radio" id="collection_' . $collection->ID . '" name="existing_collection_id" value="' . $collection->ID . '"/><label for="collection_' . $collection->ID . '" style="background-image:url(' . $bg_img . ')"><span>' . $collection->post_title . '</span></label></li>';
+			echo "<li><input type=\"radio\" id=\"collection_{$collection->ID}\" name=\"existing_collection_id\" value=\"{$collection->ID}\"/><label for=\"collection_{$collection->ID}\"><span>{$collection->post_title}</span></label></li>";
 		}
 
 		echo '<li><input type="radio" id="add_new_collection" name="existing_collection_id" value="0"/><label for="add_new_collection"><span>Add New Collection</span></label></li></ul>';
 		echo '<input type="text" id="new_image_collection_name" name="new_collection_name" placeholder="New collection name" autocomplete="off" maxlength="30"/>';
 		echo '<input type="hidden" id="save_image_id" value="" />';
-		echo '<a id="photo_save_submit" class="saved_view_account" href="#">Save</a>';
+		echo '<button id="photo_save_submit" class="saved_view_account">Save</button>';
 		echo '</form>';
 
 		// Edit Image
@@ -392,17 +385,14 @@ function homebase_collection_dialog() {
 		echo '<div id="my_account_help">';
 		echo '<h2>Welcome to My Account!</h2>';
 		echo '<p>Please see below for a guide to the My Account features, which can be used as you navigate the Home Base website and are logged in.</p>
-<p>To help you get started, we have added some pre-made Collections to your My Account – however, you can add more, edit Collection names or delete Collections by selecting the Collection.</p>
-<div class="heart"><p>Whilst browsing the Home Base website, save images to your My Account Collections with the heart icon.</p></div>
-<div class="pencil"><p>Move, copy or delete images in your Collections by using the edit icon.</p></div>
-<div class="savetomyaccount"><img src="/wp-content/themes/homebase/img/myaccount/help_save_to_my_account.png"><p>Save displays to My Account with the ‘Save to My Account’ button. From here you can contact the exhibitor, visit their website, download a brochure (if available) or make notes. Your saved displays will be available in the Displays area of My Account. Remove a display by selecting the ‘Remove from My Account’ button on the display’s Home Base website page.</p>
-<p>You can also save blog posts from The Loft by using the ‘Save to My Account’ button on each post. 
-</p></div>
-<div class="savetomyaccount"><img src="/wp-content/themes/homebase/img/myaccount/help_download_brochure.png"><p>Save and download brochures (if available) with the ‘Download Brochure’ button. Saved brochures are stored in the ‘Displays’ section of My Account. To delete a brochure, remove the associated display by selecting the ‘Remove from My Account’ button on the display’s Home Base website page.
-</p></div>
-
-
-';
+		<p>To help you get started, we have added some pre-made Collections to your My Account – however, you can add more, edit Collection names or delete Collections by selecting the Collection.</p>
+		<div class="heart"><p>Whilst browsing the Home Base website, save images to your My Account Collections with the heart icon.</p></div>
+		<div class="pencil"><p>Move, copy or delete images in your Collections by using the edit icon.</p></div>
+		<div class="savetomyaccount"><p>Save displays to My Account with the ‘Save to My Account’ button. From here you can contact the exhibitor, visit their website, download a brochure (if available) or make notes. Your saved displays will be available in the Displays area of My Account. Remove a display by selecting the ‘Remove from My Account’ button on the display’s Home Base website page.</p>
+		<p>You can also save blog posts from The Loft by using the ‘Save to My Account’ button on each post. 
+		</p></div>
+		<div class="savetomyaccount"><p>Save and download brochures (if available) with the ‘Download Brochure’ button. Saved brochures are stored in the ‘Displays’ section of My Account. To delete a brochure, remove the associated display by selecting the ‘Remove from My Account’ button on the display’s Home Base website page.
+		</p></div>';
 
 		echo '</div>';
 
@@ -412,6 +402,8 @@ function homebase_collection_dialog() {
 		echo '</div></div></div>';
 	}
 }
+
+add_action( 'wp_footer', 'homebase_collection_dialog' );
 
 // 2.3
 
@@ -442,15 +434,18 @@ function homebase_image_saved( $post_ID ) {
 // 2.4 
 
 function homebase_save_image() {
-	$image = $_POST['post_ID'];
-	$existing_collection_id = $_POST['existing_collection_id'];
-	$new_collection_name = $_POST['new_collection_name'];
-	$current_user = wp_get_current_user();
-	$current_user_ID = $current_user->ID;
+	$image = $_REQUEST['post_ID'];
+	$existing_collection_id = $_REQUEST['existing_collection_id'];
+	$new_collection_name = $_REQUEST['new_collection_name'];
+	// $current_user = wp_get_current_user();
+	// $current_user_ID = $current_user->ID;
 
 	if ( $existing_collection_id ) {
 
-		$images = json_decode( get_post_meta( $existing_collection_id, 'images', true ), TRUE );
+		$images = json_decode( 
+			get_post_meta( $existing_collection_id, 'images', true ), 
+			true
+		);
 		$images[] = $image;
 
 		$args = [ 
@@ -459,43 +454,38 @@ function homebase_save_image() {
 		];
 
 		$post_id = wp_update_post( $args );
-
 	} else {
-
-		$existing_images = [];
-		$existing_images[] = $image;
-
-		$image_array = json_encode( $existing_images );
-
-		$args = [ 
-			'post_type'   => 'collection',
-			'post_title'  => $new_collection_name,
-			'post_status' => 'publish',
-			'meta_input'  => [ 'images' => $image_array ],
-		];
-
-		$post_id = wp_insert_post( $args );
-
+		if( strlen($new_collection_name ) > 0 ) {
+			$existing_images = [];
+			$existing_images[] = $image;
+	
+			$image_array = json_encode( $existing_images );
+	
+			$args = [ 
+				'post_type'   => 'collection',
+				'post_title'  => $new_collection_name,
+				'post_status' => 'publish',
+				'meta_input'  => [ 'images' => $image_array ],
+			];
+	
+			$post_id = wp_insert_post( $args );
+		}
 	}
 
 	$response_array = [];
 
 	if ( ! is_wp_error( $post_id ) ) {
-
 		wp_send_json_success();
 
 	} else {
-
 		wp_send_json_error();
-
 	}
-
 }
 
 // 2.5
 
 function homebase_add_collection() {
-	$new_collection_name = $_POST['new_collection_name'];
+	$new_collection_name = $_REQUEST['new_collection_name'];
 	$current_user = wp_get_current_user();
 	$current_user_ID = $current_user->ID;
 
@@ -521,9 +511,9 @@ function homebase_add_collection() {
 function homebase_load_collections() {
 	if ( is_user_logged_in() ) {
 
-		$hide_collection_names_class = $_POST['collection'] ? 'hidden' : '';
+		$hide_collection_names_class = $_REQUEST['collection'] ? 'hidden' : '';
 
-		$show_collection_id = str_replace( '#collection_', '', $_POST['collection'] );
+		$show_collection_id = str_replace( '#collection_', '', $_REQUEST['collection'] );
 
 		$current_user = wp_get_current_user();
 		$current_user_ID = $current_user->ID;
@@ -625,7 +615,7 @@ function homebase_load_collections() {
 // 2.7
 
 function homebase_delete_collection() {
-	$collection = $_POST['collection'];
+	$collection = $_REQUEST['collection'];
 
 	wp_delete_post( $collection );
 	wp_send_json_success();
@@ -635,8 +625,8 @@ function homebase_delete_collection() {
 // 2.8 
 
 function homebase_edit_collection() {
-	$collection = $_POST['collection'];
-	$edit_collection_name = $_POST['edit_collection_name'];
+	$collection = $_REQUEST['collection'];
+	$edit_collection_name = $_REQUEST['edit_collection_name'];
 
 	$args = [ 
 		'ID'         => $collection,
@@ -656,7 +646,7 @@ function homebase_load_destination_collections() {
 
 		$current_user = wp_get_current_user();
 		$current_user_ID = $current_user->ID;
-		$exclude = $_POST['exclude'];
+		$exclude = $_REQUEST['exclude'];
 		$collections = [];
 
 		$args = [ 
@@ -684,7 +674,7 @@ function homebase_load_destination_collections() {
 				$bg_img = '';
 			}
 
-			$html .= '<li><input type="radio" id="destination_collection_' . $collection->ID . '" name="destination_collection_id" value="' . $collection->ID . '"/><label for="destination_collection_' . $collection->ID . '" style="background-image:url(' . $bg_img . ')"><span>' . $collection->post_title . '</span></label></li>';
+			$html .= "<li><input type=\"radio\" id=\"destination_collection_{$collection->ID}\" name=\"destination_collection_id\" value=\"{$collection->ID}\"/><label for=\"destination_collection_{$collection->ID}\"><span>{$collection->post_title}</span></label></li>";
 		}
 
 		$html .= '<li><input type="radio" id="add_new_destination_collection" name="destination_collection_id" value="0"/><label for="add_new_destination_collection"><span>Add New Collection</span></label></li>';
@@ -701,11 +691,11 @@ function homebase_load_destination_collections() {
 // 3.0 
 
 function homebase_edit_image() {
-	$image = $_POST['image'];
-	$edit_action = $_POST['edit_action'];
-	$original_collection_id = $_POST['original_collection_id'];
-	$destination_collection_id = $_POST['destination_collection_id'];
-	$new_destination_collection_name = $_POST['new_destination_collection_name'];
+	$image = $_REQUEST['image'];
+	$edit_action = $_REQUEST['edit_action'];
+	$original_collection_id = $_REQUEST['original_collection_id'];
+	$destination_collection_id = $_REQUEST['destination_collection_id'];
+	$new_destination_collection_name = $_REQUEST['new_destination_collection_name'];
 
 	// Save image to destination
 
@@ -759,8 +749,8 @@ function homebase_edit_image() {
 }
 
 function homebase_delete_image() {
-	$image = $_POST['image'];
-	$collection_id = $_POST['original_collection_id'];
+	$image = $_REQUEST['image'];
+	$collection_id = $_REQUEST['original_collection_id'];
 
 	$collection_images = json_decode( get_post_meta( $collection_id, 'images', true ), TRUE );
 	$collection_images = array_diff( $collection_images, arrays: [ $image ] );
@@ -889,7 +879,7 @@ function homebase_brochure_download_columns_content( $column, $post_ID ) {
 ///////// SAVE BUTTON ACTIONS
 
 function homebase_track_brochure_download() {
-	$display = $_POST['display'];
+	$display = $_REQUEST['display'];
 
 	$current_user = wp_get_current_user();
 	$current_user_ID = $current_user->ID;

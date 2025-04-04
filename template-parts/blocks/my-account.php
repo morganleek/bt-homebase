@@ -17,18 +17,27 @@
 		$saved_object = get_posts( $args );
 		$save = array_shift( $saved_object );
 		$permalink = get_permalink( $display->ID );
-		$thumb = get_the_post_thumbnail_url( $display->ID, 'search' );
 		$phone = get_field( 'display_lead_phone_number', $display->ID );
 		$email = get_field( 'display_lead_email', $display->ID );
 		$url = get_field( 'display_lead_url', $display->ID );
 		?>
 
 		<?php if ( get_field( 'salesforce_active', $display->ID ) ) : ?>
-			<li>
-				<a class="thumb" href="<?php echo $permalink; ?>" style="background-image:url(<?php echo $thumb; ?>); "></a>
-				<div class="saved_display_content">
-					<h2><a href="<?php echo $permalink; ?>"><?php echo $display->post_title; ?></a></h2>
-					<p><?php echo $display->post_excerpt; ?></p>
+			<li class="wp-block-post post-<?php print $display->ID; ?> display type-display status-publish has-post-thumbnail hentry">
+				<div
+					class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+					style="padding-bottom:var(--wp--preset--spacing--20)">
+					<figure style="aspect-ratio:16/9;" class="wp-block-post-featured-image">
+						<a href="<?php print $permalink; ?>" target="_self">
+							<?php print wp_get_attachment_image( get_post_thumbnail_id( $display->ID ) , "large" ); ?>
+						</a>
+					</figure>
+					<h4 class="wp-block-post-title">
+						<a href="<?php print $permalink; ?>" target="_self"><?php print $display->post_title; ?></a>
+					</h4>
+				</div>
+
+				<div class="saved_display_content" style="display: none;">
 					<ul class="actions">
 						<?php if ( $phone ) : ?>
 							<li><a href="#call_exhibitor_<?php echo $display->ID; ?>" class="call_now"
@@ -46,13 +55,11 @@
 					</ul>
 				</div>
 				<?php if ( get_field( 'brochure', $display->ID ) ) : ?>
-					<a class="brochure brochure_download" href="<?php the_field( 'brochure', $display->ID ); ?>"
+					<a style="display: none;" class="brochure brochure_download" href="<?php the_field( 'brochure', $display->ID ); ?>"
 						data-display="<?php echo $display->post_title; ?>" data-display-name="<?php echo $display->post_title; ?>"
 						target="new"><span class="is_brochure">Download Brochure</span></a>
-				<?php else : ?>
-					<span class="brochure"><span>No brochure available</span></span>
 				<?php endif; ?>
-				<?php if ( $phone ) : ?>
+				<?php if ( false ) : // $phone ?>
 					<div id="call_exhibitor_<?php echo $display->ID; ?>" class="modal">
 						<div class="modal_box">
 							<h2>Call <?php echo $display->post_title; ?></h2>
@@ -61,7 +68,7 @@
 						</div>
 					</div>
 				<?php endif; ?>
-				<?php if ( $email ) : ?>
+				<?php if ( false ) : // $email ?>
 					<div id="email_exhibitor_<?php echo $display->ID; ?>" class="modal">
 						<div class="modal_box">
 							<h2>Message <?php echo $display->post_title; ?></h2>
@@ -71,20 +78,19 @@
 				<?php endif; ?>
 			</li>
 		<?php else : ?>
-			<li>
-				<span class="thumb"
-					style="background-image:url('https://www.homebaseperth.com.au/wp-content/themes/homebase/img/ex_display.png'); "></span>
-				<div class="saved_display_content">
-					<h2><?php echo $display->post_title; ?></h2>
-					<p>This display is no longer available at Home Base. Please visit <a href="/displays">displays</a> or call our
-						Welcome Desk on 9388 1088 to find a suitable alternative.</p>
-					<ul class="actions">
-						<li><a href="#" class="edit_notes" data-post-id="<?php echo $save->ID; ?>">My Notes</a></li>
-					</ul>
+			<li class="wp-block-post display type-display status-publish has-post-thumbnail hentry">
+				<div
+					class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+					style="padding-bottom:var(--wp--preset--spacing--20)">
+					<figure style="aspect-ratio:16/9;" class="wp-block-post-featured-image">
+						<a href="<?php print $permalink; ?>" target="_self">
+							<img src="<?php bloginfo( 'template_url' ); ?>/assets/images/ex-display.png" alt="" />
+						</a>
+					</figure>
+					<h4 class="wp-block-post-title">
+						<?php print $display->post_title; ?> - No longer avaiable
+					</h4>
 				</div>
-
-				<span class="brochure"><span>No brochure available</span></span>
-
 			</li>
 		<?php endif;
 	}
@@ -389,73 +395,52 @@
 ?>
 
 <?php if ( is_user_logged_in() ) : ?>
-		<section class="node_title">
-			<ul class="my_account_util_nav">
-				<li><a href="<?php echo wp_logout_url( get_permalink() ); ?>">Logout</a></li>
-				<li><a id="my_account_help_btn" href="#">HELP</a></li>
-			</ul>
-			<div class="my_account_help_tip">Find My Account HELP here</div>
-		</section>
-		<section class="node_body">
-			<div class="homebase_my_account <?php echo $projectinfoincomplete ? 'my_account_disabled' : ''; ?>">
-				<ul class="my_account_tabs_nav">
-					<li><a href="#collections">Collections</a></li>
-					<li><a href="#displays">Displays</a></li>
-					<li><a href="#posts">The Loft</a></li>
-					<li><a href="#profile">Profile</a></li>
-					<li><a href="#courses">Course Downloads</a></li>
-				</ul>
+		<div
+			class="wp-block-group alignfull has-brand-dust-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+			style="margin-top:0;margin-bottom:0;padding-bottom:var(--wp--preset--spacing--40)">
+			<div
+				class="wp-block-group alignwide is-style-overlap has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+				style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+				<div class="wp-block-group profile-menu has-black-color has-text-color has-link-color is-content-justification-center is-nowrap is-layout-flex wp-block-group-is-layout-flex">
+					<p><a href="#collections">Collections</a></p>
+					<p><a href="#displays">Displays</a></p>
+					<p><a href="#courses">Courses</a></p>
+					<p><a href="#posts">Blog</a></p>
+					<!-- <p><a href="#profile">Profile</a></p> -->
+				</div>
+			</div>
 
-				<div class="my_account_tab_help_tip">Start here</div>
+			<div
+				class="wp-block-group alignwide is-style-default has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+				id="our-centre"
+				style="border-radius:24px;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+
+
+
 				<div class="my_account_tab" id="collections">
+					<h3>Collections</h3>
 					<ul class="collection_names" id="collection_names"></ul>
 					<div class="collection_images" id="collection_images"></div>
 				</div>
 				<div class="my_account_tab" id="displays">
+					<h3>Displays</h3>
 					<?php if ( $displays ) : ?>
-						<ul class="saved_displays">
-							<?php foreach ( $displays as $display ) : ?>
-								<?php saved_displays($current_user_ID, $display) ?>
-							<?php endforeach; ?>
-							<?php wp_reset_postdata(); ?>
-						</ul>
-					<?php else : ?>
-						<div class="my_account_empty">
-							<p>You have no displays saved yet. Browse <a href="/displays">Displays</a></p>
-						</div>
-					<?php endif; ?>
-				</div>
-				<div class="my_account_tab" id="posts">
-					<?php if ( $articles ) : ?>
-						<div class="loft_content">
-							<ul class="posts">
-								<?php foreach ( $articles as $post ) :
-									setup_postdata( $post ); ?>
-									<?php $title = get_the_title(); ?>
-									<li class="post_excerpt"><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'loft' ); ?>
-											<div>
-												<p class="post_date"><?php the_time( 'd.m.Y' ); ?></p>
-												<h2><?php echo substr( $title, 0, 40 ) . '...' ?></h2>
-											</div>
-										</a>
-									</li>
+						<div class="wp-block-query is-layout-flow wp-block-query-is-layout-flow">
+							<ul class="columns-2 wp-block-post-template is-layout-grid wp-block-post-template-is-layout-grid">
+								<?php foreach ( $displays as $display ) : ?>
+									<?php saved_displays($current_user_ID, $display) ?>
 								<?php endforeach; ?>
 								<?php wp_reset_postdata(); ?>
 							</ul>
 						</div>
 					<?php else : ?>
 						<div class="my_account_empty">
-							<p>You have no blog posts saved. Visit <a href="/the-loft">The Loft</a> to get started.</p>
+							<p>You have no displays saved yet. Browse <a href="/displays">Displays</a></p>
 						</div>
 					<?php endif; ?>
 				</div>
-				<div class="my_account_tab <?php echo $projectinfoincomplete ? 'active' : ''; ?>" id="profile">
-					<?php if ( $projectinfoincomplete ) : ?>
-						<div class="account_update_error">Please complete your project information</div>
-					<?php endif; ?>
-					<?php edit_account_form(); ?>
-				</div>
 				<div class="my_account_tab" id="courses">
+					<h3>Courses</h3>
 					<?php if ( $course_kits ) : ?>
 						<?php foreach ( $course_kits as $course_kit ) : ?>
 							<?php 
@@ -494,11 +479,47 @@
 						</div>
 					<?php endif; ?>
 				</div>
+				<div class="my_account_tab" id="posts">
+					<h3>Blog</h3>
+					<?php if ( $articles ) : ?>
+						<div class="loft_content">
+							<ul class="posts">
+								<?php foreach ( $articles as $post ) :
+									setup_postdata( $post ); ?>
+									<?php $title = get_the_title(); ?>
+									<li class="post_excerpt"><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'loft' ); ?>
+											<div>
+												<p class="post_date"><?php the_time( 'd.m.Y' ); ?></p>
+												<h2><?php echo substr( $title, 0, 40 ) . '...' ?></h2>
+											</div>
+										</a>
+									</li>
+								<?php endforeach; ?>
+								<?php wp_reset_postdata(); ?>
+							</ul>
+						</div>
+					<?php else : ?>
+						<div class="my_account_empty">
+							<p>You have no blog posts saved. Visit <a href="/the-loft">The Loft</a> to get started.</p>
+						</div>
+					<?php endif; ?>
+				</div>
+				<div class="my_account_tab <?php echo $projectinfoincomplete ? 'active' : ''; ?>" id="profile" style="display: none;">
+					<?php if ( $projectinfoincomplete ) : ?>
+						<div class="account_update_error">Please complete your project information</div>
+					<?php endif; ?>
+					<?php edit_account_form(); ?>
+				</div>
+				
 			</div>
-		</section>
+
+
+
+
+
+		</div>
 	<?php else : ?>
 		<div class="homebase_my_account_auth_prompt">
-			<h1>My Account</h1>
 			<p>Welcome to My Account. Create a personal account to save images, Home Base displays and exhibitor contact information. Plus, download product brochures and create Collections to inspire you for your current or upcoming home building, renovating or design project.</p>
 
 			<?php 

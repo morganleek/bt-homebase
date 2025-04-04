@@ -16,6 +16,8 @@
   },
   "dependencies": {
     "@wpackio/entrypoint": "^6.4.0",
-    "gsap": "^3.12.4"
+    "axios": "^1.8.4",
+    "gsap": "^3.12.4",
+    "toastify-js": "^1.12.0"
   }
 }

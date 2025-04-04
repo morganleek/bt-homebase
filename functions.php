@@ -65,12 +65,24 @@ class BoneThemeInit
 
 	public function plugin_enqueue()
 	{
-		$this->enqueue->enqueue('app', 'main', []);
+		$enqueue_location = $this->enqueue->enqueue('app', 'main', []);
 
 		wp_enqueue_style( 'fonts', "https://cloud.typography.com/7503134/6320352/css/fonts.css", [], '1.0', 'all' );
 
 		// Inline styles for fonts
 		// wp_add_inline_style( 'bones-theme-style', $this->bones_theme_get_font_face_styles() );
+		// 
+
+		$ajax_object = [
+			'ajax_url' => admin_url( 'admin-ajax.php' )
+		];
+		
+		wp_localize_script( 
+			$enqueue_location['js'][sizeof($enqueue_location) - 1]['handle'], 
+			'home_base', 
+			$ajax_object 
+		);
+		
 	}
 
 	public function bones_theme_render_block( $block_content, $block ) {

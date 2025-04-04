@@ -1,0 +1,327 @@
+.wp-block-account-modal-collection-mask {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 10px;
+	background-color: rgba(70, 65, 61, .85);
+	background-image: url('./images/loading.svg');
+	background-position: center 80px;
+	background-repeat: no-repeat;
+	z-index: 10000;
+	display: none;
+	overflow: scroll;
+}
+
+.account_modal_collection {
+	position: relative;
+	top: 0;
+	max-width: 520px;
+	padding: 36px 0;
+	margin: 0 auto;
+	/* transform: translateY(-50%); */
+	transition: all .5s;
+}
+
+.account_modal_content {
+	background: #FFF;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+}
+
+.account_modal_collection form {
+	position: relative;
+	padding: 20px;
+	display: none;
+}
+
+.account_modal_collection h2 {
+	position: relative;
+	font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Arial", sans-serif;
+	font-weight: 200;
+	font-size: 32px;
+	line-height: 115%;
+	letter-spacing: -1px;
+	margin: 0 0 6px -2px;
+}
+
+.account_modal_collection h2:first-letter {
+	text-transform: capitalize;
+}
+
+.account_modal_collection form input[type="text"] {
+	border: 1px solid #cbcaca;
+	background: #FFF;
+	font-family: "Gotham Narrow A", "Gotham Narrow B", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-weight: 400;
+	font-size: 17px;
+	color: #514d4a;
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+	margin-bottom: 12px;
+	outline: none;
+}
+
+.account_modal_collection form textarea {
+	border: 1px solid #574E47;
+	background: #FFF;
+	font-family: "Gotham Narrow A", "Gotham Narrow B", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-weight: 400;
+	font-size: 17px;
+	color: #514d4a;
+	width: 100%;
+	padding: 8px;
+	box-sizing: border-box;
+	margin-bottom: 12px;
+	outline: none;
+	resize: none;
+	height: 200px;
+}
+
+#new_image_collection_name {
+	visibility: hidden;
+}
+
+#new_image_collection_name.active {
+	visibility: visible;
+}
+
+#new_destination_collection_name {
+	visibility: hidden;
+}
+
+#new_destination_collection_name.active {
+	visibility: visible;
+}
+
+.edit_image_actions {
+	list-style: none;
+	margin: 0 0 20px 0;
+}
+
+.edit_image_actions li {
+	display: inline-block;
+	vertical-align: top;
+	width: 50%;
+	padding: 1px;
+	box-sizing: border-box;
+}
+
+.edit_image_actions li input {
+	display: none;
+}
+
+.edit_image_actions li label {
+	display: block;
+	padding: 12px;
+	text-align: center;
+	background-color: #fbac30;
+	color: #FFF;
+	opacity: 0.5;
+}
+
+.edit_image_actions label:hover,
+.edit_image_actions input[type="radio"]:checked+label {
+	background-color: #fbac30;
+	color: #FFF;
+	opacity: 1;
+}
+
+.image_form_header {
+	position: relative;
+	padding-right: 90px;
+	min-height: 80px;
+	margin-bottom: 20px;
+}
+
+.image_form_header p {
+	margin: 0;
+}
+
+.collection_image_preview {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 1px solid #EDEDED;
+	width: 80px;
+	height: 80px;
+	background-size: cover;
+	background-position: center center;
+}
+
+.account_modal_message {
+	background: #FFF;
+	padding: 20px;
+	display: none;
+}
+
+#edit_image_form h3 {
+	font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Arial", sans-serif;
+	font-weight: 300;
+	font-size: 18px;
+}
+
+#delete_image_submit {
+	display: block;
+	font-weight: 500;
+	font-size: 17px;
+	padding: 16px;
+	text-align: center;
+	margin-top: 12px;
+}
+
+#delete_image_submit:link,
+#delete_image_submit:visited {
+	color: #666;
+	background-color: #CCC;
+	text-decoration: none;
+}
+
+#delete_image_submit:hover,
+#delete_image_submit:active {
+	color: #eb2328;
+	background-color: #f9a7a9;
+	text-decoration: none;
+}
+
+#delete_collection_submit {
+	color: #eb2328 !important;
+}
+
+#my_account_help {
+	display: none;
+	padding: 20px;
+}
+
+.account_modal_close {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	width: 30px;
+	height: 30px;
+	background-image: url('./images/nav.png');
+	background-size: 360px 30px;
+	background-repeat: no-repeat;
+	background-position: 27.27272727272727% 0;
+	cursor: pointer;
+}
+
+#edit_notes_email_button {
+	position: absolute;
+	top: 26px;
+	right: 18px;
+	display: block;
+	width: 25px;
+	height: 25px;
+	background-image: url('./images/reactions3.png');
+	background-size: 200px 50px;
+	background-repeat: no-repeat;
+	background-position: 100% 0;
+	z-index: 5;
+}
+
+#edit_notes_email_button:hover {
+	background-position: 100% 100%;
+}
+
+
+/* The form hide.show classes */
+
+body.collection_action {
+	overflow: hidden;
+}
+
+.collection_action .wp-block-account-modal-collection-mask {
+	display: block;
+}
+
+.collection_action_new #new_collection_form {
+	display: block;
+}
+
+.collection_action_edit #edit_collection_form {
+	display: block;
+}
+
+.collection_action_delete #delete_collection_form {
+	display: block;
+}
+
+.collection_action_notes #edit_notes_form {
+	display: block;
+}
+
+.collection_action_image #new_image_form {
+	display: block;
+}
+
+.collection_action_edit_image #edit_image_form {
+	display: block;
+}
+
+.collection_help #my_account_help {
+	display: block;
+}
+
+.collection_action_manage_image #manage_image_form {
+	display: block;
+}
+
+.collection_action_remove_image #remove_image_form {
+	display: block;
+}
+
+
+/* Loading state */
+
+.collection_action_loading .wp-block-account-modal-collection-mask {
+	display: block;
+}
+
+.collection_action_loading .account_modal_collection {
+	visibility: hidden;
+	opacity: 0;
+}
+
+/* Action complete */
+
+.collection_action_complete .account_modal_collection {
+	visibility: visible;
+	opacity: 1;
+}
+
+.collection_action_complete form {
+	display: none !important;
+}
+
+.collection_action_complete .account_modal_message {
+	display: block;
+}
+
+.myaccount {
+	&.heart {
+		width: 24px;
+		height: 24px;
+		background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
+		display: block;
+		&.unsave {
+			&::after {
+				opacity: 1;
+			}
+		}
+		&::after {
+			content: '';
+			opacity: 0;
+			transition: opacity 0.2s;
+			width: 24px;
+			height: 24px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			background: url(./images/heart-filled.svg) 50% 50%/22px 20px no-repeat;
+		}
+	}
+}

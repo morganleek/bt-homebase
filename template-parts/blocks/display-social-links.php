@@ -9,9 +9,9 @@
 	$display_lead_url = get_field('display_lead_url', $post->ID);
 
 	print "<div class=\"display-social-links\">";
-		print "<button class=\"heart\"></button>";
-		if($display_lead_url) {
-			print "<button class=\"display-lead-url\"><a href=\"$display_lead_url\" target=\"_blank\"></a></button>";
+		if( is_user_logged_in() ) {
+			homebase_save_button( $post->ID, "display" );
+			print "<button class=\"display-brochure\" data-post-id=\"{$post->ID}\"></button>";
 		}
 		print "<button class=\"facebook\"><a href=\"#\"></a></button>";
 		print "<button class=\"instagram\"><a href=\"#\"></a></button>";

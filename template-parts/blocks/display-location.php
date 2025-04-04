@@ -14,7 +14,7 @@
 			print "<li class=\"display-number\">$display_number</li>";
 		}
 		if($display_grid_ref) {
-			print "<li class=\"display-grid-ref\">$display_grid_ref</li>";
+			print "<li class=\"display-grid-ref\">View Map ($display_grid_ref)</li>";
 		}
 		print "</ul>";
 	print "</div>";

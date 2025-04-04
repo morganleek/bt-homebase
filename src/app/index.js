@@ -1,4 +1,6 @@
 import './style.scss';
+import "toastify-js/src/toastify.css"
+import './js/account';
 
 // Slider - Library import example
 // import { tns } from "tiny-slider"

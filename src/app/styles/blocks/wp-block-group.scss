@@ -74,6 +74,11 @@
 		}
 
 	}
+	
+	&.profile-menu {
+		display: flex;
+		justify-content: center;
+	}
 }
 
 *:not(.wp-block-cover):has(+ .wp-block-group > .is-style-overlap:first-child),

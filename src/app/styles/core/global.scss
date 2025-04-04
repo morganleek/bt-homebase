@@ -1,5 +1,6 @@
 @use '../core/mixins';
 
+
 * {
 	-webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -104,8 +105,26 @@ button {
 				opacity: 0.6;
 			}
 		}
+		
 		&.heart {
 			background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
+			&.is-active {
+				&::after {
+					opacity: 1;
+				}
+			}
+			&::after {
+				content: '';
+				opacity: 0;
+				transition: opacity 0.2s;
+				width: 24px;
+				height: 24px;
+				position: absolute;
+				top: 0;
+				left: 0;
+				z-index: 1;
+				background: url(./images/heart-filled.svg) 50% 50%/22px 20px no-repeat;
+			}
 		}
 		&.facebook {
 			background: url(./images/facebook.svg) 50% 50%/20px 20px no-repeat;
@@ -119,7 +138,7 @@ button {
 		&.display-lead-phone_number {
 			background: url(./images/phone.svg) 50% 50%/22px 22px no-repeat;
 		}
-		&.display-lead-url {
+		&.display-brochure {
 			background: url(./images/mobile.svg) 50% 50%/19px 22px no-repeat;
 		}
 		a {
@@ -218,4 +237,8 @@ button {
 			}
 		}
 	}
+}
+
+.toastify {
+	text-align: center;
 }
