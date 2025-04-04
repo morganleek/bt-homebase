@@ -79,6 +79,28 @@
 					'icon'            => 'button',
 					'keywords'        => [],
 				] );
+
+				// My Account
+				acf_register_block_type( [ 
+					'name'            => 'my-account',
+					'title'           => __( 'My Account' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/my-account.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-users',
+					'keywords'        => [],
+				] );
+
+				// My Profile
+				acf_register_block_type( [ 
+					'name'            => 'my-profile',
+					'title'           => __( 'My Profile' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/my-profile.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-users',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}
