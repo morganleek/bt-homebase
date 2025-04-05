@@ -7,7 +7,7 @@
 	padding: 10px;
 	background-color: rgba(70, 65, 61, .85);
 	background-image: url('./images/loading.svg');
-	background-position: center 80px;
+	background-position: center center;
 	background-repeat: no-repeat;
 	z-index: 10000;
 	display: none;
@@ -16,11 +16,11 @@
 
 .account_modal_collection {
 	position: relative;
-	top: 0;
+	top: 50%;
 	max-width: 520px;
 	padding: 36px 0;
 	margin: 0 auto;
-	/* transform: translateY(-50%); */
+	transform: translate(0, -50%);
 	transition: all .5s;
 }
 

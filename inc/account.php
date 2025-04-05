@@ -348,7 +348,7 @@ function homebase_collection_dialog() {
 		echo '<form id="new_collection_form">';
 		echo '<h2>New Collection</h2>';
 		echo '<input type="text" id="new_collection_name" name="new_collection_name" placeholder="New Collection name" autocomplete="off" maxlength="30"/>';
-		echo '<a id="new_collection_submit" class="saved_view_account" href="#">Save</a>';
+		echo '<button id="new_collection_submit" class="saved_view_account">Save</button>';
 		echo '</form>';
 
 		// Edit Collection
@@ -356,14 +356,14 @@ function homebase_collection_dialog() {
 		echo '<h2>Edit Collection Name</h2>';
 		echo '<input type="text" id="edit_collection_name" name="edit_collection_name" placeholder="New Collection name" autocomplete="off" maxlength="30"/>';
 		echo '<input type="hidden" id="edit_collection_id" value="" />';
-		echo '<a id="edit_collection_submit" class="saved_view_account" href="#">Save</a>';
+		echo '<button id="edit_collection_submit" class="saved_view_account">Save</button>';
 		echo '</form>';
 
 		// Delete Collection
 		echo '<form id="delete_collection_form">';
 		echo '<h2>Delete Collection</h2><p>Are you sure you want to delete this Collection? This cannot be undone and will also delete any notes you have saved for this Collection.</p>';
 		echo '<input type="hidden" id="delete_collection_id" value="" />';
-		echo '<p><a id="delete_collection_submit" href="#">Yes, delete this Collection</a></p>';
+		echo '<button id="delete_collection_submit">Yes, delete this Collection</button>';
 		echo '</form>';
 
 		// Notes
@@ -372,7 +372,7 @@ function homebase_collection_dialog() {
 		echo '<h2>My Notes</h2>';
 		echo '<textarea id="saved_notes" placeholder="" autocomplete="off" /></textarea>';
 		echo '<input type="hidden" id="saved_notes_id" value="" />';
-		echo '<a id="notes_submit" class="saved_view_account" href="#">Save Notes</a>';
+		echo '<button id="notes_submit" class="saved_view_account">Save Notes</button>';
 		echo '</form>';
 
 		// Manage Image
@@ -532,7 +532,7 @@ function homebase_load_collections() {
 
 		if ( $collections ) {
 
-			$index .= '<ul class="collection_names ' . $hide_collection_names_class . '" id="collection_names">';
+			$index .= "<ul class=\"collection_names $hide_collection_names_class\" id=\"collection_names\">";
 
 			$html .= '<div class="collection_images">';
 
@@ -545,15 +545,15 @@ function homebase_load_collections() {
 
 				$images = json_decode( get_post_meta( $collection->ID, 'images', true ), TRUE );
 
-				$html .= '<div class="collection ' . $activeclass . '" id="collection_' . $collection->ID . '">';
-				$html .= '<h2>' . $collection->post_title . '</h2>';
+				$html .= "<div class=\"collection $activeclass\" id=\"collection_{$collection->ID}\">";
+				$html .= "<h4>{$collection->post_title}</h4>";
 				$html .= '<ul class="collection_grid">';
 
 				if ( $images ) {
 
 					// Store first thumb in variable here, pass to index below
 
-					$gallery .= '<div class="full_gallery" id="gallery_' . $collection->ID . '" data-collection="' . $collection->ID . '">';
+					$gallery .= "<div class=\"full_gallery\" id=\"gallery_{$collection->ID}\" data-collection=\"{$collection->ID}\">";
 					$gallery .= '<div class="full_gallery_slides">';
 
 					$i = 0;
@@ -572,7 +572,7 @@ function homebase_load_collections() {
 							$bg_img = $photo_thumb[0];
 						}
 
-						$html .= "<li class=\"collection_image\" id=\"collection_{$collection->ID}_photo_$image\"><a href=\"#collection_{$collection->ID}_photo_$image\" data-gallery=\"{$collection->ID}\"><img src=\"$photo_thumb[0]\"/></a><span class=\"edit_image\" data-image=\"$image\" data-image-thumb-url=\"$photo_thumb[0]\" data-collection=\"{$collection->ID}\"></span></li>";
+						$html .= "<li class=\"collection_image\" id=\"collection_{$collection->ID}_photo_$image\"><a href=\"#collection_{$collection->ID}_photo_$image\" data-gallery=\"{$collection->ID}\" class=\"collection-image-link\"><img src=\"$photo_thumb[0]\"/></a><span class=\"edit_image\" data-image=\"$image\" data-image-thumb-url=\"$photo_thumb[0]\" data-collection=\"{$collection->ID}\"></span></li>";
 
 						$gallery .= "<div class=\"slide\" id=\"collection_{$collection->ID}_photo_$image\">";
 						$gallery .= "<div class=\"slide_image\"><img src=\"$photo_full[0]\"/></div>";
@@ -589,7 +589,7 @@ function homebase_load_collections() {
 
 				$bg_img = '';
 
-				$html .= '<li class="close_collection"><a href="#"><span>Back to Collections</span></a></li>';
+				$html .= '<li><a href="#" class="close_collection"><span>Back to Collections</span></a></li>';
 
 				$html .= '</ul>';
 				$html .= "<ul class=\"collection_links\"><li><a class=\"edit_notes\" data-post-id=\"{$collection->ID}\" data-post-name=\"{$collection->post_title}\" href=\"#\">Notes on this Collection</a></li><li><a class=\"edit_collection\" data-collection=\"{$collection->ID}\" data-collection-name=\"{$collection->post_title}\" href=\"#\">Edit Collection Name</a></li><li><a href=\"#\" class=\"delete_collection\" data-collection=\"{$collection->ID}\">Delete Collection</a></li></ul></div>";
@@ -606,7 +606,7 @@ function homebase_load_collections() {
 			$html .= '<div class="my_account_empty"><p><a href="#" id="add_first_collection">Add your first collection</a></p></div>';
 		}
 
-		wp_send_json( $index . $html );
+		wp_send_json( "$index$html" );
 
 	}
 

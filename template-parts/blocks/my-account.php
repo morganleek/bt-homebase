@@ -332,6 +332,7 @@
 		//$projectinfoincomplete = ( empty($current_user_project_type) || empty($current_user_project_commencing) ) ? 1 : 0;
 		$projectinfoincomplete = 0;
 	
+		// add default collections if none exist
 		homebase_seed_collections();
 	
 		$displays = [];
@@ -419,6 +420,7 @@
 
 				<div class="my_account_tab" id="collections">
 					<h3>Collections</h3>
+					<div class="wp-block-group"></div>
 					<ul class="collection_names" id="collection_names"></ul>
 					<div class="collection_images" id="collection_images"></div>
 				</div>
