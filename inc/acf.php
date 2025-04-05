@@ -47,6 +47,17 @@
 					'keywords'        => [],
 				] );
 
+				// Post description
+				acf_register_block_type( [ 
+					'name'            => 'post-social-links',
+					'title'           => __( 'Post Social Links' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/post-social-links.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-comments',
+					'keywords'        => [],
+				] );
+
 				// Instafeed Placeholder
 				acf_register_block_type( [ 
 					'name'            => 'instafeed-placeholder',

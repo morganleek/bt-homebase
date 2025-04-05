@@ -6,6 +6,8 @@
 		color: var(--wp--preset--color--brand-yellow);
 	}
 	.wp-block-post-template {
+		list-style: none;
+		padding-left: 0;
 		h3, h4 {
 			margin: 0 !important;
 			a {
@@ -49,8 +51,7 @@
 				}
 				h3, h4 {
 					font-size: 1.25rem;
-					padding-left: 8px;
-					padding-right: 8px;
+					
 					white-space: nowrap;
 					text-overflow: ellipsis;
 					max-width: 100%;
@@ -63,6 +64,11 @@
 				.wp-block-post-featured-image {
 					aspect-ratio: 5 / 3 !important;
 					margin-bottom: 17px;
+					& + h3,
+					& + h4 {
+						padding-left: 8px;
+						padding-right: 8px;
+					}
 				}
 				&.has-children {
 					grid-column: span 2;

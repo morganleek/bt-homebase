@@ -1,4 +1,5 @@
-body.single-display {
+body.single-display, 
+body.signle-post {
 	.wp-block-columns {
 		.wp-block-column:has(> .display-social-links) {
 			display: flex;

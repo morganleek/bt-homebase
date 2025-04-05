@@ -428,7 +428,7 @@
 					<h3>Displays</h3>
 					<?php if ( $displays ) : ?>
 						<div class="wp-block-query is-layout-flow wp-block-query-is-layout-flow">
-							<ul class="columns-2 wp-block-post-template is-layout-grid wp-block-post-template-is-layout-grid">
+							<ul class="columns-2 wp-block-post-template is-layout-flow wp-block-post-template-is-layout-flow">
 								<?php foreach ( $displays as $display ) : ?>
 									<?php saved_displays($current_user_ID, $display) ?>
 								<?php endforeach; ?>
@@ -484,20 +484,41 @@
 				<div class="my_account_tab" id="posts">
 					<h3>Blog</h3>
 					<?php if ( $articles ) : ?>
-						<div class="loft_content">
-							<ul class="posts">
-								<?php foreach ( $articles as $post ) :
-									setup_postdata( $post ); ?>
-									<?php $title = get_the_title(); ?>
-									<li class="post_excerpt"><a href="<?php the_permalink(); ?>"><?php the_post_thumbnail( 'loft' ); ?>
-											<div>
-												<p class="post_date"><?php the_time( 'd.m.Y' ); ?></p>
-												<h2><?php echo substr( $title, 0, 40 ) . '...' ?></h2>
+						<div class="wp-block-query is-layout-flow wp-block-query-is-layout-flow">
+							<ul class="columns-2 wp-block-post-template is-layout-flow wp-block-post-template-is-layout-flow">
+								<?php foreach ( $articles as $article ) : ?>
+									<li class="wp-block-post post-49925 post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-architect tag-design-ideas tag-designer tag-home-design tag-luxury-homes tag-new-build tag-perth-designers">
+										<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-bottom:var(--wp--preset--spacing--20)">
+											<figure style="aspect-ratio:16/9;" class="wp-block-post-featured-image">
+												<a href="<?php the_permalink( $article->ID ); ?>" target="_self">
+													<?php print get_the_post_thumbnail( $article, "large" ); ?>
+												</a>
+											</figure>
+		
+											<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-right:8px;padding-left:8px">
+												<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
+													<div style="font-size:13px;" class="has-link-color wp-block-post-date has-text-color has-brand-charcoal-color">
+														<time datetime="">{{ TIME }}</time>
+													</div>
+		
+													<div class="has-link-color wp-elements-5e8c8a684c2d35a3a46c96815f25414c wp-block-post-author has-text-color has-brand-yellow-color">
+														<div class="wp-block-post-author__content">
+															<p class="wp-block-post-author__name"><?php print $article->post_author; ?></p>
+														</div>
+													</div>
+												</div>
+		
+												<h3 class="wp-block-post-title">
+													<a href="<?php the_permalink( $article->ID ); ?>" target="_self"><?php print $article->post_title; ?></a>
+												</h3>
+		
+												<div class="wp-block-post-excerpt">
+													<p class="wp-block-post-excerpt__excerpt"><?php print get_the_excerpt( $article ); ?></p>
+												</div>
 											</div>
-										</a>
+										</div>
 									</li>
 								<?php endforeach; ?>
-								<?php wp_reset_postdata(); ?>
 							</ul>
 						</div>
 					<?php else : ?>

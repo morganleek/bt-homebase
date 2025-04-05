@@ -96,37 +96,40 @@
 }
 
 .edit_image_actions {
+	padding-left: 0;
 	list-style: none;
 	margin: 0 0 20px 0;
+	li {
+		display: inline-block;
+		vertical-align: top;
+		width: 50%;
+		padding: 1px;
+		box-sizing: border-box;
+		input {
+			display: none;
+		}
+		label {
+			display: block;
+			padding: 12px;
+			text-align: center;
+			background-color: #fbac30;
+			color: #FFF;
+			opacity: 0.5;
+		}
+		label:hover,
+		input[type="radio"]:checked + label {
+			background-color: #fbac30;
+			color: #FFF;
+			opacity: 1;
+		}
+	}
 }
 
-.edit_image_actions li {
-	display: inline-block;
-	vertical-align: top;
-	width: 50%;
-	padding: 1px;
-	box-sizing: border-box;
-}
 
-.edit_image_actions li input {
-	display: none;
-}
 
-.edit_image_actions li label {
-	display: block;
-	padding: 12px;
-	text-align: center;
-	background-color: #fbac30;
-	color: #FFF;
-	opacity: 0.5;
-}
 
-.edit_image_actions label:hover,
-.edit_image_actions input[type="radio"]:checked+label {
-	background-color: #fbac30;
-	color: #FFF;
-	opacity: 1;
-}
+
+
 
 .image_form_header {
 	position: relative;
@@ -306,7 +309,8 @@ body.collection_action {
 		height: 24px;
 		background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
 		display: block;
-		&.unsave {
+		&.unsave,
+		&.unsaveimage {
 			&::after {
 				opacity: 1;
 			}

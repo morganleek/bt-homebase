@@ -340,7 +340,7 @@ function homebase_collection_dialog() {
 		echo '<div class="edit_image_collections" id="edit_image_collections"></div>';
 		echo '<input type="hidden" id="edit_image_id" value="" />';
 		echo '<input type="hidden" id="original_collection_id" value="" />';
-		echo '<a id="edit_image_submit" class="saved_view_account" href="#">Save</a>';
+		echo '<button id="edit_image_submit" class="saved_view_account">Save</button>';
 		echo '<a id="delete_image_submit" href="#">Remove image from collection</a>';
 		echo '</form>';
 
