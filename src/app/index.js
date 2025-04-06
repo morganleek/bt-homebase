@@ -8,17 +8,6 @@ import "tiny-slider/src/tiny-slider.scss"
 import { tns } from "tiny-slider";
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	
-	// Lazy load fade in
-	document.querySelectorAll( 'img[loading="lazy"]' ).forEach( ( img ) => {
-		if( img.complete === true ) {
-			img.classList.add( 'has-loaded' );
-		}
-		img.addEventListener( "load", ( e ) => {
-			e.target.classList.add( 'has-loaded' );
-		} );
-	} );
-
 	document.querySelectorAll( '.wp-block-home-base-post-grid-list button' ).forEach( button => {
 		button.addEventListener( "click", ( e ) => {
 			const button = e.target.closest( "button" );
@@ -61,6 +50,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			speed: 600,
 			loop: true
 			// startIndex: 2
+		} );
+	} );
+
+
+	// Lazy load fade in
+	document.querySelectorAll( 'img[loading="lazy"]' ).forEach( ( img ) => {
+		if( img.complete === true ) {
+			img.classList.add( 'has-loaded' );
+		}
+		img.addEventListener( "load", ( e ) => {
+			e.target.classList.add( 'has-loaded' );
 		} );
 	} );
 } );
