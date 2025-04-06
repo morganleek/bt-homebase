@@ -37,7 +37,7 @@
 					</h4>
 				</div>
 
-				<div class="saved_display_content" style="display: none;">
+				<div class="saved_display_content">
 					<ul class="actions">
 						<?php if ( $phone ) : ?>
 							<li><a href="#call_exhibitor_<?php echo $display->ID; ?>" class="call_now"

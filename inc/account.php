@@ -511,7 +511,7 @@ function homebase_add_collection() {
 function homebase_load_collections() {
 	if ( is_user_logged_in() ) {
 
-		$hide_collection_names_class = $_REQUEST['collection'] ? 'hidden' : '';
+		// $hide_collection_names_class = $_REQUEST['collection'] ? 'hidden' : '';
 
 		$show_collection_id = str_replace( '#collection_', '', $_REQUEST['collection'] );
 
@@ -532,7 +532,7 @@ function homebase_load_collections() {
 
 		if ( $collections ) {
 
-			$index .= "<ul class=\"collection_names $hide_collection_names_class\" id=\"collection_names\">";
+			$index .= "<ul class=\"collection_names\" id=\"collection_names\">";
 
 			$html .= '<div class="collection_images">';
 
@@ -752,18 +752,16 @@ function homebase_delete_image() {
 	$image = $_REQUEST['image'];
 	$collection_id = $_REQUEST['original_collection_id'];
 
-	$collection_images = json_decode( get_post_meta( $collection_id, 'images', true ), TRUE );
-	$collection_images = array_diff( $collection_images, arrays: [ $image ] );
-
+	$collection_images = json_decode( get_post_meta( $collection_id, 'images', true ), true );
+	$updated_images = array_filter( $collection_images, fn( $id ) => $id !== $image );
+	
 	$args = [ 
 		'ID'         => $collection_id,
-		'meta_input' => [ 'images' => json_encode( array_unique( $collection_images ) ) ],
+		'meta_input' => [ 'images' => json_encode( array_unique( $updated_images ) ) ],
 	];
 
-	$origin_id = wp_update_post( $args );
-
+	wp_update_post( $args );
 	wp_send_json_success();
-
 }
 
 function homebase_seed_collections() {

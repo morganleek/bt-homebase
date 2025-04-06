@@ -18,29 +18,52 @@ const showMessage = ( message ) => {
 		},
 	}).showToast();
 }
-// 
+
+// close modals
+const closeModals = () => {
+	document.body.classList.remove( 
+		"collection_action", "collection_action_new", "collection_action_image", "collection_action_edit", 
+		"collection_action_delete", "collection_action_loading", "collection_action_edit_image", 
+		"collection_action_complete", "account_saved", "collection_action_notes", 
+		"collection_action_manage_image", "collection_action_remove_image", "collection_help");
+} 
 
 document.addEventListener( 'DOMContentLoaded', () => {
 	if( document.querySelector( '.display-social-links' ) ) {
 		document.querySelectorAll( '.display-social-links .heart, .display-social-links .display-brochure' ).forEach( button => {
 			button.addEventListener( 'click', ( e ) => {
+				const isUnsave = e.target.classList.contains( 'unsave' );
 				const data = {
-					action: 'homebase_save',
+					action: isUnsave ? 'homebase_unsave' : 'homebase_save',
 					post_ID: e.target.dataset.postId,
 					post_type: e.target.dataset.postType
+				};
+				const postTypeTitles = {
+					'post': 'Blog Post',
+					'display': 'Display'
 				};
 		
 				let successMessage = "";
 				if( e.target.classList.contains( 'heart' ) ) {
-					successMessage = data.post_type + " Saved\nThis " + data.post_type + " has been saved to `My Account`";
+					if( isUnsave ) {
+						successMessage = "<h4>" + postTypeTitles[data.post_type] + " Removed</h4><p>This " + postTypeTitles[data.post_type] + " has been removed from My Account</p>"
+					}
+					else {
+						successMessage = "<h4>" + postTypeTitles[data.post_type] + " Saved</h4><p>This " + postTypeTitles[data.post_type] + " has been saved to My Account</p>";
+					}
 				}
 				else {
-					successMessage = "Brochure Saved\nThis brochure is now available to view in `My Account`"
+					if( isUnsave ) {
+						successMessage = "<p>This brochure has been removed from My Account<p>";
+					}
+					else {
+						successMessage = "<h4>Brochure Saved</h4><p>This brochure is now available to view in My Account</p>"
+					}
 				}
 		
 				axios.get( home_base.ajax_url, { params: data } )
 				.then( res => {
-					e.target.classList.add( 'unsave' );
+					e.target.classList.toggle( 'unsave' );
 					// Show message
 					showMessage( successMessage );
 				})
@@ -64,7 +87,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	} );
 
 	// collections
-	document.querySelector( "#collections" )?.addEventListener( "click", ( e ) => {
+	document.querySelector( "#collections, #displays" )?.addEventListener( "click", ( e ) => {
 		e.preventDefault();
 
 		// add first collection		
@@ -160,14 +183,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 	} );
 
-	// close modals
-	const closeModals = () => {
-		document.body.classList.remove( 
-			"collection_action", "collection_action_new", "collection_action_image", "collection_action_edit", 
-			"collection_action_delete", "collection_action_loading", "collection_action_edit_image", 
-			"collection_action_complete", "account_saved", "collection_action_notes", 
-			"collection_action_manage_image", "collection_action_remove_image", "collection_help");
-	}
+	
 
 	document.querySelector( ".account_modal_close" )?.addEventListener( "click", ( e ) => {
 		closeModals();
@@ -232,74 +248,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	// edit collection name
 	// edit notes
 	// edit image
-	document.querySelectorAll( "#new_collection_form, #delete_collection_form, #edit_collection_form, #edit_notes_form, #edit_image_form" ).forEach( form => {
-		form.addEventListener( "submit", ( e ) => {
+	// delete image
+	document.querySelectorAll( "#new_collection_form, #delete_collection_form, #edit_collection_form, #edit_notes_form, #edit_image_form, #delete_image_submit" ).forEach( trigger => {
+		const eventType = trigger.tagName === "FORM" ? "submit" : "click";
+		trigger.addEventListener( eventType, ( e ) => {
 			e.preventDefault();
-			let data = {};
-			let confirmation = "";
-	
-			switch( e.target.id ) {
-				case "new_collection_form":
-					data = {
-						action: 'homebase_add_collection',
-						new_collection_name: document.querySelector( "#new_collection_name" ).value
-					};
-					confirmation = "<h4>New Collection Saved</h4><p>This Collection has been saved to My Account</p>";
-					break;
-				case "delete_collection_form":
-					data = {
-						action: 'homebase_delete_collection',
-						collection: document.querySelector( '#delete_collection_id' ).value
-					};
-					confirmation = "<h4>Collection Deleted</h4><p>This Collection has been removed from your account</p>"
-					break;
-				case "edit_collection_form":
-					data = {
-						action: 'homebase_edit_collection',
-						collection: document.querySelector( '#edit_collection_id' ).value,
-						edit_collection_name: document.querySelector( '#edit_collection_name' ).value
-					}
-					confirmation = "<h4>Collection Updated</h4><p>This Collection name has been updated</p>"
-					break;
-				case "edit_notes_form":
-					data = {
-						action: 'homebase_save_notes',
-						post_ID: document.querySelector( '#saved_notes_id' ).value,
-						notes: document.querySelector( '#saved_notes' ).value
-					};
-					confirmation = "<h4>Notes Saved</h4>";
-					break;
-				case "edit_image_form":
-					data = {
-						action: 'homebase_edit_image',
-						image: document.querySelector( '#edit_image_id' ).value,
-						edit_action: document.querySelector( 'input[name=edit_image_action]:checked').value,
-						original_collection_id: document.querySelector( '#original_collection_id').value,
-						destination_collection_id: document.querySelector( 'input[name=destination_collection_id]:checked').value,
-						new_destination_collection_name: document.querySelector( '#new_destination_collection_name').value
-					};
-					confirmation = "<h4>Image Updated</h4><p>Image has been moved/copied.</p>";
-					break;
-				default:
-					return;
-			}
-	
-			if( new_collection_name ) {
-				document.body.classList.add( "collection_action_loading" );
-			
-				axios.get( home_base.ajax_url, { params: data } )
-				.then( res => {
-					closeModals(); 
-					// reload collections
-					loadCollections();
-					// Show message
-					showMessage( confirmation );
-				})
-				.catch( error => {
-					console.log( error );
-					showMessage( "Something has gone wrong" );
-				} );
-			}
+			processRequest( e.target.id );
 		} );
 	} );
 
@@ -319,243 +273,129 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 } );
 
-// var myHomeBase = {
-	
-// 	bindUIActions: function() {
-		
-// 		// EMAIL NOTES
-		
+const processRequest = ( targetId ) => {
+	let data = {};
+	let confirmation = "";
 
-			
-// 		// TRACK BROCHURE DOWNLOAD
+	switch( targetId ) {
+		case "new_collection_form":
+			data = {
+				action: 'homebase_add_collection',
+				new_collection_name: document.querySelector( "#new_collection_name" ).value
+			};
+			confirmation = "<h4>New Collection Saved</h4><p>This Collection has been saved to My Account</p>";
+			break;
+		case "delete_collection_form":
+			data = {
+				action: 'homebase_delete_collection',
+				collection: document.querySelector( '#delete_collection_id' ).value
+			};
+			confirmation = "<h4>Collection Deleted</h4><p>This Collection has been removed from your account</p>"
+			break;
+		case "edit_collection_form":
+			data = {
+				action: 'homebase_edit_collection',
+				collection: document.querySelector( '#edit_collection_id' ).value,
+				edit_collection_name: document.querySelector( '#edit_collection_name' ).value
+			}
+			confirmation = "<h4>Collection Updated</h4><p>This Collection name has been updated</p>"
+			break;
+		case "edit_notes_form":
+			data = {
+				action: 'homebase_save_notes',
+				post_ID: document.querySelector( '#saved_notes_id' ).value,
+				notes: document.querySelector( '#saved_notes' ).value
+			};
+			confirmation = "<h4>Notes Saved</h4>";
+			break;
+		case "edit_image_form":
+			data = {
+				action: 'homebase_edit_image',
+				image: document.querySelector( '#edit_image_id' ).value,
+				edit_action: document.querySelector( 'input[name=edit_image_action]:checked').value,
+				original_collection_id: document.querySelector( '#original_collection_id').value,
+				destination_collection_id: document.querySelector( 'input[name=destination_collection_id]:checked').value,
+				new_destination_collection_name: document.querySelector( '#new_destination_collection_name').value
+			};
+			confirmation = "<h4>Image Updated</h4><p>Image has been moved/copied</p>";
+			break;
+		case "delete_image_submit":
+			data = {
+				action: 'homebase_delete_image',
+				image: document.querySelector( "#edit_image_id" ).value,
+				original_collection_id: document.querySelector( "#original_collection_id" ).value
+			};
+			confirmation = "<h4>Image Removed</h4><p>Image successfully removed from this collection</p>";
+			break;
+		default:
+			return;
+	}
+
+	if( new_collection_name ) {
+		document.body.classList.add( "collection_action_loading" );
+	
+		axios.get( home_base.ajax_url, { params: data } )
+		.then( res => {
+			closeModals(); 
+			// reload collections
+			loadCollections();
+			// Show message
+			showMessage( confirmation );
+		})
+		.catch( error => {
+			console.log( error );
+			showMessage( "Something has gone wrong" );
+		} );
+	}
+}
 		
+// EMAIL NOTES
+
+// TRACK BROCHURE DOWNLOAD
 // 		$('main').on("click", ".brochure_download", function() {
-			
 // 			$this = $(this);
-			
 // 			event.preventDefault();
-			
 // 			var brochureURL = $this.attr('href');
-			
 // 			var data = {
 // 				action: 'homebase_track_brochure_download',
 // 				display: $this.data('display')
 //     		};
-
 //     		$.ajax({	
 // 				url: '/wp-admin/admin-ajax.php',
 // 				data: data,
 // 				method: 'POST',
 // 				dataType: 'json'
-					
 // 			});
-			
 // 			window.open(brochureURL, '_blank');
-
 // 		});
-		
-// 		// UNSAVE DISPLAYS AND POSTS
-		
-// 		$('main').on("click", ".unsave", function() {
-			
-// 			$this = $(this);
-			
-// 			event.preventDefault();
-			
-// 			var data = {
-// 				action: 'homebase_unsave',
-// 				post_ID: $this.data('post-id'),
-// 				post_type: $this.data('post-type')
-				
-//     		};
-    		
-//     		var successMessage = "<h4>" + data.post_type + " Removed</h4><p>This " + data.post_type + " has been removed from My Account</p>";
-    		
-//     		console.log(data);
-
-//     		$.ajax({
-				
-// 				url: '/wp-admin/admin-ajax.php',
-// 				data: data,
-// 				method: 'POST',
-// 				dataType: 'json',
-// 				beforeSend: function(xhr){
-					
-// 					$('body').addClass('collection_action_loading');
-					
-// 				},
-// 				success:function(data){
-					
-// 					$('.account_modal_collection_mask .account_modal_message').html(successMessage);
-// 					$('body').addClass('collection_action_complete');
-// 					$this.removeClass('unsave').addClass('save').prop('title', 'Save to My Account');
-					
-// 				},
-// 				error:function(data){
-	  			
-// 				}
-					
-// 			});
-    		
-// 		});
-
-
 		
 // 		$(".full_gallery").on("click", ".saveimage", function() {
-			
 // 			event.preventDefault();
-			
 // 			var post_ID = $(this).data('post-id');
 // 			var image_thumb_url = $(this).data('image-thumb-url');
-			
 // 			$('#save_image_id').val(post_ID);
 // 			$('#new_image_form .collection_image_preview').css('background-image', 'url(' + image_thumb_url + ')');
 // 			$('body').addClass('collection_action collection_action_image');
-
 // 		});
-		
 // 		$(".display_photos").on("click", ".unsaveimage", function() {
-			
 // 			event.preventDefault();
 // 			$('body').addClass('collection_action collection_action_manage_image');
-
 // 		});
-		
 // 		$(".full_gallery").on("click", ".unsaveimage", function() {
-			
 // 			event.preventDefault();
 // 			$('body').addClass('collection_action collection_action_manage_image');
-
 // 		});
 		
-		
+// COLLECTION MODAL ACTIONS
 
-			
-		
-
-		
-// 		// COLLECTION MODAL ACTIONS
-		
-
-
-		
-// 		$("#collections").on("click", ".edit_image", function() {
-
-// 			event.preventDefault();
-// 			var image = $(this).data('image');
-// 			var image_thumb_url = $(this).data('image-thumb-url');
-			
-// 			var original_collection = $(this).data('collection');
-// 			$('#edit_image_id').val(image);
-// 			$('#original_collection_id').val(original_collection);
-// 			$('#edit_image_form .collection_image_preview').css('background-image', 'url(' + image_thumb_url + ')');
-// 			$('body').addClass('collection_action collection_action_edit_image');
-			
-// 			myHomeBase.loadDestinationCollections(original_collection);
-
-// 		});
-		
-
-		
-		
-		
-
-		
-
-		
-
-		
-		
-		
-
-		
-
-		
-// 		// REMOVE IMAGE
-			
-// 		$("#edit_image_form").on("click", "#delete_image_submit", function() {
-			
-// 			event.preventDefault();
-			
-//     		var data = {
-// 				action: 'homebase_delete_image',
-// 				image: $('#edit_image_id').val(),
-// 				original_collection_id: $('#original_collection_id').val()
-//     		};
-    		
-//     		var successMessage = "<h4>Image Removed</h4><p>Image successfully removed from this collection</p>";
-    		
- 
-//     		$.ajax({
-			
-// 				url: '/wp-admin/admin-ajax.php',
-// 				data: data,
-// 				method: 'POST',
-// 				dataType: 'json',
-// 				beforeSend: function(xhr){
-					
-// 					$('body').addClass('collection_action_loading');
-
-// 				},
-// 				success:function(){
-					
-// 					$('.account_modal_collection_mask .account_modal_message').html(successMessage);
-// 					$('body').addClass('collection_action_complete');
-					
-// 					// Hide image from collection
-					
-// 					console.log('#collection_' + data.original_collection_id + ' #photo_' + data.image);
-// 					$('#collection_' + data.original_collection_id + '_photo_' + data.image).fadeOut();
-					
-// 				},
-// 				error:function(data){
-	  			
-// 				}
-				
-// 			});
-	    		
-// 		});
-		
-
-
-		
-//         // HELP
-		
+// HELP
 // 		$("#my_account_help_btn").click(function() {
-			
 // 			event.preventDefault();
 // 			$('body').addClass('collection_action collection_help');
-			
 // 			localStorage.setItem('showhelptips', 1);
 // 			$('body').removeClass('show_account_help_tips');
-
 // 		});
 		
-// 		// ACCOUNT TABS
-		
-// 		$('.my_account_tabs_nav a').click(function() {
-			
-// 			t = $(this).attr('href'); 
-			
-// 			history.pushState(null, null, t);
-// 			myHomeBase.shift(t);
-			
-// 			localStorage.setItem('showhelptips', 1);
-// 			$('body').removeClass('show_account_help_tips');
-			
-// 			return(false);
-			
-// 		});
-		
-// 		// POPSTATE
-		
-// 		window.addEventListener("popstate", function(e) {
-			
-// 			$("body").removeClass('collection_action collection_action_new collection_action_image collection_action_edit collection_action_delete collection_action_loading collection_action_edit_image collection_action_complete account_saved collection_action_notes collection_action_manage_image collection_action_remove_image collection_help');
-
-// 			myHomeBase.shift(location.hash);
-		
-// 		});
 		
 // 		// Email exhibitor
 // 		$(".email_now, .call_now").fancybox({
@@ -615,88 +455,52 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			showMessage( "Something has gone wrong" );
 		} );
 	}
-	
-	
-// 	// Function to handle page load, tab, and popstate events
-	
-// 	shift: function(hash) {
-		
-// 		if (hash) {
-			
-// 			// need to handle gallery images here too
-			
-// 			if ( hash.indexOf("collection_") != -1 && hash.indexOf("photo_") != -1 ) {
 
+// 	// Function to handle page load, tab, and popstate events
+// 	shift: function(hash) {
+// 		if (hash) {
+// 			// need to handle gallery images here too
+// 			if ( hash.indexOf("collection_") != -1 && hash.indexOf("photo_") != -1 ) {
 // 				hash = '#collections';
 // 				history.pushState(null, null, hash);
-			
 // 				$('.my_account_tabs_nav li:first').addClass('active');
 // 				$('.my_account_tab:first').addClass('active');
-			
 // 				myHomeBase.loadCollections(0);
-				
 // 			} else if ( hash.indexOf("collection_") != -1 && hash.indexOf("photo_") === -1 ) {
-
 // 				$('.my_account_tabs_nav li').removeClass('active');
 // 				$('.my_account_tab').removeClass('active');
 // 				$('.my_account_tabs_nav li:first').addClass('active');
 // 				$('.my_account_tab:first').addClass('active');
-				
 // 				myHomeBase.loadCollections(hash);
-				
 // 			} else {
-				
 // 				$("#collection_names").removeClass('hidden');
 // 				$('.collection').removeClass('active');
-				
 // 				$('.my_account_tabs_nav li').removeClass('active');
 // 				$('.my_account_tab').removeClass('active');
 // 				$('.my_account_tabs_nav a[href="' + hash + '"]').parent().addClass('active');
 // 				$(hash).addClass('active');
-				
 // 				myHomeBase.loadCollections(0);
-
 // 			}
-
 // 		} else {
-
 // 			hash = '#collections';
 // 			history.pushState(null, null, hash);
-			
 // 			$('.my_account_tabs_nav li:first').addClass('active');
 // 			$('.my_account_tab:first').addClass('active');
-			
 // 			myHomeBase.loadCollections(0);
-			
 // 		}
-		
 // 	},
-
 // 	init: function() {
-		
 // 		this.bindUIActions();
-
 // 	},
-
 // 	initMyAccountPage: function() {
-		
 // 		this.shift(window.location.hash);
-
 // 	}
-    
 // };
 
 // $(document).ready(function() { 
-	
 // 	var showhelptips = localStorage.getItem('showhelptips');
-	
 // 	if ( showhelptips == null ) {
-
 // 		$('body').addClass('show_account_help_tips');
 // 	}
-	
-
-   
 // 	myHomeBase.init();
-	
 // });
