@@ -189,11 +189,11 @@ class BoneThemeInit
 		  'label' => __( 'Overflow', 'bones_name' ),
 		] );
 
-		// Columns
-		// register_block_style( 'core/columns', [
-		//   'name' => 'no-bottom-margin',
-		//   'label' => __( 'No bottom margin', 'bones_name' ),
-		// ] );
+		// Query
+		register_block_style( 'core/query', [
+		  'name' => 'slider',
+		  'label' => __( 'Slider', 'bones_name' ),
+		] );
 
 		// Buttons
 		// register_block_style( 'core/button', [

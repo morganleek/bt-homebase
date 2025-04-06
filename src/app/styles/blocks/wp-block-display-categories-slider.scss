@@ -1,0 +1,99 @@
+.wp-block-display-categories-slider {
+	.tns-slider {
+		* {
+			max-width: none !important;
+		}
+	}
+	.tns-ovh {
+		overflow: visible;
+	}
+	.wp-block-post-template {
+		list-style: none;
+		padding-left: 0;
+		max-width: none !important;
+		&:not(.tns-slider) {
+			li:not(:first-child) {
+				display: none; // stop loading repaint
+			}
+		}
+		li {
+			.wp-block-post-featured-image {
+				aspect-ratio: 2.1 !important;
+				border-radius: 24px;
+				overflow: hidden;
+				img {
+					aspect-ratio: 2.1 !important;
+					object-fit: cover;
+				}
+			}
+			.wp-block-buttons {
+				display: none;
+			}
+		}
+	}
+}
+
+.wp-block-group.alignfull:has(> .wp-block-display-categories-slider) {
+	overflow-x: hidden;
+}
+
+.tns-outer {
+	.tns-nav {
+		display: flex;
+    gap: 8px;
+    justify-content: center;
+		align-items: center;
+		margin-top: 16px;
+		button {
+			width: 12px;
+			height: 12px;
+			background: var(--wp--preset--color--brand-dust);
+			transition: color 0.3s, width 0.3s;
+			border-radius: 100px;
+			padding: 0;
+			position: relative;
+			display: none;
+			&::before {
+				content: "";
+				width: 12px;
+				height: 12px;
+				opacity: 0;
+				background: var(--wp--preset--color--brand-oliver);
+				border-radius: 100px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			&.tns-nav-active {
+				width: 38px;
+				display: block;
+				opacity: 1;
+				&::before {
+					opacity: 1;
+					animation: slider-dot 5s linear; // Animation time 5000ms - Transition time 800ms
+					animation-fill-mode: forwards;
+				}
+			}
+		}
+		button.tns-nav-active + button,
+		button.tns-nav-active + button + button {
+		// button:has(+ button.tns-nav-active) {
+			display: block;
+			width: 12px;
+			height: 12px;
+		}
+		button.tns-nav-active + button + button + button,
+		button:has(+ button.tns-nav-active) {
+		// button:has(+ button + button.tns-nav-active) {
+			display: block;
+			width: 8px;
+			height: 8px;
+		}
+		// button:has(+ button ) {
+		// 	opacity: 1;
+		// 	display: block;
+		// 	width: 8px;
+		// 	height: 8px;
+		// }
+	}
+}

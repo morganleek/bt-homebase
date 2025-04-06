@@ -80,6 +80,17 @@
 					'keywords'        => [],
 				] );
 
+				// Display Categories Slider
+				acf_register_block_type( [ 
+					'name'            => 'display-categories-slider',
+					'title'           => __( 'Display Categories Slider' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/display-categories-slider.php',
+					'category'        => 'formatting',
+					'icon'            => 'grid-view',
+					'keywords'        => [],
+				] );
+
 				// Tags Selector
 				acf_register_block_type( [ 
 					'name'            => 'tags-selector',

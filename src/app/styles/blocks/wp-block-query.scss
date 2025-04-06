@@ -193,3 +193,44 @@
 		}
 	}
 }
+
+.wp-block-query {
+	&.is-style-slider {
+		.wp-block-post-template.is-layout-grid {
+			display: block;
+
+		}
+		.tns-slider {
+			* {
+				max-width: none !important;
+			}
+		}
+		.tns-ovh {
+			overflow: visible;
+		}
+		.wp-block-post-template.is-layout-grid {
+			list-style: none;
+			padding-left: 0;
+			max-width: none !important;
+			&:not(.tns-slider) {
+				li:not(:first-child) {
+					display: none; // stop loading repaint
+				}
+			}
+			li {
+				.wp-block-post-featured-image {
+					aspect-ratio: 2.1 !important;
+					border-radius: 24px;
+					overflow: hidden;
+					img {
+						aspect-ratio: 2.1 !important;
+						object-fit: cover;
+					}
+				}
+				.wp-block-buttons {
+					display: none;
+				}
+			}
+		}
+	}
+}

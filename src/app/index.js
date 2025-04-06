@@ -1,11 +1,14 @@
-import './style.scss';
+import "./style.scss";
+import "./js/account";
+
 import "toastify-js/src/toastify.css"
-import './js/account';
+import "tiny-slider/src/tiny-slider.scss"
 
 // Slider - Library import example
-// import { tns } from "tiny-slider"
+import { tns } from "tiny-slider";
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	
 	// Lazy load fade in
 	document.querySelectorAll( 'img[loading="lazy"]' ).forEach( ( img ) => {
 		if( img.complete === true ) {
@@ -40,8 +43,25 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				}
 			}
 		} );
+	} );
 
-		// is-layout-grid
+	// Display Categories Slider
+	document.querySelectorAll( '.wp-block-display-categories-slider .wp-block-post-template, .wp-block-query.is-style-slider .wp-block-post-template' ).forEach( slider => {
+		tns( {
+			container: slider,
+			items: 1,
+			slideBy: 'page',
+			autoplay: true,
+			nav: true,
+			gutter: 32,
+			controls: false,
+			autoplayButtonOutput: false,
+			navPosition: "bottom",
+			autoPlay: false,
+			speed: 600,
+			loop: true
+			// startIndex: 2
+		} );
 	} );
 } );
 

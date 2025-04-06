@@ -19,6 +19,7 @@
     "axios": "^1.8.4",
     "flickity": "^3.0.0",
     "gsap": "^3.12.4",
+    "tiny-slider": "^2.9.4",
     "toastify-js": "^1.12.0"
   }
 }
