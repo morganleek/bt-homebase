@@ -522,3 +522,68 @@
 		width: 50%;
 	}
 }
+
+
+.homebase_my_account_auth_prompt {
+	#my-account-loginform {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		& > * {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+	.wp-block-group:has(> &) {
+		max-width: 544px;
+	}
+	label {
+		display: none;
+	}
+	input[type=text], input[type=email], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=url], input[type=time], input[type=week], input[type=month], input[type=datetime], input[type=datetime-local], input[type=date] {
+		border-bottom: 1px solid var(--wp--preset--color--brand-yellow);
+		border-radius: 0 !important;
+	}
+	.login-submit {
+		input[type="submit"] {
+			width: 100%;
+			text-align: left;
+		}
+	}
+	#nsl-custom-login-form-1 {
+		order: -1;
+		&::after {
+			content: "OR";
+			width: 100%;
+			height: 32px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding: 16px 0 0;
+			color: var(--wp--preset--color--brand-charcoal);
+		}
+	}
+	.nsl-container.nsl-container-block.nsl-container-embedded-login-layout-below {
+		padding-top: 0 !important;
+		.nsl-container-buttons {
+			padding: 0 !important;
+			grid-template-columns: 1fr;
+			display: grid;
+			a {
+				width: 100%;
+				margin: 0 !important;
+				.nsl-button {
+					border-radius: 8px;
+				}
+			}
+		}
+	}
+	.account-create-reset {
+		// margin-top: 24px;
+		p {
+			text-align: center;
+			color: var(--wp--preset--color--brand-charcoal);
+			margin: 24px 0;
+		}
+	}
+}

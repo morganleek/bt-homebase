@@ -123,7 +123,7 @@ function homebase_save_button( $post_ID, $post_type ) {
 		}
 
 	} else {
-		echo '<a href="/my-account" class="myaccount save"></a>';
+		echo '<a href="/my-account" class="heart myaccount save logged-out"></a>';
 	}
 
 }

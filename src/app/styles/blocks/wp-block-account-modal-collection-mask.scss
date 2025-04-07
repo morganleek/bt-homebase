@@ -327,5 +327,8 @@ body.collection_action {
 			z-index: 1;
 			background: url(./images/heart-filled.svg) 50% 50%/22px 20px no-repeat;
 		}
+		&.logged-out {
+			opacity: 0.25;
+		}
 	}
 }

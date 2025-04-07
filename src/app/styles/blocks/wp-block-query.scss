@@ -194,6 +194,10 @@
 	}
 }
 
+.wp-block-group.alignfull:has(> .is-style-slider) {
+	overflow: hidden;
+}
+
 .wp-block-query {
 	&.is-style-slider {
 		.wp-block-post-template.is-layout-grid {

@@ -542,26 +542,25 @@
 
 		</div>
 	<?php else : ?>
-		<div class="homebase_my_account_auth_prompt">
-			<p>Welcome to My Account. Create a personal account to save images, Home Base displays and exhibitor contact information. Plus, download product brochures and create Collections to inspire you for your current or upcoming home building, renovating or design project.</p>
-
-			<?php 
-				if ( $_GET['login'] == 'failed' ) {
-					echo "<p class='login_unsuccessful'>Login unsuccessful. Please try again or <a href='<?php bloginfo( 'siteurl' ); ?>/wp-login.php?action=lostpassword'>reset your password</a>.</p>";
-				}
-			?>
-			<?php wp_login_form( [ 
-				'redirect' => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
-				'form_id'  => 'my-account-loginform',
-				'remember' => false,
-			] ); ?>
-
-			<a href="<?php bloginfo( 'url' ); ?>/wp-login.php?action=register">
-				<div class="create_account_link">Create Account</div>
-			</a>
-
-			<div class="reset_password_link">
-				<a href="<?php bloginfo( 'url' ); ?>/wp-login.php?action=lostpassword">Reset password</a>
+		<div class="wp-block-group alignfull has-brand-dust-background-color has-background has-global-padding is-layout-constrained wp-container-core-group-is-layout-11 wp-block-group-is-layout-constrained" style="margin-top:0;margin-bottom:0;padding-bottom:var(--wp--preset--spacing--40)">
+			<div class="wp-block-group is-style-overlap has-white-background-color has-background has-global-padding is-layout-constrained wp-container-core-group wp-block-group-is-layout-constrained" style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
+				<div class="homebase_my_account_auth_prompt">
+					<?php 
+						if ( isset( $_GET['login'] ) && $_GET['login'] == 'failed' ) {
+							echo "<p class='login_unsuccessful'>Login unsuccessful. Please try again or <a href=\"" .  get_bloginfo( 'siteurl' ) . "/wp-login.php?action=lostpassword\">reset your password</a>.</p>";
+						}
+					?>
+					<?php wp_login_form( [ 
+						'redirect' => ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+						'form_id'  => 'my-account-loginform',
+						'remember' => false,
+					] ); ?>
+		
+					<div class="account-create-reset">
+						<p><a class="reset-password" href="<?php bloginfo( 'url' ); ?>/wp-login.php?action=lostpassword">Reset password</a></p>
+						<p>No Account? <a href="<?php bloginfo( 'url' ); ?>/wp-login.php?action=register">Create one</a></p>
+					</div>
+				</div>
 			</div>
 		</div>
 	<?php endif; ?>

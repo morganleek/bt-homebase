@@ -92,7 +92,8 @@ button {
 	display: flex;
 	column-gap: 32px;
 
-	button {
+	& > button,
+	& > a {
 		width: 24px;
 		height: 24px;
 		background: black;
@@ -127,6 +128,9 @@ button {
 				background: url(./images/heart-filled.svg) 50% 50%/22px 20px no-repeat;
 			}
 		}
+		&.display-brochure {
+			background: url(./images/mobile.svg) 50% 50%/19px 22px no-repeat;
+		}
 		&.facebook {
 			background: url(./images/facebook.svg) 50% 50%/20px 20px no-repeat;
 		}
@@ -139,8 +143,8 @@ button {
 		&.display-lead-phone_number {
 			background: url(./images/phone.svg) 50% 50%/22px 22px no-repeat;
 		}
-		&.display-brochure {
-			background: url(./images/mobile.svg) 50% 50%/19px 22px no-repeat;
+		&.logged-out { 
+			opacity: 0.25;
 		}
 		a {
 			position: absolute;

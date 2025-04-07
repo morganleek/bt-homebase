@@ -108,6 +108,14 @@ class BoneThemeInit
 			$block_content = preg_replace( $svg_regex, $svg, $block_content );
 		}
 
+		if( $block['blockName'] === "acf/my-account" ) {
+			$login_regex = "/(id=\"user_login\" )/i";
+			$block_content = preg_replace( $login_regex, "id=\"user_login\" placeholder=\"Email\" ", $block_content );
+
+			$pass_regex = "/(id=\"user_pass\" )/i";
+			$block_content = preg_replace( $pass_regex, "id=\"user_pass\" placeholder=\"Password\" ", $block_content );
+		}
+
 		// error_log( $block['blockName'], 0 );
 
 		return $block_content;
