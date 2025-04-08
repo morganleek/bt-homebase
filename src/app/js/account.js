@@ -408,99 +408,119 @@ const processRequest = ( targetId ) => {
 // 		});
 
 // 	},
-	
-	const loadCollections = ( collection ) => {
-		document.querySelector( '#collections' ).classList.add( 'loading' );
 
-		axios.get( home_base.ajax_url, { 
-			params: {
-				action: 'homebase_load_collections',
-				collection: collection
-			} 
-		} )
-		.then( res => {
-			document.querySelector( '#collections' ).classList.remove( 'loading' );
-			document.querySelector( '#collections > .wp-block-group' ).innerHTML = res.data;	
-			
-			collection = new Flickity( '.full_gallery_slides', {
-				cellAlign: 'left',
-				contain: true,
-				pageDots: false,
-				hash: true,
-				selectedAttraction: 0.01, 
-				friction: 0.15, 
-				wrapAround: true, 
-				arrowShape: { "x0": 10, "x1": 60, "y1": 50, "x2": 63, "y2": 47, "x3": 17 }
-			} );
-		} )
-		.catch( error => {
-			showMessage( "Something has gone wrong" );
-		} );		
-	};
-	
-	const loadDestinationCollections = ( original_collection ) => {
-		document.querySelector( '#collections' ).classList.add( 'loading' );
+const loadCollections = ( collection ) => {
+	document.querySelector( '#collections' ).classList.add( 'loading' );
 
-		axios.get( home_base.ajax_url, { 
-			params: {
-				action: 'homebase_load_destination_collections',
-				exclude: original_collection
-			}
-		} )
-		.then( res => {
-			document.querySelector( '#collections' ).classList.remove( 'loading' );
-			document.querySelector( '#edit_image_collections' ).innerHTML = res.data;	
-		} )
-		.catch( error => {
-			showMessage( "Something has gone wrong" );
+	axios.get( home_base.ajax_url, { 
+		params: {
+			action: 'homebase_load_collections',
+			collection: collection
+		} 
+	} )
+	.then( res => {
+		document.querySelector( '#collections' ).classList.remove( 'loading' );
+		document.querySelector( '#collections > .wp-block-group' ).innerHTML = res.data;	
+		
+		collection = new Flickity( '.full_gallery_slides', {
+			cellAlign: 'left',
+			contain: true,
+			pageDots: false,
+			hash: true,
+			selectedAttraction: 0.01, 
+			friction: 0.15, 
+			wrapAround: true, 
+			arrowShape: { "x0": 10, "x1": 60, "y1": 50, "x2": 63, "y2": 47, "x3": 17 }
 		} );
-	}
+	} )
+	.catch( error => {
+		showMessage( "Something has gone wrong" );
+	} );		
+};
 
-// 	// Function to handle page load, tab, and popstate events
-// 	shift: function(hash) {
-// 		if (hash) {
-// 			// need to handle gallery images here too
-// 			if ( hash.indexOf("collection_") != -1 && hash.indexOf("photo_") != -1 ) {
-// 				hash = '#collections';
-// 				history.pushState(null, null, hash);
-// 				$('.my_account_tabs_nav li:first').addClass('active');
-// 				$('.my_account_tab:first').addClass('active');
-// 				myHomeBase.loadCollections(0);
-// 			} else if ( hash.indexOf("collection_") != -1 && hash.indexOf("photo_") === -1 ) {
-// 				$('.my_account_tabs_nav li').removeClass('active');
-// 				$('.my_account_tab').removeClass('active');
-// 				$('.my_account_tabs_nav li:first').addClass('active');
-// 				$('.my_account_tab:first').addClass('active');
-// 				myHomeBase.loadCollections(hash);
-// 			} else {
-// 				$("#collection_names").removeClass('hidden');
-// 				$('.collection').removeClass('active');
-// 				$('.my_account_tabs_nav li').removeClass('active');
-// 				$('.my_account_tab').removeClass('active');
-// 				$('.my_account_tabs_nav a[href="' + hash + '"]').parent().addClass('active');
-// 				$(hash).addClass('active');
-// 				myHomeBase.loadCollections(0);
-// 			}
-// 		} else {
-// 			hash = '#collections';
-// 			history.pushState(null, null, hash);
-// 			$('.my_account_tabs_nav li:first').addClass('active');
-// 			$('.my_account_tab:first').addClass('active');
-// 			myHomeBase.loadCollections(0);
-// 		}
-// 	},
-// 	init: function() {
-// 		this.bindUIActions();
-// 	},
-// 	initMyAccountPage: function() {
-// 		this.shift(window.location.hash);
-// 	}
-// };
+const loadDestinationCollections = ( original_collection ) => {
+	document.querySelector( '#collections' ).classList.add( 'loading' );
 
-// $(document).ready(function() { 
+	axios.get( home_base.ajax_url, { 
+		params: {
+			action: 'homebase_load_destination_collections',
+			exclude: original_collection
+		}
+	} )
+	.then( res => {
+		document.querySelector( '#collections' ).classList.remove( 'loading' );
+		document.querySelector( '#edit_image_collections' ).innerHTML = res.data;	
+	} )
+	.catch( error => {
+		showMessage( "Something has gone wrong" );
+	} );
+}
+
+// Function to handle page load, tab, and popstate events
+// function shift(hash) {
+// if (hash) {
+// // need to handle gallery images here too
+// if (hash.indexOf("collection_") !== -1 && hash.indexOf("photo_") !== -1) {
+// hash = '#collections';
+// history.pushState(null, null, hash);
+// document.querySelector('.my_account_tabs_nav li:first-child').classList.add('active');
+// document.querySelector('.my_account_tab:first-child').classList.add('active');
+// myHomeBase.loadCollections(0);
+// } else if (hash.indexOf("collection_") !== -1 && hash.indexOf("photo_") === -1) {
+// var tabsNavItems = document.querySelectorAll('.my_account_tabs_nav li');
+// var accountTabs = document.querySelectorAll('.my_account_tab');
+
+// tabsNavItems.forEach(function(item) {
+// item.classList.remove('active');
+// });
+// accountTabs.forEach(function(tab) {
+// tab.classList.remove('active');
+// });
+
+// document.querySelector('.my_account_tabs_nav li:first-child').classList.add('active');
+// document.querySelector('.my_account_tab:first-child').classList.add('active');
+// myHomeBase.loadCollections(hash);
+// } else {
+// document.querySelector("#collection_names").classList.remove('hidden');
+// var collections = document.querySelectorAll('.collection');
+
+// collections.forEach(function(collection) {
+// collection.classList.remove('active');
+// });
+
+// tabsNavItems = document.querySelectorAll('.my_account_tabs_nav li');
+// accountTabs = document.querySelectorAll('.my_account_tab');
+
+// tabsNavItems.forEach(function(item) {
+// item.classList.remove('active');
+// });
+// accountTabs.forEach(function(tab) {
+// tab.classList.remove('active');
+// });
+
+// var activeTab = document.querySelector('.my_account_tabs_nav a[href="' + hash + '"]');
+// if (activeTab) {
+// activeTab.parentElement.classList.add('active');
+// }
+// var activeSection = document.querySelector(hash);
+// if (activeSection) {
+// activeSection.classList.add('active');
+// }
+// myHomeBase.loadCollections(0);
+// }
+// } else {
+// hash = '#collections';
+// history.pushState(null, null, hash);
+// document.querySelector('.my_account_tabs_nav li:first-child').classList.add('active');
+// document.querySelector('.my_account_tab:first-child').classList.add('active');
+// myHomeBase.loadCollections(0);
+// }
+	// }
+
+// document.addEventListener('DOMContentLoaded', function() {
 // 	var showhelptips = localStorage.getItem('showhelptips');
-// 	if ( showhelptips == null ) {
-// 		$('body').addClass('show_account_help_tips');
+// 	if (showhelptips === null) {
+// 			document.body.classList.add('show_account_help_tips');
 // 	}
 // 	myHomeBase.init();
 // });

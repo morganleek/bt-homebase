@@ -1,0 +1,52 @@
+.wp-block-meet-the-designer {
+	.meet-the-designer-variation-wrapper {
+		table {
+			&.variations {
+				width: 100%;
+				th.label {
+					display: none;
+				}
+				td.value {
+					width: 100%;
+				}
+				.woocombo-container {
+					display: flex;
+					flex-direction: column;
+					gap: 6px;
+					.woocombo-entity-wrapper {
+						width: 100%;
+						.woocombo-entity {
+							width: 100%;
+							min-height: 56px;
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							padding: 8px 16px;
+							border-radius: 8px;
+							background: #fff;
+							color: var(--wp--preset--color--brand-charcoal);
+							font-size: 1rem;
+							border: 0 none;
+							// &.woocombo-disabled {
+							// 	color: #A19A94;
+							// 	pointer-events: none;
+							// }
+							&.woocombo-active {
+								background-color: #DBD6D1;
+								&::after {
+									background: url(./images/check-circle-broken.svg) 0 0/100% auto no-repeat;
+								}
+							}
+							&::after {
+								content: "";
+								width: 24px;
+								height: 24px;
+								background: url(./images/placeholder-circle.svg) 0 0/100% auto no-repeat;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

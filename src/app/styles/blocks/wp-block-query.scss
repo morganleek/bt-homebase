@@ -36,6 +36,15 @@
 			list-style: none;
 			padding-left: 0;
 			.wp-block-post {
+				&.type-post {
+					h3 {
+						font-size: var(--wp--custom--typography--font-size--heading-3);
+						margin-top: 5px !important;
+					}
+					.wp-block-read-more {
+						display: none;
+					}
+				}
 				&:not(:has(figure)) {
 					& > .wp-block-group {
 						&::before {
@@ -50,8 +59,7 @@
 					}
 				}
 				h3, h4 {
-					font-size: 1.25rem;
-					
+					font-size: var(--wp--custom--typography--font-size--heading-4);
 					white-space: nowrap;
 					text-overflow: ellipsis;
 					max-width: 100%;
@@ -60,6 +68,9 @@
 					a {
 						@include mixins.arrow-after;
 					}
+				}
+				.wp-block-post-excerpt__excerpt {
+					line-height: 1.35em;
 				}
 				.wp-block-post-featured-image {
 					aspect-ratio: 5 / 3 !important;
@@ -90,6 +101,44 @@
 				padding: 8px;
 				background: #fff;
 				border-radius: 16px;
+				&.type-post {
+					& > .wp-block-group {
+						max-width: 100%;
+						overflow: hidden;
+						& > .wp-block-group {
+							margin-top: 0 !important;
+							padding-left: 0 !important;
+							padding-right: 0 !important;
+							width: 100%;
+							max-width: 100%;
+							margin-left: 0;
+							margin-right: 0;
+						}
+						.wp-block-post-author, 
+						.wp-block-post-date,
+						.wp-block-post-excerpt {
+							display: block;
+							margin: 0;
+						}
+						.wp-block-post-date {
+							line-height: 1.3em;
+						}
+						.wp-block-post-excerpt__excerpt {
+							white-space: nowrap;
+							max-width: 100%;
+							text-overflow: ellipsis;
+							overflow: hidden;
+							font-size: 0.875rem;
+						}
+						.wp-block-read-more {
+							color: var(--wp--preset--color--brand-charcoal);
+							font-size: 1rem;
+							margin-left: 0 !important;
+							margin-right: 0 !important;
+							@include mixins.arrow-after;
+						}
+					}
+				}
 				& + .wp-block-post {
 					margin-top: 16px;
 				}
@@ -98,7 +147,7 @@
 				}
 				& > .wp-block-group {
 					display: grid;
-					grid-template-columns: 152px 1fr auto;
+					grid-template-columns: 152px minmax(0, 1fr) minmax(0, 15%);
 					column-gap: 32px;
 					align-items: center;
 					justify-content: start;
@@ -121,6 +170,7 @@
 					}
 					.wp-block-post-featured-image {
 						aspect-ratio: auto !important;
+						width: 100%;
 						max-height: 100%;
 						img {
 							// width: 152px !important;

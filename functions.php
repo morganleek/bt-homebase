@@ -15,6 +15,8 @@ require get_template_directory() . '/inc/photos.php';
 require get_template_directory() . '/inc/acf.php';
 // P2P Connections 
 require get_template_directory() . '/inc/p2p.php';
+// Search
+require get_template_directory() . '/inc/search.php';
 
 // Do stuff through this plugin
 class BoneThemeInit

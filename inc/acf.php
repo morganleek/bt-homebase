@@ -123,6 +123,17 @@
 					'icon'            => 'admin-users',
 					'keywords'        => [],
 				] );
+
+				// Meet the Designer
+				acf_register_block_type( [ 
+					'name'            => 'meet-the-designer',
+					'title'           => __( 'Meet the Designer' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/meet-the-designer.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-users',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}

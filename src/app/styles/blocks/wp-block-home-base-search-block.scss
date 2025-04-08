@@ -1,10 +1,13 @@
 .wp-block-home-base-search-block {
+	position: relative;
 	.search-inner {
 		background: #fff;
 		border-radius: 12px;
 		padding: 4px;
 		display: grid;
 		grid-template-columns: 75px 1fr 40px;
+		position: relative;
+		z-index: 2;
 		select {
 			appearance: none;
 			width: 100%;
@@ -19,7 +22,7 @@
 		}
 		.select-wrapper {
 			position: relative;
-			pointer-events: none;
+			// pointer-events: none;
 			&::after {
 				content: '';
 				position: absolute;
@@ -43,5 +46,43 @@
 			align-items: center;
 			justify-content: center;
 		}
+	}	
+	.search-results {
+		position: absolute;
+    background: #DBD6D1;
+    width: 100%;
+    height: min(300px, 80vh);
+    overflow: scroll;
+    padding: 32px 32px 12px;
+    z-index: 1;
+    top: calc(100% - 12px);
+		border-radius: 0 0 12px 12px;
+		ul {
+			list-style: none;
+			gap: 10px;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			padding-left: 0;
+			li {
+				color: var(--wp--preset--color--brand-charcoal);
+			}
+		}
+		h5 {
+			color: var(--wp--preset--color--brand-charcoal);
+			margin: 0;
+			color: #000;
+		}
 	}
+}
+
+.wp-block-cover:has(.wp-block-home-base-search-block) {
+	position: relative;
+	overflow: visible;
+	.wp-block-cover__background {
+		z-index: 0;
+	}
+}
+.wp-block-cover .wp-block-cover__inner-container:has(.wp-block-home-base-search-block) {
+	z-index: 2;
 }
