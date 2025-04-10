@@ -18,12 +18,35 @@
 	border: none;
 	font-family: var(--wp--preset--font-family--gotham-narrow);
 	font-size: 1rem;
-	font-weight: 700;
+	font-weight: 500;
 	&::placeholder {
 		color: #DBD6D1;
 	}
 	&:focus-visible {
 		outline: 1px auto #fff;
+	}
+}
+
+@mixin text-input-underline {
+	color: var(--wp--preset--color--brand-charcoal);
+	background-color: #fff;
+	border-color: var(--wp--preset--color--brand-yellow);
+	border-width: 0 0 1px 0;
+	border-style: solid;
+	border-radius: 0;
+	width: 100%;
+	max-width: 100%;
+	font-family: var(--wp--preset--font-family--gotham-narrow);
+	font-size: 1rem;
+	padding: 10px 4px;
+	box-sizing: border-box;
+	outline: none;
+	font-weight: 500;
+	&::placeholder {
+		color: #A19A94;
+	}
+	&:focus-visible {
+		outline: 0 none;
 	}
 }
 
@@ -36,7 +59,8 @@
 	border: 0 none;
 	font-family: var(--wp--preset--font-family--gotham-narrow);
 	font-size: 1rem;
-	font-weight: 700;
+	font-weight: 500;
+	display: inline-block;
 }
 
 @mixin arrow-after {

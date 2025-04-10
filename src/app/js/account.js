@@ -89,17 +89,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	// collections
 	document.querySelector( "#collections, #displays" )?.addEventListener( "click", ( e ) => {
 		e.preventDefault();
+		
+		let target = e.target;
+		// Images may hijack click event
+		if( target.nodeName === 'IMG' ) {
+			target = target.closest( 'a' );
+		}
 
 		// add first collection		
 		// add collection
-		if( e.target.id === "add_new_collection" || e.target.id === "add_first_collection" ) {
+		if( target.id === "add_new_collection" || target.id === "add_first_collection" ) {
 			document.body.classList.add( "collection_action", "collection_action_new" );
 		}
 
 		// show collection
-		if( e.target.classList.contains( 'collection_link' ) ) {
-			const href = e.target.href;
-			const id = e.target.attributes.href.value;
+		if( target.classList.contains( 'collection_link' ) ) {
+			const href = target.href;
+			const id = target.attributes.href.value;
 			history.pushState( {}, '', href );
 
 			document.querySelector( '#collection_names' ).classList.add( 'hidden' );
@@ -108,7 +114,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 		
 		// close collection 
-		if( e.target.classList.contains( 'close_collection' ) ) {
+		if( target.classList.contains( 'close_collection' ) ) {
 			document.querySelector( "#collection_names" ).classList.remove( 'hidden' );
 			document.querySelectorAll( '.collection' ).forEach( col => col.classList.remove( 'active' ) );
 
@@ -116,23 +122,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		// edit collection
-		if( e.target.classList.contains( 'edit_collection' ) ) {
-			document.querySelector('#edit_collection_name').value = e.target.dataset.collectionName;
-			document.querySelector('#edit_collection_id').value = e.target.dataset.collection;
+		if( target.classList.contains( 'edit_collection' ) ) {
+			document.querySelector('#edit_collection_name').value = target.dataset.collectionName;
+			document.querySelector('#edit_collection_id').value = target.dataset.collection;
 			document.body.classList.add( "collection_action", "collection_action_edit" );
 		}
 		
 		// delete collection
-		if( e.target.classList.contains( 'delete_collection' ) ) {
-			document.querySelector( "#delete_collection_id" ).value = e.target.dataset.collection;;
+		if( target.classList.contains( 'delete_collection' ) ) {
+			document.querySelector( "#delete_collection_id" ).value = target.dataset.collection;;
 			document.body.classList.add( "collection_action", "collection_action_delete" );
 		}
 
 		// show notes
-		if( e.target.classList.contains( 'edit_notes' ) ) {
+		if( target.classList.contains( 'edit_notes' ) ) {
 			const data = {
 				action: 'homebase_fetch_notes',
-				post_ID: e.target.dataset.postId
+				post_ID: target.dataset.postId
 			};
 
 			document.body.classList.add( 'collection_action_loading' );
@@ -153,27 +159,27 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		// open gallery 
-		if( e.target.classList.contains( 'collection-image-link' ) ) {
+		if( target.classList.contains( 'collection-image-link' ) ) {
 			console.log( 'collection-image-link' );
-			var galleryId = e.target.dataset.gallery;
+			var galleryId = target.dataset.gallery;
 			document.body.classList.add( 'showing_gallery' );
 			document.querySelector( "#gallery_" + galleryId ).classList.add( 'active' );
 			collection.resize();
 		}
 
 		// close gallery
-		if( e.target.classList.contains( 'close_full_gallery' ) ) {
+		if( target.classList.contains( 'close_full_gallery' ) ) {
 			document.body.classList.remove( 'showing_gallery' );
-			e.target.closest( '.full_gallery' ).classList.remove( 'active' );
-			const collectionHash = e.target.closest( '.full_gallery' ).dataset.collection;
+			target.closest( '.full_gallery' ).classList.remove( 'active' );
+			const collectionHash = target.closest( '.full_gallery' ).dataset.collection;
 			history.pushState( {}, "", '#collection_' + collectionHash);
 		}
 
 		// edit image
-		if( e.target.classList.contains( 'edit_image' ) ) {
-			const image = e.target.dataset.image;
-			const image_thumb_url = e.target.dataset.imageThumbUrl;			
-			const original_collection = e.target.dataset.collection;
+		if( target.classList.contains( 'edit_image' ) ) {
+			const image = target.dataset.image;
+			const image_thumb_url = target.dataset.imageThumbUrl;			
+			const original_collection = target.dataset.collection;
 			document.querySelector('#edit_image_id').value = image;
 			document.querySelector('#original_collection_id').value = original_collection;
 			document.querySelector('#edit_image_form .collection_image_preview').style.backgroundImage = 'url(' + image_thumb_url + ')';

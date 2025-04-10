@@ -306,7 +306,7 @@ function homebase_collection_dialog() {
 		// Save Image
 		echo '<form id="new_image_form">';
 		echo '<div class="image_form_header"><div class="collection_image_preview"></div>';
-		echo '<h2>Save Image</h2>';
+		echo '<h3>Save Image</h3>';
 		echo '<p>Use an existing Collection or create a new Collection for this image:</p>';
 		echo '</div>';
 		echo '<ul class="save_collections">';
@@ -334,26 +334,26 @@ function homebase_collection_dialog() {
 
 		// Edit Image
 		echo '<form id="edit_image_form">';
-		echo '<div class="image_form_header"><div class="collection_image_preview"></div><h2>Edit Image</h2><p>Move or copy this image to another collection</p></div>';
+		echo '<div class="image_form_header"><div class="collection_image_preview"></div><h3>Edit Image</h3><p>Move or copy this image to another collection</p></div>';
 		echo '<ul class="edit_image_actions"><li><input type="radio" id="image_move" name="edit_image_action" value="move" checked/><label for="image_move"><span>Move</span></label></li><li><input type="radio" id="image_copy" name="edit_image_action" value="copy"/><label for="image_copy"><span>Copy</span></label></li></ul>';
 		echo '<p>Choose a Collection to copy/move this image to:</p>';
 		echo '<div class="edit_image_collections" id="edit_image_collections"></div>';
 		echo '<input type="hidden" id="edit_image_id" value="" />';
 		echo '<input type="hidden" id="original_collection_id" value="" />';
-		echo '<button id="edit_image_submit" class="saved_view_account">Save</button>';
 		echo '<a id="delete_image_submit" href="#">Remove image from collection</a>';
+		echo '<button id="edit_image_submit" class="saved_view_account">Save</button>';
 		echo '</form>';
 
 		// New Collection
 		echo '<form id="new_collection_form">';
-		echo '<h2>New Collection</h2>';
+		echo '<h3>New Collection</h3>';
 		echo '<input type="text" id="new_collection_name" name="new_collection_name" placeholder="New Collection name" autocomplete="off" maxlength="30"/>';
 		echo '<button id="new_collection_submit" class="saved_view_account">Save</button>';
 		echo '</form>';
 
 		// Edit Collection
 		echo '<form id="edit_collection_form">';
-		echo '<h2>Edit Collection Name</h2>';
+		echo '<h3>Edit Collection Name</h3>';
 		echo '<input type="text" id="edit_collection_name" name="edit_collection_name" placeholder="New Collection name" autocomplete="off" maxlength="30"/>';
 		echo '<input type="hidden" id="edit_collection_id" value="" />';
 		echo '<button id="edit_collection_submit" class="saved_view_account">Save</button>';
@@ -361,7 +361,7 @@ function homebase_collection_dialog() {
 
 		// Delete Collection
 		echo '<form id="delete_collection_form">';
-		echo '<h2>Delete Collection</h2><p>Are you sure you want to delete this Collection? This cannot be undone and will also delete any notes you have saved for this Collection.</p>';
+		echo '<h3>Delete Collection</h3><p>Are you sure you want to delete this Collection? This cannot be undone and will also delete any notes you have saved for this Collection.</p>';
 		echo '<input type="hidden" id="delete_collection_id" value="" />';
 		echo '<button id="delete_collection_submit">Yes, delete this Collection</button>';
 		echo '</form>';
@@ -369,7 +369,7 @@ function homebase_collection_dialog() {
 		// Notes
 		echo '<form id="edit_notes_form">';
 		echo '<a id="edit_notes_email_button" href="" title="Share your notes via email"></a>';
-		echo '<h2>My Notes</h2>';
+		echo '<h3>My Notes</h3>';
 		echo '<textarea id="saved_notes" placeholder="" autocomplete="off" /></textarea>';
 		echo '<input type="hidden" id="saved_notes_id" value="" />';
 		echo '<button id="notes_submit" class="saved_view_account">Save Notes</button>';
@@ -377,13 +377,13 @@ function homebase_collection_dialog() {
 
 		// Manage Image
 		echo '<form id="manage_image_form">';
-		echo '<h2>Image Saved</h2><p>This image is saved in your account. Visit your account page to move, copy or delete this image between/from your collections.</p>';
+		echo '<h3>Image Saved</h3><p>This image is saved in your account. Visit your account page to move, copy or delete this image between/from your collections.</p>';
 		echo '<a id="update_image_submit" class="saved_view_account" href="/my-account/">Visit My Account</a>';
 		echo '</form>';
 
 		// HELP
 		echo '<div id="my_account_help">';
-		echo '<h2>Welcome to My Account!</h2>';
+		echo '<h3>Welcome to My Account!</h3>';
 		echo '<p>Please see below for a guide to the My Account features, which can be used as you navigate the Home Base website and are logged in.</p>
 		<p>To help you get started, we have added some pre-made Collections to your My Account – however, you can add more, edit Collection names or delete Collections by selecting the Collection.</p>
 		<div class="heart"><p>Whilst browsing the Home Base website, save images to your My Account Collections with the heart icon.</p></div>
@@ -566,13 +566,19 @@ function homebase_load_collections() {
 						$title = get_field( "gallery_title", $image );
 						$description = get_field( "gallery_description", $image );
 						$photo_thumb = wp_get_attachment_image_src( $photo, "thumbnail" );
+						$photo_large = wp_get_attachment_image( $photo, "large" );
 						$photo_full = wp_get_attachment_image_src( $photo, "full" );
 
 						if ( $i == 1 ) {
 							$bg_img = $photo_thumb[0];
 						}
 
-						$html .= "<li class=\"collection_image\" id=\"collection_{$collection->ID}_photo_$image\"><a href=\"#collection_{$collection->ID}_photo_$image\" data-gallery=\"{$collection->ID}\" class=\"collection-image-link\"><img src=\"$photo_thumb[0]\"/></a><span class=\"edit_image\" data-image=\"$image\" data-image-thumb-url=\"$photo_thumb[0]\" data-collection=\"{$collection->ID}\"></span></li>";
+						$html .= "<li class=\"collection_image\" id=\"collection_{$collection->ID}_photo_$image\">
+							<a href=\"#collection_{$collection->ID}_photo_$image\" data-gallery=\"{$collection->ID}\" class=\"collection-image-link\">
+								$photo_large
+							</a>
+							<span class=\"edit_image\" data-image=\"$image\" data-image-thumb-url=\"$photo_thumb[0]\" data-collection=\"{$collection->ID}\"></span>
+						</li>";
 
 						$gallery .= "<div class=\"slide\" id=\"collection_{$collection->ID}_photo_$image\">";
 						$gallery .= "<div class=\"slide_image\"><img src=\"$photo_full[0]\"/></div>";
@@ -585,7 +591,21 @@ function homebase_load_collections() {
 
 				}
 
-				$index .= "<li><a class=\"collection_link\" href=\"#collection_{$collection->ID}\" style=\"background-image:url($bg_img)\"><span>{$collection->post_title}</span></a></li>";
+				// <a class=\"collection_link\" href=\"#collection_{$collection->ID}\" style=\"background-image:url($bg_img)\">
+				// 		<span>{$collection->post_title}</span>
+				// 	</a>
+
+				$index .= "<li>
+					<figure class=\"wp-block-post-featured-image\">
+						<a class=\"collection_link\" href=\"#collection_{$collection->ID}\">
+							$photo_large
+						</a>
+					</figure>
+					
+					<h3>
+						<a class=\"collection_link\" href=\"#collection_{$collection->ID}\">{$collection->post_title}</a>
+					</h3>
+				</li>";
 
 				$bg_img = '';
 
@@ -599,7 +619,12 @@ function homebase_load_collections() {
 				$html .= $gallery;
 			}
 
-			$index .= '<li><a href="#" id="add_new_collection"></a></li></ul>';
+			$index .= '</ul>';
+			$index .= "<div class=\"wp-block-buttons is-content-justification-center is-layout-flex wp-block-buttons-is-layout-flex\">
+				<div class=\"wp-block-button has-icon__external-arrow\">
+					<a class=\"wp-block-button__link wp-element-button\" href=\"#\" id=\"add_new_collection\">Add Collection<span class=\"wp-block-button__link-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 10 12\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8.16868 4.09641L1.30121 11.0121L0 9.71087L6.91566 2.8193H2V0.987976H10V9.01207H8.16868V4.09641Z\"></path></svg></span></a>
+				</div>
+			</div>";
 			$html .= '</div>';
 
 		} else {

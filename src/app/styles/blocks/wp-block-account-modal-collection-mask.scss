@@ -1,3 +1,5 @@
+@use '../core/mixins';
+
 .wp-block-account-modal-collection-mask {
 	position: fixed;
 	top: 0;
@@ -25,58 +27,59 @@
 }
 
 .account_modal_content {
-	background: #FFF;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
-}
-
-.account_modal_collection form {
-	position: relative;
-	padding: 20px;
-	display: none;
-}
-
-.account_modal_collection h2 {
-	position: relative;
-	font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Arial", sans-serif;
-	font-weight: 200;
-	font-size: 32px;
-	line-height: 115%;
-	letter-spacing: -1px;
-	margin: 0 0 6px -2px;
-}
-
-.account_modal_collection h2:first-letter {
-	text-transform: capitalize;
-}
-
-.account_modal_collection form input[type="text"] {
-	border: 1px solid #cbcaca;
-	background: #FFF;
-	font-family: "Gotham Narrow A", "Gotham Narrow B", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-	font-weight: 400;
-	font-size: 17px;
-	color: #514d4a;
-	width: 100%;
-	padding: 8px;
-	box-sizing: border-box;
-	margin-bottom: 12px;
-	outline: none;
-}
-
-.account_modal_collection form textarea {
-	border: 1px solid #574E47;
-	background: #FFF;
-	font-family: "Gotham Narrow A", "Gotham Narrow B", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-	font-weight: 400;
-	font-size: 17px;
-	color: #514d4a;
-	width: 100%;
-	padding: 8px;
-	box-sizing: border-box;
-	margin-bottom: 12px;
-	outline: none;
-	resize: none;
-	height: 200px;
+	// box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+	background: #fff;
+	border-radius: 24px;
+	padding: var(--wp--preset--spacing--30);
+	overflow: hidden;
+	form {
+		position: relative;
+		display: none;
+		padding: 0;
+		& > * {
+			margin: 0;
+			&:not(:first-child) {
+				margin-top: 20px;
+			}
+		}
+		h2, h3 {
+			margin: 0;
+			&:first-letter {
+				text-transform: capitalize;
+			}
+		}
+		input[type="text"] {
+			@include mixins.text-input-underline;
+			// border: 0 solid var(--wp--preset--color--brand-yellow);
+			// border-bottom-width: 1px;
+			// height: 36px;
+			// border-radius: 0;
+			// padding-left: 8px;
+			// padding-right: 8px;
+			// font-weight: normal;
+		}
+		textarea {
+			border: 1px solid var(--wp--preset--color--brand-yellow);
+			// border-bottom-width: 1px;
+			// height: 36px;
+			// border-radius: 0;
+			padding: 8px;
+			font-weight: normal;
+			// border: 1px solid #574E47;
+			// background: #FFF;
+			// font-family: "Gotham Narrow A", "Gotham Narrow B", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+			// font-weight: 400;
+			// font-size: 17px;
+			// color: #514d4a;
+			// width: 100%;
+			// padding: 8px;
+			// box-sizing: border-box;
+			// margin-bottom: 12px;
+			outline: none;
+			resize: none;
+			height: 200px;
+		}		
+	}
 }
 
 #new_image_collection_name {
@@ -115,6 +118,7 @@
 			background-color: #fbac30;
 			color: #FFF;
 			opacity: 0.5;
+			border-radius: 12px;
 		}
 		label:hover,
 		input[type="radio"]:checked + label {
@@ -151,6 +155,8 @@
 	height: 80px;
 	background-size: cover;
 	background-position: center center;
+	border-radius: 12px;
+	overflow: hidden;
 }
 
 .account_modal_message {
@@ -159,34 +165,38 @@
 	display: none;
 }
 
-#edit_image_form h3 {
-	font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Arial", sans-serif;
-	font-weight: 300;
-	font-size: 18px;
-}
+// #edit_image_form h3 {
+// 	// font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Arial", sans-serif;
+// 	font-weight: 300;
+// 	font-size: 18px;
+// }
 
 #delete_image_submit {
-	display: block;
-	font-weight: 500;
-	font-size: 17px;
-	padding: 16px;
-	text-align: center;
-	margin-top: 12px;
-}
-
-#delete_image_submit:link,
-#delete_image_submit:visited {
-	color: #666;
-	background-color: #CCC;
-	text-decoration: none;
-}
-
-#delete_image_submit:hover,
-#delete_image_submit:active {
+	@include mixins.button;
+	// display: block;
+	// font-weight: 500;
+	// font-size: 17px;
+	// padding: 16px;
+	// text-align: center;
+	// margin-top: 12px;
 	color: #eb2328;
 	background-color: #f9a7a9;
-	text-decoration: none;
+	&:hover,
+	&:active {
+	}
 }
+
+// #delete_image_submit:link,
+// #delete_image_submit:visited {
+// 	color: #666;
+// 	background-color: #CCC;
+// 	text-decoration: none;
+// }
+
+// #delete_image_submit:hover,
+// #delete_image_submit:active {
+	
+// }
 
 #delete_collection_submit {
 	color: #eb2328 !important;
@@ -200,7 +210,7 @@
 .account_modal_close {
 	position: absolute;
 	top: 0;
-	right: 0;
+	right: -30px;
 	display: block;
 	width: 30px;
 	height: 30px;
@@ -228,6 +238,8 @@
 #edit_notes_email_button:hover {
 	background-position: 100% 100%;
 }
+
+
 
 
 /* The form hide.show classes */

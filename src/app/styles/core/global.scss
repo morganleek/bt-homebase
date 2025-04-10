@@ -80,8 +80,14 @@ button {
 			&.display-number::before {
 				background: url(./images/hex.svg) 50% 50%/20px 22px no-repeat;
 			}
-			&.display-grid-ref::before {
-				background: url(./images/pin.svg) 50% 50%/18px 23px no-repeat;
+			&.display-grid-ref {
+				cursor: pointer;
+				span {
+					text-decoration: underline;
+				}
+				&::before {
+					background: url(./images/pin.svg) 50% 50%/18px 23px no-repeat;
+				}
 			}
 		}
 	}

@@ -267,7 +267,7 @@
 			},
 			"button": {
 				"border": {
-					"radius": "0.5rem",
+					"radius": "8px",
 					"color": "#ffffff",
 					"width": "1px"
 				},
@@ -281,6 +281,9 @@
 				},
 				"color": {
 					"background": "#000000"
+				},
+				"typography": {
+					"fontWeight": "500"
 				}
 			}
 		}
