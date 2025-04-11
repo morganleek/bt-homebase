@@ -1,11 +1,16 @@
-// .wp-block-navigation__responsive-container-content {
-// 	.wp-block-navigation__container {
-// 	}
-// }
-
 .wp-block-navigation {
 	.wp-block-navigation__responsive-container-open {
-		height: 24px;
+		width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    transition: background-color 0.2s;
+		@media( hover: hover ) {
+			&:hover {
+				background-color: #DBD6D1;
+			}
+		}
 	}
 	.wp-block-navigation__responsive-container-content {
 		.wp-block-navigation__container {

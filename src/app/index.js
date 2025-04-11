@@ -63,6 +63,12 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			e.target.classList.add( 'has-loaded' );
 		} );
 	} );
+
+	// Show Search
+	document.querySelector( ".wp-block-button.header-search-trigger" )?.addEventListener( "click", ( e ) => {
+		e.preventDefault();
+		document.body.classList.toggle( "show-home-base-search" );
+	} );
 } );
 
 // .is-layout-flow

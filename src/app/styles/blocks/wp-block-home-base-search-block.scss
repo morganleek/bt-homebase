@@ -1,3 +1,38 @@
+.wp-block-home-base-search-modal:not(.block-editor-block-list__block) {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 9999;
+	display: none;
+	body.show-home-base-search & {
+		display: block;
+	}
+	body.admin-bar & {
+		top: 48px;
+		@media (min-width: 783px) {
+			top: 32px;
+		}
+	}
+	&::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 80px;
+		background-color: #fff;
+	}
+	.search-outer {
+		padding-top: 80px;
+	}
+}
+
+.wp-block-home-base-search-modal {
+	background: #DBD6D1;
+}
+
 .wp-block-home-base-search-block {
 	position: relative;
 	.search-inner {

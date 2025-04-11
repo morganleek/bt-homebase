@@ -243,7 +243,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	} );
 
 	// email notes
-	document.querySelector( '#edit_notes_email_button' ).addEventListener( 'click', ( e ) => {
+	document.querySelector( '#edit_notes_email_button' )?.addEventListener( 'click', ( e ) => {
 		e.preventDefault();
 		const emailbody = document.querySelector( '#saved_notes' ).value;
 		window.location = 'mailto:?subject=Note from Home Base My Account&body=' + emailbody;
@@ -264,7 +264,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	} );
 
 	// edit collections
-	document.querySelector( "#edit_image_collections" ).addEventListener( "change", ( e ) => {
+	document.querySelector( "#edit_image_collections" )?.addEventListener( "change", ( e ) => {
 		// save image item - toggle new collection name
 		if( e.target.name === "destination_collection_id" ) {
 			document.querySelector( "#new_destination_collection_name" ).value = "";
