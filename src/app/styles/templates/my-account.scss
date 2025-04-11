@@ -3,75 +3,27 @@
 .save_collections {
 	list-style: none;
 	padding-left: 0;
-}
-
-.save_collections li {
-	position: relative;
-	display: inline-block;
-	vertical-align: top;
-	width: 25%;
-	margin: 0 0 8px;
-	padding: 0 4px;
-	box-sizing: border-box;
-}
-
-.save_collections li:after {
-	content: "";
-	display: block;
-	padding-bottom: 100%;
-}
-
-.save_collections li input {
-	display: none;
-}
-
-.save_collections li label {
-	display: block;
-	position: absolute;
-	top: 0;
-	left: 4px;
-	bottom: 0;
-	right: 4px;
-	background-color: #3D3834;
-	cursor: pointer;
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
-.save_collections li label:after {
-	display: block;
-	content: "";
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background-color: rgba(61, 56, 52, .7);
-	z-index: 1;
-	transition: background-color .3s;
-}
-
-.save_collections li label:hover:after {
-	background-color: rgba(251, 172, 48, .9);
-}
-
-.save_collections input[type="radio"]:checked+label:after {
-	background-color: rgba(251, 172, 48, .9);
-}
-
-.save_collections li label span {
-	display: block;
-	position: absolute;
-	top: 50%;
-	left: 15px;
-	right: 15px;
-	text-align: center;
-	color: #FFF;
-	line-height: 115%;
-	
-	transform: translateY(-50%);
-	z-index: 2;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+	li {
+		label {
+			border: 1px solid var(--wp--preset--color--brand-charcoal);
+			color: var(--wp--preset--color--brand-charcoal);
+			border-radius: 8px;
+			display: block;
+			padding: 9px 16px 9px 16px;
+			line-height: 1.25em;
+		}
+		input[type="radio"] {
+			display: none;
+			&:checked + label {
+				background-color: var(--wp--preset--color--brand-yellow);
+				border-color: var(--wp--preset--color--brand-yellow);
+				color: #fff;
+			}
+		}
+	}
 }
 
 #collections {
@@ -159,6 +111,11 @@
 		position: relative;
 		.wp-block-post-featured-image {
 			display: block;
+			&:not(:has(img)) {
+				aspect-ratio: 5/3;
+				background: var(--wp--preset--color--brand-oliver);
+				border-radius: 12px;
+			}
 			img {
 				width: 100%;
 				aspect-ratio: 5/3;
@@ -364,76 +321,50 @@
 	height: 100vh;
 }
 
-.full_gallery .slide_image {
-	position: absolute;
-	top: 30px;
-	left: 90px;
-	right: 90px;
-	bottom: 170px;
-}
-
-.full_gallery .slide_image img {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	max-height: 100%;
-	max-width: 100%;
-	width: auto;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
-}
-
-.full_gallery .slide_text {
-	position: absolute;
-	bottom: 0;
-	left: 90px;
-	right: 90px;
-	height: 150px;
-	text-align: center;
-	color: #FFF;
-}
-
-
-.full_gallery .slide_text p {
-	color: #FFF;
-	
-	
-	margin: 0 0 10px 0;
-}
-
-.full_gallery .slide_buttons {
-	text-align: center;
+.full_gallery {
+	.slide_image {
+		position: absolute;
+		top: 50px;
+		left: 50px;
+		right: 50px;
+		bottom: 50px;
+		img {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			max-height: 100%;
+			max-width: 100%;
+			width: auto;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, .5);
+		}
+	}
+	.slide_text {
+		position: absolute;
+		bottom: 0;
+		left: 90px;
+		right: 90px;
+		height: 150px;
+		text-align: center;
+		color: #FFF;
+		p {
+			color: #FFF;
+			margin: 0 0 10px 0;
+		}
+	}
+	.slide_buttons {
+		text-align: center;
+	}
 }
 
 .close_full_gallery {
 	position: absolute;
+	z-index: 8000;
 	top: 25px;
 	right: 25px;
-	width: 38px;
-	height: 38px;
-	// background-image: url('img/nav.png');
-	// background-color: #f0ba30;
-	// background-repeat: no-repeat;
-	// background-size: 456px 38px;
-	// background-position: 27.27272727272727% 0;
-	z-index: 8000;
-	cursor: pointer;
-	&::before, &::after {
-		content: "";
-		width: 100%;
-		height: 1px;
-		background: #fff;
-		position: absolute;
-		top: 50%;
-		left: 0;
-		transform: rotate(45deg);
-		pointer-events: none;
-	}
-	&::after {
-		transform: rotate(135deg);
-	}
+	@include mixins.close-icon;
 }
 
 .thumb_gallery {
@@ -499,9 +430,9 @@
 		width: 50%;
 	}
 
-	.save_collections li {
-		width: 50%;
-	}
+	// .save_collections li {
+	// 	width: 50%;
+	// }
 }
 
 

@@ -94,15 +94,15 @@ button {
 }
 
 .post-social-links,
-.display-social-links {
+.display-social-links,
+.display-save {
 	display: flex;
 	column-gap: 32px;
 
-	& > button,
-	& > a {
+	& > button {
 		width: 24px;
 		height: 24px;
-		background: black;
+		background: transparent;
 		border-radius: 0;
 		padding: 0;
 		cursor: pointer;
@@ -114,29 +114,6 @@ button {
 			}
 		}
 		
-		&.heart {
-			background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
-			&.is-active {
-				&::after {
-					opacity: 1;
-				}
-			}
-			&::after {
-				content: '';
-				opacity: 0;
-				transition: opacity 0.2s;
-				width: 24px;
-				height: 24px;
-				position: absolute;
-				top: 0;
-				left: 0;
-				z-index: 1;
-				background: url(./images/heart-filled.svg) 50% 50%/22px 20px no-repeat;
-			}
-		}
-		&.display-brochure {
-			background: url(./images/mobile.svg) 50% 50%/19px 22px no-repeat;
-		}
 		&.facebook {
 			background: url(./images/facebook.svg) 50% 50%/20px 20px no-repeat;
 		}
@@ -149,15 +126,53 @@ button {
 		&.display-lead-phone_number {
 			background: url(./images/phone.svg) 50% 50%/22px 22px no-repeat;
 		}
-		&.logged-out { 
-			opacity: 0.25;
+		&.my-account {
+			width: auto;
+			background-color: transparent;
+			color: #000;
+			a {
+				display: flex;
+				gap: 8px;
+				align-items: center;
+				&::before {
+					content: "";
+					width: 24px;
+					height: 24px;
+					background: url(./images/my-account.svg) 50% 50%/100% auto no-repeat;
+					display: block;
+				}
+				// &::after {
+				// 	content: "";
+				// 	width: 10px;
+				// 	height: 10px;
+				// 	background: #000;
+				// 	display: block;
+				// }
+			}
+			&:not(.logged-in) {
+				a {
+					@include mixins.arrow-after;
+					&::after {
+						margin-left: 0;
+						background-color: #000;
+					}
+				}
+			}
 		}
-		a {
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
+	}
+}
+
+.display-save {
+	background: var(--wp--preset--color--brand-yellow);
+	padding: 4px 8px;
+	border-radius: 8px;
+	column-gap: 16px;
+	button, a {
+		&.heart {
+			@include mixins.heart-button( #fff, #FFD300 );
+		}
+		&.display-brochure {
+			@include mixins.display-brochure( #fff, #FFD300 );
 		}
 	}
 }
@@ -252,6 +267,7 @@ button {
 
 .toastify {
 	text-align: center;
+	border-radius: 12px;
 	* {
 		margin-top: 0.2em;
 		margin-bottom: 0.2em;

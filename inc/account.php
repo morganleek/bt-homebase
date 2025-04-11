@@ -340,8 +340,8 @@ function homebase_collection_dialog() {
 		echo '<div class="edit_image_collections" id="edit_image_collections"></div>';
 		echo '<input type="hidden" id="edit_image_id" value="" />';
 		echo '<input type="hidden" id="original_collection_id" value="" />';
-		echo '<a id="delete_image_submit" href="#">Remove image from collection</a>';
 		echo '<button id="edit_image_submit" class="saved_view_account">Save</button>';
+		echo '<a id="delete_image_submit" href="#">Remove image from collection</a>';
 		echo '</form>';
 
 		// New Collection
@@ -368,11 +368,11 @@ function homebase_collection_dialog() {
 
 		// Notes
 		echo '<form id="edit_notes_form">';
-		echo '<a id="edit_notes_email_button" href="" title="Share your notes via email"></a>';
 		echo '<h3>My Notes</h3>';
 		echo '<textarea id="saved_notes" placeholder="" autocomplete="off" /></textarea>';
 		echo '<input type="hidden" id="saved_notes_id" value="" />';
 		echo '<button id="notes_submit" class="saved_view_account">Save Notes</button>';
+		echo '<a id="edit_notes_email_button" href="" title="Share your notes via email"></a>';
 		echo '</form>';
 
 		// Manage Image

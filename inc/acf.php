@@ -38,6 +38,17 @@
 
 				// Display description
 				acf_register_block_type( [ 
+					'name'            => 'display-save',
+					'title'           => __( 'Display Save Buttons' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/display-save.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-comments',
+					'keywords'        => [],
+				] );
+
+				// Display description
+				acf_register_block_type( [ 
 					'name'            => 'display-image-gallery',
 					'title'           => __( 'Display Image Gallery' ),
 					'description'     => __( '' ),

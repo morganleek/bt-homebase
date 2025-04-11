@@ -29,8 +29,8 @@ const closeModals = () => {
 } 
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	if( document.querySelector( '.display-social-links' ) ) {
-		document.querySelectorAll( '.display-social-links .heart, .display-social-links .display-brochure' ).forEach( button => {
+	if( document.querySelector( '.display-save' ) ) {
+		document.querySelectorAll( '.display-save .heart, .display-save .display-brochure' ).forEach( button => {
 			button.addEventListener( 'click', ( e ) => {
 				const isUnsave = e.target.classList.contains( 'unsave' );
 				const data = {

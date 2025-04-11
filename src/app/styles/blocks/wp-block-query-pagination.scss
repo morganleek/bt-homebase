@@ -5,9 +5,38 @@
 	.wp-block-query-pagination-numbers {
 		grid-area: 1 / 2 / 2 / 3;
 		justify-self: center;
+		display: flex;
+		gap: 8px;
 	}
 	.wp-block-query-pagination-next {
 		grid-area: 1 / 3 / 2 / 4;
 		justify-self: end;
+	}
+	.wp-block-query-pagination-previous,
+	.wp-block-query-pagination-next {
+		display: none;
+	}
+	span, a {
+		display: block;
+		padding: 6px 14px;
+		color: var(--wp--preset--color--brand-charcoal);
+		text-align: center;
+		border-radius: 8px;
+		@media (hover: hover) {
+			&:hover {
+				background: var(--wp--preset--color--brand-charcoal);
+				color: #F0EFED;
+				text-decoration: none;
+			}
+		}
+	}
+	span {
+		background: #38332F;
+		color: #F0EFED;
+		
+		&.dots {
+			background-color: transparent;
+			color: var(--wp--preset--color--brand-charcoal);
+		}
 	}
 }
