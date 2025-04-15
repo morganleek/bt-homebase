@@ -1,4 +1,5 @@
 <?php
+
 // Require the composer autoload for getting conflict-free access to enqueue
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -18,6 +19,7 @@ require get_template_directory() . '/inc/p2p.php';
 // Search
 require get_template_directory() . '/inc/search.php';
 
+
 // Do stuff through this plugin
 class BoneThemeInit
 {
@@ -26,6 +28,7 @@ class BoneThemeInit
 
 	public function __construct()
 	{
+		
 		$theme_version = wp_get_theme()->get('Version');
 		$version_string = is_string($theme_version) ? $theme_version : '1.0.0';
 
@@ -47,7 +50,7 @@ class BoneThemeInit
 		// Enqueue a few of our entry points
 		add_action('wp_enqueue_scripts', [$this, 'plugin_enqueue']);
 		add_action('after_setup_theme', [$this, 'bones_theme_support']);
-		// add_action( 'admin_init', [$this, 'bones_theme_editor_styles' ] );
+		add_action( 'admin_init', [$this, 'bones_theme_editor_styles' ] );
 		// add_action( 'wp_head', [ $this, 'bones_theme_preload_webfonts' ] );
 		add_action('wp_head', [$this, 'bones_theme_load_favicons']);
 		add_action('init', [$this, 'bones_name_register_block_styles'], 100);
@@ -63,6 +66,37 @@ class BoneThemeInit
 		if ( ! is_admin() ) {
 			add_action( 'render_block', [$this, 'bones_theme_render_block'], 5, 2 );
 		}
+
+		// Woocommerce Image Sizes
+		add_filter( 'woocommerce_get_image_size_gallery_thumbnail', fn( $size ) => [ 
+			'width'  => 300,
+			'height' => 300,
+			'crop'   => 1,
+		] );
+
+		add_filter( 'woocommerce_get_image_size_thumbnail', fn( $size ) => [ 
+			'width'  => 300,
+			'height' => 300,
+			'crop'   => 1,
+		] );
+
+		add_filter( 'woocommerce_get_image_size_single', fn( $size ) => [ 
+			'width'  => 768,
+			'height' => 768,
+			'crop'   => 0,
+		] );	
+
+		remove_image_size( '1536x1536' );
+		remove_image_size( 'medium_large' );
+		add_image_size( 'medium_large', 768, 768, 0 );
+
+		add_action( 'plugins_loaded', [$this, 'bones_theme_remove_image_sizes'], 10 );
+	}
+
+	public function bones_theme_remove_image_sizes() {
+		remove_image_size( '1536x1536' );
+		remove_image_size( 'medium_large' );
+		
 	}
 
 	public function plugin_enqueue()
@@ -161,25 +195,22 @@ class BoneThemeInit
 
 	public function bones_theme_load_favicons()
 	{
+		// global $_wp_additional_image_sizes;
+		// error_log( print_r( $_wp_additional_image_sizes, true ), 0 );
 		print '<link rel="icon" href="' . get_theme_file_uri('assets/favicon/favicon.svg?v=1.0.0') . '" type="image/svg+xml">';
 	}
 
-	// public function bones_theme_editor_styles() {
-	// 	wp_add_inline_style( 'wp-block-library', $this->bones_theme_get_font_face_styles() );
-	// }
+	public function bones_theme_editor_styles() {
+		wp_add_inline_style( 'wp-admin', $this->bones_theme_get_font_face_styles() );
+	}
 
-	// public function bones_theme_get_font_face_styles() {
-	// 	return "
-	// 	@font-face{
-	// 		font-family: 'Source Serif Pro';
-	// 		font-weight: 200 900;
-	// 		font-style: normal;
-	// 		font-stretch: normal;
-	// 		font-display: swap;
-	// 		src: url('" . get_theme_file_uri( 'assets/fonts/SourceSerif4Variable-Roman.ttf.woff2' ) . "') format('woff2');
-	// 	}
-	// 	";
-	// }
+	public function bones_theme_get_font_face_styles() {
+		return "
+			#adminmenu .wp-menu-image img {
+				padding-top: 0;
+			}
+		";
+	}
 
 	// public function bones_theme_preload_webfonts() {
 	// 	print '<link rel="preload" href="' . esc_url( get_theme_file_uri( 'assets/fonts/SourceSerif4Variable-Roman.ttf.woff2' ) ) . '" as="font" type="font/woff2" crossorigin>';
@@ -263,6 +294,7 @@ add_action( 'breadcrumb_block_single_prepend', function ( $post, $breadcrumbs_in
 	if ( 'display' === $post->post_type ) {
 		$terms = get_the_terms( $post, 'display-category' );
 		if( !empty( $terms ) ) {
+			$breadcrumbs_instance->add_item( "Displays", "/displays" );
 			$breadcrumbs_instance->add_item( $terms[0]->name, get_term_link( $terms[0] ) );
 		}
 	}
@@ -273,3 +305,5 @@ add_action( 'breadcrumb_block_single_prepend', function ( $post, $breadcrumbs_in
 // 	$args['separator'] = '<span>&gt;</span>';
 // 	return $args;
 // } );
+
+

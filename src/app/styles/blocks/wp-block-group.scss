@@ -28,6 +28,11 @@
 					color: var(--wp--preset--color--brand-yellow);
 					transition: all .2s;
 				}
+				@media (max-width: 782px) {
+					svg {
+						display: none;
+					}
+				}
 				@media (hover: hover) {
 					&:hover {
 						svg {

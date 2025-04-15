@@ -1,4 +1,11 @@
 .wp-block-boldblocks-breadcrumb-block {
+	ol {
+		row-gap: 0;
+		@media (max-width: 782px) {
+			margin-top: 8px;
+			margin-bottom: 8px;
+		}
+	}
 	.breadcrumb-item {
 		& > * {
 			line-height: 1.6em;

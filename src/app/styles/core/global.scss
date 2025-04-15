@@ -8,6 +8,7 @@
 
 html {
 	--home-base--radius: 24px;
+	--home-base--spacing--16-32: clamp(1rem, -0.25rem + 4vw, 2rem);
 	
 	box-sizing: border-box;
 
@@ -63,6 +64,8 @@ button {
 		column-gap: 24px;
 		row-gap: 8px;
 		align-items: center;
+		margin: 0;
+		flex-wrap: wrap;
 		li {
 			display: flex;
 			gap: 8px;
@@ -98,7 +101,7 @@ button {
 .display-save {
 	display: flex;
 	column-gap: 32px;
-
+	// margin: 0;
 	& > button {
 		width: 24px;
 		height: 24px;
@@ -125,6 +128,9 @@ button {
 		}
 		&.display-lead-phone_number {
 			background: url(./images/phone.svg) 50% 50%/22px 22px no-repeat;
+		}
+		&.display-lead-url {
+			background: url(./images/globe.svg) 50% 50%/24px 24px no-repeat;
 		}
 		&.my-account {
 			width: auto;
@@ -167,6 +173,7 @@ button {
 	padding: 4px 8px;
 	border-radius: 8px;
 	column-gap: 16px;
+	margin: 0;
 	button, a {
 		&.heart {
 			@include mixins.heart-button( #fff, #FFD300 );
@@ -185,11 +192,17 @@ button {
 		padding-left: 0;
 		list-style: none;
 		display: grid;
-		grid-template-columns: repeat(5, 1fr);
-		gap: 32px;
+		// grid-template-columns: repeat(5, 1fr);
+		grid-template-columns: repeat(auto-fill, minmax(min(10rem, calc(50% - (var(--home-base--spacing--16-32) / 2))), 1fr));
+		gap: var(--home-base--spacing--16-32);
+		@media (max-width: 781px) {
+			margin-left: -8px !important;
+			margin-right: -8px !important;
+			width: auto;
+		}
 		li {
-			width: 160px;
-			height: 160px;
+			width: 100%;
+			height: 100%;
 			position: relative;
 			.overlay {
 				position: absolute;
@@ -201,10 +214,14 @@ button {
 				text-overflow: ellipsis;
 				overflow: hidden;
 				border-radius: 12px;
-				padding: 8px;
+				padding: 16px;
 				z-index: 10;
 				opacity: 0;
 				transition: opacity 0.2s;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				text-align: center;
 				* { 
 					color: #fff;
 					margin: 0.5em 0;
@@ -228,15 +245,17 @@ button {
 				border-radius: 12px;
 				display: block;
 			}
-			button {
+			.saveimage {
+				@include mixins.heart-button( #000, #FFD300 );
 				position: absolute;
-				bottom: 16px;
+				bottom: 14px;
 				right: 16px;
-				width: 24px;
-				height: 24px;
-				background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
-				padding: 0;
 				z-index: 20;
+				// width: 24px;
+				// height: 24px;
+				// background: url(./images/heart.svg) 50% 50%/22px 20px no-repeat;
+				// padding: 0;
+				// z-index: 20;
 			}
 		}
 	}

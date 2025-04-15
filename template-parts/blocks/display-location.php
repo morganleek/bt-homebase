@@ -14,7 +14,9 @@
 			print "<li class=\"display-number\">$display_number</li>";
 		}
 		if($display_grid_ref) {
-			print "<li class=\"display-grid-ref\">$display_grid_ref <span>View Map</span></li>";
+			
+			$map_pdf = get_field( 'map_pdf', 'option' );
+			print "<li class=\"display-grid-ref\">$display_grid_ref <a href=\"{$map_pdf['url']}\" target=\"_blank\"><span>View Map</span></a></li>";
 		}
 		print "</ul>";
 	print "</div>";

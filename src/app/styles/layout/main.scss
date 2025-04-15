@@ -19,4 +19,10 @@ main {
 	figure {
 		max-width: 100%;
 	}
+	@media (max-width: 781px) {
+		&.has-background {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+		}
+	}
 }
