@@ -57,8 +57,10 @@
 	}
 	&:has(> .is-style-overlap) {
 		@media (max-width: 781px) { 
-			padding-left: 0;
-			padding-right: 0;
+			&:not(.keep-mobile-padding) {
+				padding-left: 0;
+				padding-right: 0;
+			}
 		}
 	}
 	&.alignfull:has(+ .alignfull .wp-block-query > .wp-block-post-template),

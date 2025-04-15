@@ -32,33 +32,46 @@
 							<?php print wp_get_attachment_image( get_post_thumbnail_id( $display->ID ) , "large" ); ?>
 						</a>
 					</figure>
-					<h4 class="wp-block-post-title">
-						<a href="<?php print $permalink; ?>" target="_self"><?php print $display->post_title; ?></a>
-					</h4>
+					<div class="title-wrapper">
+						<h4 class="wp-block-post-title">
+							<a href="<?php print $permalink; ?>" target="_self"><?php print $display->post_title; ?></a>
+						</h4>
+						<div class="saved_display_content">
+							<ul class="actions">
+								<?php if ( $phone ) : ?>
+									<li><a href="#call_exhibitor_<?php echo $display->ID; ?>" class="call_now"
+											data-display-name="<?php echo $display->post_title; ?>">Call Now</a></li>
+								<?php endif; ?>
+								<?php if ( $email ) : ?>
+									<li><a href="#email_exhibitor_<?php echo $display->ID; ?>" class="email_now"
+											data-display-name="<?php echo $display->post_title; ?>">Message Now</a></li>
+								<?php endif; ?>
+								<?php if ( $url ) : ?>
+									<li><a href="<?php echo $url; ?>" target="new" class="visit_website_now"
+											data-display-name="<?php echo $display->post_title; ?>">Visit Website</a></li>
+								<?php endif; ?>
+								<li><a href="#" class="edit_notes" data-post-id="<?php echo $save->ID; ?>">My Notes</a></li>
+							</ul>
+						</div>
+					</div>
+					<?php if ( get_field( 'brochure', $display->ID ) ) : ?>
+						<div class="wp-block-buttons is-content-justification-center is-layout-flex wp-block-buttons-is-layout-flex">
+							<div class="wp-block-button has-icon__external-arrow">
+								<a class="wp-block-button__link wp-element-button brochure brochure_download" href="<?php the_field( 'brochure', $display->ID ); ?>"
+								data-display="<?php echo $display->post_title; ?>" data-display-name="<?php echo $display->post_title; ?>"
+								target="new">
+									Download Brochure
+									<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M11.9998 19.5L6.0767 13.5073L7.38733 12.2067L11.0672 15.8534V5.5H12.9323V15.8534L16.6122 12.2067L17.9229 13.5073L11.9998 19.5Z" fill="#F9B000"/>
+									</svg>
+								</a>
+							</div>
+						</div>
+					<?php endif; ?>
 				</div>
 
-				<div class="saved_display_content">
-					<ul class="actions">
-						<?php if ( $phone ) : ?>
-							<li><a href="#call_exhibitor_<?php echo $display->ID; ?>" class="call_now"
-									data-display-name="<?php echo $display->post_title; ?>">Call Now</a></li>
-						<?php endif; ?>
-						<?php if ( $email ) : ?>
-							<li><a href="#email_exhibitor_<?php echo $display->ID; ?>" class="email_now"
-									data-display-name="<?php echo $display->post_title; ?>">Message Now</a></li>
-						<?php endif; ?>
-						<?php if ( $url ) : ?>
-							<li><a href="<?php echo $url; ?>" target="new" class="visit_website_now"
-									data-display-name="<?php echo $display->post_title; ?>">Visit Website</a></li>
-						<?php endif; ?>
-						<li><a href="#" class="edit_notes" data-post-id="<?php echo $save->ID; ?>">My Notes</a></li>
-					</ul>
-				</div>
-				<?php if ( get_field( 'brochure', $display->ID ) ) : ?>
-					<a style="display: none;" class="brochure brochure_download" href="<?php the_field( 'brochure', $display->ID ); ?>"
-						data-display="<?php echo $display->post_title; ?>" data-display-name="<?php echo $display->post_title; ?>"
-						target="new"><span class="is_brochure">Download Brochure</span></a>
-				<?php endif; ?>
+				
+				
 				<?php if ( false ) : // $phone ?>
 					<div id="call_exhibitor_<?php echo $display->ID; ?>" class="modal">
 						<div class="modal_box">

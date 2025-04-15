@@ -29,8 +29,10 @@ main {
 		& > .wp-block-group {
 			&.has-background:has(> .wp-block-group) {
 				@media (max-width: 781px) {
-					padding-left: 0;
-					padding-right: 0;
+					&:not(.keep-mobile-padding) {
+						padding-left: 0;
+						padding-right: 0;
+					}
 				}
 			}
 		}

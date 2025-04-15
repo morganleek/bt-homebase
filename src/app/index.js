@@ -42,13 +42,18 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			slideBy: 'page',
 			autoplay: true,
 			nav: true,
-			gutter: 32,
+			gutter: 10,
 			controls: false,
 			autoplayButtonOutput: false,
 			navPosition: "bottom",
 			autoPlay: false,
 			speed: 600,
-			loop: true
+			loop: true,
+			responsive: {
+				782: {
+					gutter: 32,
+				}
+			}
 			// startIndex: 2
 		} );
 	} );

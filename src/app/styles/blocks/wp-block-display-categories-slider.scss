@@ -1,4 +1,7 @@
 .wp-block-display-categories-slider {
+	@media (max-width: 781px) { 
+		max-width: 69vw;
+	}
 	.tns-slider {
 		* {
 			max-width: none !important;
@@ -21,9 +24,15 @@
 				aspect-ratio: 2.1 !important;
 				border-radius: 24px;
 				overflow: hidden;
+				@media (max-width: 781px) { 
+					aspect-ratio: 0.7761627906976745 !important;
+				}
 				img {
 					aspect-ratio: 2.1 !important;
 					object-fit: cover;
+					@media (max-width: 781px) { 
+						aspect-ratio: 0.7761627906976745 !important;
+					}
 				}
 			}
 			.wp-block-buttons {
