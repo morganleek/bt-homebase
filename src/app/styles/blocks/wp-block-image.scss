@@ -1,9 +1,6 @@
-// .wp-block-image {
-// 	&:not(.alignfull) {
-// 		width: calc(var(--max--container-width) - 2*var(--wp--custom--spacing--outer));
-// 	}
-// 	img {
-// 	}
-// 	figcaption {
-// 	}
-// }
+.wp-block-image {
+	.wp-element-caption {
+		text-transform: uppercase;
+    font-size: 0.875rem;
+	}
+}

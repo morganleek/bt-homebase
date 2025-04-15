@@ -181,6 +181,9 @@ button {
 		&.display-brochure {
 			@include mixins.display-brochure( #fff, #FFD300 );
 		}
+		&.bookmark {
+			@include mixins.bookmark( #fff, #ffd300 );
+		}
 	}
 }
 
@@ -290,5 +293,16 @@ button {
 	* {
 		margin-top: 0.2em;
 		margin-bottom: 0.2em;
+	}
+}
+
+body.single-post {
+	.wp-block-post-content {
+		.wp-block-image {
+			img {
+				border-radius: 16px;
+				overflow: hidden;
+			}
+		}
 	}
 }

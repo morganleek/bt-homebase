@@ -145,6 +145,18 @@
 					'icon'            => 'admin-users',
 					'keywords'        => [],
 				] );
+
+				// Post save
+				acf_register_block_type( [ 
+					'name'            => 'post-save',
+					'title'           => __( 'Post Save Buttons' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/post-save.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-comments',
+					'keywords'        => [],
+				] );
+
 			}
 		}
 	}

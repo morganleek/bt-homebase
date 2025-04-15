@@ -88,7 +88,7 @@ class BoneThemeInit
 
 		remove_image_size( '1536x1536' );
 		remove_image_size( 'medium_large' );
-		add_image_size( 'medium_large', 768, 768, 0 );
+		add_image_size( 'medium_large', 1024, 1024, 0 );
 
 		add_action( 'plugins_loaded', [$this, 'bones_theme_remove_image_sizes'], 10 );
 	}
@@ -234,6 +234,12 @@ class BoneThemeInit
 		register_block_style( 'core/query', [
 		  'name' => 'slider',
 		  'label' => __( 'Slider', 'bones_name' ),
+		] );
+
+		// Columns
+		register_block_style( 'core/columns', [
+		  'name' => 'stack-reversed',
+		  'label' => __( 'Stack Reversed', 'bones_name' ),
 		] );
 
 		// Buttons

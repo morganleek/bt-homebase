@@ -1,2 +1,7 @@
-// .wp-block-columns {
-// }
+.wp-block-columns {
+	&.is-style-stack-reversed {
+		@media (max-width: 781px) { 
+			flex-direction: column-reverse;
+		}
+	}
+}

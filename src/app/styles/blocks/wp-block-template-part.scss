@@ -65,14 +65,17 @@ header.wp-block-template-part {
 
 footer.wp-block-template-part {
 // 	margin-block-start: 0;
+	.newsletter-signup-wrapper {
+		& > .wp-block-group {
+			@media (max-width: 781px) {
+				// Doesn't work for all footers
+				padding-left: 0 !important;
+				padding-right: 0 !important;
+			}
+		}
+	}
 	& > .wp-block-group {
 		&:first-child {
-			& > .wp-block-group {
-				@media (max-width: 781px) {
-					padding-left: 0 !important;
-					padding-right: 0 !important;
-				}
-			}
 		}
 		&:last-child {
 			& > .wp-block-columns {

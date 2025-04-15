@@ -25,4 +25,17 @@ main {
 			padding-right: 0 !important;
 		}
 	}
+	& > .entry-content {
+		& > .wp-block-group {
+			&.has-background:has(> .wp-block-group) {
+				@media (max-width: 781px) {
+					padding-left: 0;
+					padding-right: 0;
+				}
+			}
+		}
+	}
 }
+
+
+

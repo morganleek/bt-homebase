@@ -112,6 +112,11 @@
 			@media (min-width: 782px) { 
 				margin-top: 46px;
 			}
+			@media (max-width: 781px) {
+				margin: 0 -8px;
+				width: auto;
+				// margin-right: -8px;
+			}
 			.wp-block-post {
 				padding: 8px;
 				background: #fff;
@@ -162,12 +167,16 @@
 				}
 				& > .wp-block-group {
 					display: grid;
-					grid-template-columns: 152px minmax(0, 1fr) minmax(0, 15%);
-					column-gap: 32px;
+					grid-template-columns: 152px auto;
+					column-gap: 16px;
 					align-items: center;
 					justify-content: start;
 					padding-bottom: 0 !important;
 					min-height: 100px;
+					@media (min-width: 782px) { 
+						column-gap: 32px;
+						grid-template-columns: 152px minmax(0, 1fr) minmax(0, 15%);
+					}
 					h3, h4 {
 						margin: 0 !important;
 						align-self: center;

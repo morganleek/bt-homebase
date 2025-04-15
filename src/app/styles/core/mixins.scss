@@ -126,6 +126,24 @@
 	}
 }
 
+@mixin bookmark( $color: #000, $inactive: #0f0f0f ) {
+	width: 24px;
+	height: 24px;
+	display: block;
+	&::before {
+		content: "";
+		width: 24px;
+		height: 24px;
+		display: block;
+		background-color: $color;
+		clip-path: path("M19,22c-.2,0-.3,0-.5-.1l-6.5-3.7-6.5,3.7c-.3.2-.7.2-1,0s-.5-.5-.5-.9V7.8c0-1.8,0-2.8.4-3.6s1-1.4,1.7-1.7c.9-.4,1.8-.4,3.6-.4h4.4c1.8,0,2.8,0,3.6.4.8.4,1.4,1,1.7,1.7.4.9.4,1.8.4,3.6v13.2c0,.4-.2.7-.5.9-.2,0-.3.1-.5.1h.2ZM12,16c.2,0,.3,0,.5.1l5.5,3.1V7.8c0-1.5,0-2.3-.2-2.7s-.5-.7-.9-.9c-.4-.2-1.2-.2-2.7-.2h-4.4c-1.5,0-2.3,0-2.7.2s-.7.5-.9.9c-.2.4-.2,1.2-.2,2.7v11.5l5.5-3.1c.2,0,.3-.1.5-.1h0Z");
+		pointer-events: none;
+	}
+	&.logged-out::before {
+		background: $inactive;
+	}
+}
+
 @mixin close-icon {
 	width: 32px;
 	height: 32px;

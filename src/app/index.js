@@ -69,6 +69,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		e.preventDefault();
 		document.body.classList.toggle( "show-home-base-search" );
 	} );
+
+	// Smooth scroll 
+	document.querySelectorAll( '.wp-site-blocks a[href*="#"]' ).forEach( a => {
+		a.addEventListener( "click", ( e ) => {
+			const href = e.target.closest( 'a' ).href?.split( "#" );
+			if( href.length === 2 && document.querySelector( `#${href[1]}` ) ) {
+				e.preventDefault();
+				document.querySelector( `#${href[1]}` ).scrollIntoView( { behavior: "smooth" } );
+			}
+		} );
+	} );
 } );
 
 // .is-layout-flow

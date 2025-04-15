@@ -224,8 +224,8 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			axios.get( home_base.ajax_url, { params: data } )
 			.then( res => {
 				document.body.classList.remove( "collection_action_loading" );
-				console.log( document.querySelector( "#photo_" + photo + " .myaccount" ) );
-				console.log( "#photo_" + photo + " .myaccount" );
+				// console.log( document.querySelector( "#photo_" + photo + " .myaccount" ) );
+				// console.log( "#photo_" + photo + " .myaccount" );
 				document.querySelector( "#photo_" + photo + " .myaccount" )?.classList.remove( "saveimage" );
 				document.querySelector( "#photo_" + photo + " .myaccount" )?.classList.add( "unsaveimage" );
 				document.querySelector( "#view_photo_" + photo + " .myaccount" )?.classList.remove( "saveimage" );
@@ -277,6 +277,25 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		loadCollections();
 	}
 
+	// Bookmark Post
+	document.querySelectorAll( ".display-save button.bookmark" ).forEach( button => {
+		button.addEventListener( "click", ( e ) => {
+			// const title = e.target.dataset.postTitle;
+			// const url = e.target.dataset.postUrl;
+			// let createBookmark = browser.bookmarks.create({
+			// 	title: title,
+			// 	url: url,
+			// });
+			
+			// createBookmark.then(onCreated);
+		} );
+
+		// const onCreated = (node) => {
+		// 	showMessage( "<h5>Page bookmarked</h5>" );
+		// }
+	} );
+	
+	
 } );
 
 const processRequest = ( targetId ) => {
