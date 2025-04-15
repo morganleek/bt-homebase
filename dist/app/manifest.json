@@ -1,7 +1,7 @@
 {
   "app/assets/reactions3.png": "app/assets/reactions3-b0a8e62d.png",
-  "main.css": "app/main-9c9f2d4b.css",
-  "main.css.map": "app/main-9c9f2d4b.css.map",
+  "main.css": "app/main-f85f1ed8.css",
+  "main.css.map": "app/main-f85f1ed8.css.map",
   "main.js": "app/main-6e6847b0.js",
   "main.js.map": "app/main-6e6847b0.js.map",
   "runtime.js": "app/runtime-c339366b.js",
@@ -25,11 +25,11 @@
         ],
         "css": [
           "app/vendors~main-230fc00c.css",
-          "app/main-9c9f2d4b.css"
+          "app/main-f85f1ed8.css"
         ],
         "css.map": [
           "app/vendors~main-230fc00c.css.map",
-          "app/main-9c9f2d4b.css.map"
+          "app/main-f85f1ed8.css.map"
         ]
       }
     }
