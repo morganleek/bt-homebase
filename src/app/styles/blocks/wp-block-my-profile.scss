@@ -25,10 +25,62 @@
 	.config {
 		margin-right: 0;
 		margin-left: auto;
-		a {
+		position: relative;
+		& > a {
 			width: 32px;
 			height: 32px;
 			display: block;
+		}
+		.dropdown {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			opacity: 0;
+			width: 155px;
+			padding: 8px;
+			border-radius: 12px;
+			list-style: none;
+			box-shadow: 0px 1px 3px 0px #0000003D;
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+			background: #fff;
+			z-index: 1000;
+			transition: opacity 0.2s;
+			&.visible {
+				opacity: 1;
+			}
+			li {
+				a {
+					border-radius: 8px;
+					display: block;
+					color: var(--wp--preset--color--brand-charcoal);
+					font-size: 0.8125rem;
+					padding: 4px 15px;
+					transition: background 0.2s;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					&::after {
+						content: "";
+						width: 13px;
+						height: 14px;
+						background: url(./images/check.svg) 0 0/100% auto no-repeat;
+						opacity: 0;
+						transition: opacity 0.2s;
+					}
+					&:hover {
+						background: #F0EFED;
+						text-decoration: none;
+					}
+					&.is-current-page {
+						background: #F0EFED;
+						&::after {
+							opacity: 1;
+						}
+					}
+				}
+			}
 		}
 	}
 }

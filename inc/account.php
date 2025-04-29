@@ -290,6 +290,8 @@ function homebase_save_to_collection_button( $post_ID, $display_ID = 0 ) {
 function homebase_collection_dialog() {
 	if ( is_user_logged_in() ) {
 
+		$svg = '<svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.16868 4.09641L1.30121 11.0121L0 9.71087L6.91566 2.8193H2V0.987976H10V9.01207H8.16868V4.09641Z" fill="#F9B000"></path></svg>';
+
 		$current_user = wp_get_current_user();
 		$current_user_ID = $current_user->ID;
 
@@ -301,13 +303,14 @@ function homebase_collection_dialog() {
 		$collections = get_posts( $args );
 
 		echo '<div class="account_modal_collection_mask wp-block-account-modal-collection-mask">';
-		echo '<div class="account_modal_collection"><span class="account_modal_close"></span><div class="account_modal_content">';
+		echo '<div class="account_modal_collection"><div class="account_modal_content">';
 
 		// Save Image
+		echo '<div class="close-wrapper">Close <span class="account_modal_close"></span></div>';
 		echo '<form id="new_image_form">';
 		echo '<div class="image_form_header"><div class="collection_image_preview"></div>';
 		echo '<h3>Save Image</h3>';
-		echo '<p>Use an existing Collection or create a new Collection for this image:</p>';
+		echo '<p>Add this image to an existing Collection or create a new Collection.</p>';
 		echo '</div>';
 		echo '<ul class="save_collections">';
 
@@ -326,29 +329,40 @@ function homebase_collection_dialog() {
 			echo "<li><input type=\"radio\" id=\"collection_{$collection->ID}\" name=\"existing_collection_id\" value=\"{$collection->ID}\"/><label for=\"collection_{$collection->ID}\"><span>{$collection->post_title}</span></label></li>";
 		}
 
-		echo '<li><input type="radio" id="add_new_collection" name="existing_collection_id" value="0"/><label for="add_new_collection"><span>Add New Collection</span></label></li></ul>';
+		echo '<li><input type="radio" id="add_new_collection" name="existing_collection_id" value="0"/><label for="add_new_collection"><span>Create Collection</span></label></li></ul>';
 		echo '<input type="text" id="new_image_collection_name" name="new_collection_name" placeholder="New collection name" autocomplete="off" maxlength="30"/>';
 		echo '<input type="hidden" id="save_image_id" value="" />';
-		echo '<button id="photo_save_submit" class="saved_view_account">Save</button>';
+		echo "<button id=\"photo_save_submit\" class=\"saved_view_account\">Save Image $svg</button>";
 		echo '</form>';
 
 		// Edit Image
 		echo '<form id="edit_image_form">';
-		echo '<div class="image_form_header"><div class="collection_image_preview"></div><h3>Edit Image</h3><p>Move or copy this image to another collection</p></div>';
-		echo '<ul class="edit_image_actions"><li><input type="radio" id="image_move" name="edit_image_action" value="move" checked/><label for="image_move"><span>Move</span></label></li><li><input type="radio" id="image_copy" name="edit_image_action" value="copy"/><label for="image_copy"><span>Copy</span></label></li></ul>';
-		echo '<p>Choose a Collection to copy/move this image to:</p>';
+		echo '<div class="image_form_header">
+			<div class="collection_image_preview"></div>
+			<h3>Edit Image</h3>
+			<div>
+				<p>Move or copy this image to another collection</p>
+				<select class="edit_image_actions">
+					<option id="image_move" name="edit_image_action" value="move" selected>Move</option>
+					<option id="image_copy" name="edit_image_action" value="copy">Copy</option>
+				</select>
+			</div>
+		</div>';
+		// echo '<p>Choose a Collection to copy/move this image to:</p>';
 		echo '<div class="edit_image_collections" id="edit_image_collections"></div>';
 		echo '<input type="hidden" id="edit_image_id" value="" />';
 		echo '<input type="hidden" id="original_collection_id" value="" />';
-		echo '<button id="edit_image_submit" class="saved_view_account">Save</button>';
-		echo '<a id="delete_image_submit" href="#">Remove image from collection</a>';
+		echo '<div class="modal-button-wrapper columns-2">';
+			echo "<button id=\"edit_image_submit\" class=\"saved_view_account\">Save $svg</button>";
+			echo "<a id=\"delete_image_submit\" href=\"#\">Remove image from collection $svg</a>";
+		echo '</div>';
 		echo '</form>';
 
 		// New Collection
 		echo '<form id="new_collection_form">';
 		echo '<h3>New Collection</h3>';
 		echo '<input type="text" id="new_collection_name" name="new_collection_name" placeholder="New Collection name" autocomplete="off" maxlength="30"/>';
-		echo '<button id="new_collection_submit" class="saved_view_account">Save</button>';
+		echo "<button id=\"new_collection_submit\" class=\"saved_view_account\">Save Collection $svg</button>";
 		echo '</form>';
 
 		// Edit Collection
@@ -356,14 +370,14 @@ function homebase_collection_dialog() {
 		echo '<h3>Edit Collection Name</h3>';
 		echo '<input type="text" id="edit_collection_name" name="edit_collection_name" placeholder="New Collection name" autocomplete="off" maxlength="30"/>';
 		echo '<input type="hidden" id="edit_collection_id" value="" />';
-		echo '<button id="edit_collection_submit" class="saved_view_account">Save</button>';
+		echo "<button id=\"edit_collection_submit\" class=\"saved_view_account\">Save Collection $svg</button>";
 		echo '</form>';
 
 		// Delete Collection
 		echo '<form id="delete_collection_form">';
 		echo '<h3>Delete Collection</h3><p>Are you sure you want to delete this Collection? This cannot be undone and will also delete any notes you have saved for this Collection.</p>';
 		echo '<input type="hidden" id="delete_collection_id" value="" />';
-		echo '<button id="delete_collection_submit">Yes, delete this Collection</button>';
+		echo "<button id=\"delete_collection_submit\">Delete Collection $svg</button>";
 		echo '</form>';
 
 		// Notes
@@ -371,14 +385,14 @@ function homebase_collection_dialog() {
 		echo '<h3>My Notes</h3>';
 		echo '<textarea id="saved_notes" placeholder="" autocomplete="off" /></textarea>';
 		echo '<input type="hidden" id="saved_notes_id" value="" />';
-		echo '<button id="notes_submit" class="saved_view_account">Save Notes</button>';
-		echo '<a id="edit_notes_email_button" href="" title="Share your notes via email"></a>';
+		echo '<div class="edit-notes-wrapper"><a id="edit_notes_email_button" href="" title="Share your notes via email"></a></div>';
+		echo "<button id=\"notes_submit\" class=\"saved_view_account\">Save Notes $svg</button>";
 		echo '</form>';
 
 		// Manage Image
 		echo '<form id="manage_image_form">';
 		echo '<h3>Image Saved</h3><p>This image is saved in your account. Visit your account page to move, copy or delete this image between/from your collections.</p>';
-		echo '<a id="update_image_submit" class="saved_view_account" href="/my-account/">Visit My Account</a>';
+		echo "<a id=\"update_image_submit\" class=\"saved_view_account\" href=\"/my-account/\">Visit My Account $svg</a>";
 		echo '</form>';
 
 		// HELP
@@ -539,80 +553,89 @@ function homebase_load_collections() {
 			foreach ( $collections as $collection ) {
 
 				$activeclass = ( $collection->ID == $show_collection_id ) ? 'active' : '';
-
 				$gallery = '';
-				$bg_img = '';
-
 				$images = json_decode( get_post_meta( $collection->ID, 'images', true ), TRUE );
 
 				$html .= "<div class=\"collection $activeclass\" id=\"collection_{$collection->ID}\">";
-				$html .= "<h4>{$collection->post_title}</h4>";
-				$html .= '<ul class="collection_grid">';
+					// $html .= "<h4>{$collection->post_title}</h4>";
+					$html .= "<ul class=\"collection_links\">
+						<li>
+							<a class=\"edit_notes\" data-post-id=\"{$collection->ID}\" data-post-name=\"{$collection->post_title}\" href=\"#\" title=\"Notes on this Collection\"></a>
+						</li>
+						<li>
+							<a class=\"edit_collection\" data-collection=\"{$collection->ID}\" data-collection-name=\"{$collection->post_title}\" href=\"#\" title=\"Edit Collection Name\"></a>
+						</li>
+						<li>
+							<a href=\"#\" class=\"delete_collection\" data-collection=\"{$collection->ID}\" title=\"Delete Collection\"></a>
+						</li>
+					</ul>";
+					$html .= '<ul class="collection_grid">';
 
-				if ( $images ) {
+					if ( $images ) {
 
-					// Store first thumb in variable here, pass to index below
+						// Store first thumb in variable here, pass to index below
 
-					$gallery .= "<div class=\"full_gallery\" id=\"gallery_{$collection->ID}\" data-collection=\"{$collection->ID}\">";
-					$gallery .= '<div class="full_gallery_slides">';
+						$gallery .= "<div class=\"full_gallery\" id=\"gallery_{$collection->ID}\" data-collection=\"{$collection->ID}\">";
+						$gallery .= '<div class="full_gallery_slides">';
 
-					$i = 0;
+						$i = 0;
 
-					foreach ( $images as $image ) {
+						foreach ( $images as $image ) {
 
-						$i++;
+							$i++;
 
-						$photo = get_field( "file", $image );
-						$title = get_field( "gallery_title", $image );
-						$description = get_field( "gallery_description", $image );
-						$photo_thumb = wp_get_attachment_image_src( $photo, "thumbnail" );
-						$photo_large = wp_get_attachment_image( $photo, "large" );
-						$photo_full = wp_get_attachment_image_src( $photo, "full" );
+							$photo = get_field( "file", $image );
+							$title = get_field( "gallery_title", $image );
+							$description = get_field( "gallery_description", $image );
+							$photo_thumb = wp_get_attachment_image_src( $photo, "thumbnail" );
+							$photo_large = wp_get_attachment_image( $photo, "large" );
+							$photo_full = wp_get_attachment_image_src( $photo, "full" );
 
-						if ( $i == 1 ) {
-							$bg_img = $photo_thumb[0];
+							if ( $i == 1 ) {
+								$bg_img = $photo_thumb[0];
+							}
+
+							$html .= "<li class=\"collection_image\" id=\"collection_{$collection->ID}_photo_$image\">
+								<a href=\"#collection_{$collection->ID}_photo_$image\" data-gallery=\"{$collection->ID}\" class=\"collection-image-link\">
+									$photo_large
+								</a>
+								<span class=\"edit_image\" data-image=\"$image\" data-image-thumb-url=\"$photo_thumb[0]\" data-collection=\"{$collection->ID}\"></span>
+							</li>";
+
+							$gallery .= "<div class=\"slide\" id=\"collection_{$collection->ID}_photo_$image\">";
+							$gallery .= "<div class=\"slide_image\"><img src=\"$photo_full[0]\"/></div>";
+							$gallery .= "<div class=\"slide_text\"><h2>$title</h2><p>$description</p></div>";
+							$gallery .= '</div>';
+
 						}
 
-						$html .= "<li class=\"collection_image\" id=\"collection_{$collection->ID}_photo_$image\">
-							<a href=\"#collection_{$collection->ID}_photo_$image\" data-gallery=\"{$collection->ID}\" class=\"collection-image-link\">
-								$photo_large
-							</a>
-							<span class=\"edit_image\" data-image=\"$image\" data-image-thumb-url=\"$photo_thumb[0]\" data-collection=\"{$collection->ID}\"></span>
-						</li>";
-
-						$gallery .= "<div class=\"slide\" id=\"collection_{$collection->ID}_photo_$image\">";
-						$gallery .= "<div class=\"slide_image\"><img src=\"$photo_full[0]\"/></div>";
-						$gallery .= "<div class=\"slide_text\"><h2>$title</h2><p>$description</p></div>";
-						$gallery .= '</div>';
+						$gallery .= '</div><a class="close_full_gallery"></a></div>';
 
 					}
 
-					$gallery .= '</div><a class="close_full_gallery"></a></div>';
+					$index .= "<li>
+						<figure class=\"wp-block-post-featured-image\">
+							<a class=\"collection_link\" href=\"#collection_{$collection->ID}\">
+								$photo_large
+							</a>
+						</figure>
+						<h3>
+							<a class=\"collection_link\" href=\"#collection_{$collection->ID}\">{$collection->post_title}</a>
+						</h3>
+					</li>";
 
-				}
+					$bg_img = '';
 
-				// <a class=\"collection_link\" href=\"#collection_{$collection->ID}\" style=\"background-image:url($bg_img)\">
-				// 		<span>{$collection->post_title}</span>
-				// 	</a>
+					// $html .= '<li><a href="#" class="close_collection"><span>Back to Collections</span></a></li>';
 
-				$index .= "<li>
-					<figure class=\"wp-block-post-featured-image\">
-						<a class=\"collection_link\" href=\"#collection_{$collection->ID}\">
-							$photo_large
-						</a>
-					</figure>
-					
-					<h3>
-						<a class=\"collection_link\" href=\"#collection_{$collection->ID}\">{$collection->post_title}</a>
-					</h3>
-				</li>";
+					$html .= '</ul>';
 
-				$bg_img = '';
-
-				$html .= '<li><a href="#" class="close_collection"><span>Back to Collections</span></a></li>';
-
-				$html .= '</ul>';
-				$html .= "<ul class=\"collection_links\"><li><a class=\"edit_notes\" data-post-id=\"{$collection->ID}\" data-post-name=\"{$collection->post_title}\" href=\"#\">Notes on this Collection</a></li><li><a class=\"edit_collection\" data-collection=\"{$collection->ID}\" data-collection-name=\"{$collection->post_title}\" href=\"#\">Edit Collection Name</a></li><li><a href=\"#\" class=\"delete_collection\" data-collection=\"{$collection->ID}\">Delete Collection</a></li></ul></div>";
+					$html .= "<div class=\"wp-block-buttons is-content-justification-center is-layout-flex wp-block-buttons-is-layout-flex\">
+						<div class=\"wp-block-button has-icon__external-arrow\">
+							<a class=\"wp-block-button__link wp-element-button close_collection\" href=\"#\">Back to Collections <span class=\"wp-block-button__link-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 10 12\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M8.16868 4.09641L1.30121 11.0121L0 9.71087L6.91566 2.8193H2V0.987976H10V9.01207H8.16868V4.09641Z\"></path></svg></span></a>
+						</div>
+					</div>";
+				$html .= '</div>';
 
 				// Append gallery
 

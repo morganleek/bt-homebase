@@ -157,6 +157,16 @@
 					'keywords'        => [],
 				] );
 
+				// Site notice
+				acf_register_block_type( [ 
+					'name'            => 'site-notice',
+					'title'           => __( 'Site Notice' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/site-notice.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-site-alt3',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}

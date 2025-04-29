@@ -85,6 +85,18 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			}
 		} );
 	} );
+
+	// My account dropdown
+	document.querySelectorAll( ".wp-block-my-profile .config > a" ).forEach( a => {
+		a.addEventListener( "click", e => {
+			e.preventDefault();
+			console.log( e.target.closest( "a" ).href );
+			const config = e.target.closest( ".config" );
+			if( config ) {
+				config.querySelector( ".dropdown" )?.classList.toggle( "visible" );
+			}
+		} );
+	} );
 } );
 
 // .is-layout-flow

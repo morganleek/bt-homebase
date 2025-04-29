@@ -114,6 +114,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 		
 		// close collection 
+		console.log( target.classList );
 		if( target.classList.contains( 'close_collection' ) ) {
 			document.querySelector( "#collection_names" ).classList.remove( 'hidden' );
 			document.querySelectorAll( '.collection' ).forEach( col => col.classList.remove( 'active' ) );
@@ -337,7 +338,7 @@ const processRequest = ( targetId ) => {
 			data = {
 				action: 'homebase_edit_image',
 				image: document.querySelector( '#edit_image_id' ).value,
-				edit_action: document.querySelector( 'input[name=edit_image_action]:checked').value,
+				edit_action: document.querySelector( 'select.edit_image_actions').value,
 				original_collection_id: document.querySelector( '#original_collection_id').value,
 				destination_collection_id: document.querySelector( 'input[name=destination_collection_id]:checked').value,
 				new_destination_collection_name: document.querySelector( '#new_destination_collection_name').value

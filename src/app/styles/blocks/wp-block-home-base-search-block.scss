@@ -1,3 +1,7 @@
+.is-reusable:has(> .wp-block-home-base-search-modal) {
+	margin-top: 0 !important;
+} 
+
 .wp-block-home-base-search-modal:not(.block-editor-block-list__block) {
 	position: fixed;
 	top: 0;
@@ -67,6 +71,7 @@
 				height: 32px;
 				background: url(./images/chevron-down.svg) 50% 50%/24px 24px no-repeat;
 				z-index: 10;
+				pointer-events: none;
 			}
 		}
 		input[type="text"] {

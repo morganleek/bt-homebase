@@ -426,18 +426,12 @@
 
 			<div
 				class="wp-block-group alignwide is-style-default has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
-				id="our-centre"
-				style="border-radius:24px;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
-
-
-
-				<div class="my_account_tab" id="collections">
+				id="our-centre">
+				<div class="my_account_tab wp-block-group alignwide" id="collections">
 					<h3>Collections</h3>
-					<div class="wp-block-group"></div>
-					<ul class="collection_names" id="collection_names"></ul>
-					<div class="collection_images" id="collection_images"></div>
+					<div class="wp-block-group alignwide has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-radius:24px;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--30)"></div>
 				</div>
-				<div class="my_account_tab" id="displays">
+				<div class="my_account_tab wp-block-group alignwide" id="displays">
 					<h3>Displays</h3>
 					<?php if ( $displays ) : ?>
 						<div class="wp-block-query is-layout-flow wp-block-query-is-layout-flow">
@@ -454,7 +448,7 @@
 						</div>
 					<?php endif; ?>
 				</div>
-				<div class="my_account_tab" id="courses">
+				<div class="my_account_tab wp-block-group alignwide" id="courses">
 					<h3>Courses</h3>
 					<?php if ( $course_kits ) : ?>
 						<?php foreach ( $course_kits as $course_kit ) : ?>
@@ -494,7 +488,7 @@
 						</div>
 					<?php endif; ?>
 				</div>
-				<div class="my_account_tab" id="posts">
+				<div class="my_account_tab wp-block-group alignwide" id="posts">
 					<h3>Blog</h3>
 					<?php if ( $articles ) : ?>
 						<div class="wp-block-query is-layout-flow wp-block-query-is-layout-flow">
@@ -540,7 +534,7 @@
 						</div>
 					<?php endif; ?>
 				</div>
-				<div class="my_account_tab <?php echo $projectinfoincomplete ? 'active' : ''; ?>" id="profile" style="display: none;">
+				<div class="my_account_tab wp-block-group alignwide <?php echo $projectinfoincomplete ? 'active' : ''; ?>" id="profile" style="display: none;">
 					<?php if ( $projectinfoincomplete ) : ?>
 						<div class="account_update_error">Please complete your project information</div>
 					<?php endif; ?>

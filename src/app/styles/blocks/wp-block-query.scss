@@ -117,6 +117,9 @@
 				width: auto;
 				// margin-right: -8px;
 			}
+			.my_account_tab & {
+				margin-top: 24px !important;
+			}
 			.wp-block-post {
 				padding: 8px;
 				background: #fff;
@@ -204,6 +207,7 @@
 					}
 					.wp-block-buttons {
 						margin-top: 0;
+						justify-content: flex-end;
 						@media (max-width: 781px) { 
 							display: none;
 						}
@@ -269,7 +273,7 @@
 					}
 				}
 				.wp-block-buttons {
-					padding-right: 32px;
+					padding-right: 16px;
 					@media (max-width: 781px) { 
 						display: none;
 					}

@@ -19,7 +19,14 @@
 			<div class="wp-block-my-profile">
 				<div class="thumbnail"><?php print $user_profile_image ? "<img src=\"$user_profile_image\" alt=\"{$user->get('nickname')}\" />" : ""; ?></div>
 				<div class="nicename"><?php print $user->get('nickname'); ?></div>
-				<div class="config"><a href="#"><?php print $cog; ?></a></div>
+				<div class="config">
+					<a href="#"><?php print $cog; ?></a>
+					<ul class="dropdown">
+						<li><a href="<?php print wp_logout_url( home_url() ); ?>">Log Out</a></li>
+						<li><a href="/my-profile" class="is-current-page">Update profile</a></li>
+						<li><a href="#">Help</a></li>
+					</ul>
+				</div>
 			</div>
 		<?php
 	}

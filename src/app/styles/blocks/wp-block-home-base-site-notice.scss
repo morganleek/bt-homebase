@@ -1,0 +1,19 @@
+.wp-block-home-base-site-notice {
+	color: var(--wp--preset--color--brand-charcoal);
+	margin: 0;
+	padding: 12px 32px;
+	font-size: 0.8125rem;
+	line-height: 1.2;
+	& > * {
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+}
+
+.wp-block-acf-site-notice {
+	margin-top: 0 !important;
+}
