@@ -86,6 +86,30 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		} );
 	} );
 
+	document.querySelectorAll( ".display_photo" ).forEach( link => {
+		link.addEventListener( "click", ( e ) => {
+			e.preventDefault();
+			document.body.classList.add( "showing_gallery" );
+			// $('body').addClass('showing_gallery');
+			document.querySelector( ".full_gallery" ).classList.add( "active" );
+			// $('.full_gallery').addClass('active');
+			document.querySelector( ".full_gallery_slides" ).classList.add( "active" );
+			// $('').flickity('resize');
+			const collection = new Flickity( '.full_gallery_slides', {
+				cellAlign: 'left',
+				contain: true,
+				pageDots: false,
+				hash: true,
+				selectedAttraction: 0.01, 
+				friction: 0.15, 
+				wrapAround: true, 
+				arrowShape: { "x0": 10, "x1": 60, "y1": 50, "x2": 63, "y2": 47, "x3": 17 }
+			} );
+
+			collection.resize();
+		});
+	} );
+
 	// collections
 	document.querySelector( "#collections, #displays" )?.addEventListener( "click", ( e ) => {
 		e.preventDefault();
@@ -114,7 +138,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 		
 		// close collection 
-		console.log( target.classList );
 		if( target.classList.contains( 'close_collection' ) ) {
 			document.querySelector( "#collection_names" ).classList.remove( 'hidden' );
 			document.querySelectorAll( '.collection' ).forEach( col => col.classList.remove( 'active' ) );
@@ -296,7 +319,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		// }
 	} );
 	
-	
+	// Show Help
+	// 
+	document.querySelectorAll( ".show-help-modal" ).forEach( a => {
+		a.addEventListener( "click", e => {
+			e.preventDefault();
+			document.body.classList.add( "collection_help", "collection_action" );
+		} );
+	} );
 } );
 
 const processRequest = ( targetId ) => {
@@ -374,8 +404,6 @@ const processRequest = ( targetId ) => {
 		} );
 	}
 }
-		
-// EMAIL NOTES
 
 // TRACK BROCHURE DOWNLOAD
 // 		$('main').on("click", ".brochure_download", function() {

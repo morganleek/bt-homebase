@@ -24,7 +24,7 @@
 					<ul class="dropdown">
 						<li><a href="<?php print wp_logout_url( home_url() ); ?>">Log Out</a></li>
 						<li><a href="/my-profile" class="is-current-page">Update profile</a></li>
-						<li><a href="#">Help</a></li>
+						<li><a href="#" class="show-help-modal">Help</a></li>
 					</ul>
 				</div>
 			</div>

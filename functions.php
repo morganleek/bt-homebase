@@ -18,6 +18,8 @@ require get_template_directory() . '/inc/acf.php';
 require get_template_directory() . '/inc/p2p.php';
 // Search
 require get_template_directory() . '/inc/search.php';
+// SVG Clip-paths
+require get_template_directory() . '/inc/clip-paths.php';
 
 
 // Do stuff through this plugin

@@ -233,11 +233,8 @@
 	width: 22px;
 	height: 20px;
 	z-index: 2;
-	// background: url('./images/pencil.svg') 50% 50%/14px 14px no-repeat;
-	background: url('./images/heart-solid.svg') 50% 50%/24px 24px no-repeat;
-	// opacity: 0;
-	// transition: opacity 0.2s;
-	// border-radius: 12px;
+	background: var(--wp--preset--color--brand-yellow);
+	clip-path: url(#heart-solid);
 }
 
 // .collection_grid li:hover .edit_image {
@@ -466,6 +463,14 @@
 		& > * {
 			margin-top: 0;
 			margin-bottom: 0;
+		}
+		.login-submit {
+			display: none;
+		}
+		button {
+			display: flex;
+			gap: 15px;
+			align-items: center;
 		}
 	}
 	.wp-block-group:has(> &) {

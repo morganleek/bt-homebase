@@ -1,4 +1,11 @@
 <?php
+
+	add_filter( 'login_form_middle', 'home_base_login_form_middle', 20, 1 );
+
+	function home_base_login_form_middle( $atts ) {
+		return '<button>Sign In<svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8.16868 4.09641L1.30121 11.0121L0 9.71087L6.91566 2.8193H2V0.987976H10V9.01207H8.16868V4.09641Z" fill="#F9B000"></path></svg></button>';
+	}
+
 	function saved_displays($current_user_ID, $display ) {
 		// Fetch associated save
 		$args = [ 

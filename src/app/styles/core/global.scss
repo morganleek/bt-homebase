@@ -176,7 +176,10 @@ button {
 	margin: 0;
 	button, a {
 		&.heart {
-			@include mixins.heart-button( #fff, #FFD300 );
+			// @include mixins.heart-button( #fff, #fff );
+			&::before {
+				background: #000 !important;
+			}
 		}
 		&.display-brochure {
 			@include mixins.display-brochure( #fff, #FFD300 );
