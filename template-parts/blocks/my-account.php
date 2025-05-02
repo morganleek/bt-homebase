@@ -63,7 +63,7 @@
 					</div>
 					<?php if ( get_field( 'brochure', $display->ID ) ) : ?>
 						<div class="wp-block-buttons is-content-justification-center is-layout-flex wp-block-buttons-is-layout-flex">
-							<div class="wp-block-button has-icon__external-arrow">
+							<div class="wp-block-button is-style-outline has-icon__external-arrow download">
 								<a class="wp-block-button__link wp-element-button brochure brochure_download" href="<?php the_field( 'brochure', $display->ID ); ?>"
 								data-display="<?php echo $display->post_title; ?>" data-display-name="<?php echo $display->post_title; ?>"
 								target="new">
@@ -501,7 +501,7 @@
 						<div class="wp-block-query is-layout-flow wp-block-query-is-layout-flow">
 							<ul class="columns-2 wp-block-post-template is-layout-flow wp-block-post-template-is-layout-flow">
 								<?php foreach ( $articles as $article ) : ?>
-									<li class="wp-block-post post-49925 post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-architect tag-design-ideas tag-designer tag-home-design tag-luxury-homes tag-new-build tag-perth-designers">
+									<li class="wp-block-post post-<?php print $article->ID; ?> post type-post status-publish format-standard has-post-thumbnail hentry category-blog tag-architect tag-design-ideas tag-designer tag-home-design tag-luxury-homes tag-new-build tag-perth-designers">
 										<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-bottom:var(--wp--preset--spacing--20)">
 											<figure style="aspect-ratio:16/9;" class="wp-block-post-featured-image">
 												<a href="<?php the_permalink( $article->ID ); ?>" target="_self">
@@ -512,12 +512,12 @@
 											<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="padding-right:8px;padding-left:8px">
 												<div class="wp-block-group has-global-padding is-layout-constrained wp-block-group-is-layout-constrained">
 													<div style="font-size:13px;" class="has-link-color wp-block-post-date has-text-color has-brand-charcoal-color">
-														<time datetime="">{{ TIME }}</time>
+														<time datetime="<?php print $article->post_date; ?>"><?php print get_the_date( 'j M, Y', $article->ID ); ?></time>
 													</div>
 		
 													<div class="has-link-color wp-elements-5e8c8a684c2d35a3a46c96815f25414c wp-block-post-author has-text-color has-brand-yellow-color">
 														<div class="wp-block-post-author__content">
-															<p class="wp-block-post-author__name"><?php print $article->post_author; ?></p>
+															<p class="wp-block-post-author__name"><?php print get_the_author_meta( 'display_name', $article->post_author ); ?></p>
 														</div>
 													</div>
 												</div>
@@ -528,6 +528,15 @@
 		
 												<div class="wp-block-post-excerpt">
 													<p class="wp-block-post-excerpt__excerpt"><?php print get_the_excerpt( $article ); ?></p>
+												</div>
+
+											</div>
+											<div class="wp-block-buttons is-content-justification-center is-layout-flex wp-block-buttons-is-layout-flex">
+												<div class="wp-block-button is-style-outline has-icon__external-arrow">
+													<a class="wp-block-button__link wp-element-button" href="<?php print get_permalink( $article->ID ); ?>">
+														Read blog
+														<svg viewBox="0 0 10 12" xmlns="http://www.w3.org/2000/svg"><path d="M8.16868 4.09641L1.30121 11.0121L0 9.71087L6.91566 2.8193H2V0.987976H10V9.01207H8.16868V4.09641Z"></path></svg>
+													</a>
 												</div>
 											</div>
 										</div>

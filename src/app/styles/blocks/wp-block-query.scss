@@ -119,6 +119,22 @@
 			}
 			.my_account_tab & {
 				margin-top: 24px !important;
+				.wp-block-post {
+					&.post {
+						.wp-block-post-author__name {
+							margin: 0;
+							line-height: 1.2em;
+						}
+						.wp-block-post-excerpt__excerpt {
+							margin: 0;
+						}
+					}
+					&.display {
+						& > .wp-block-group {
+							grid-template-columns: 152px minmax(0, 1fr) 210px;
+						}
+					}
+				}
 			}
 			.wp-block-post {
 				padding: 8px;
@@ -189,6 +205,13 @@
 						max-width: 100%;
 						display: block;
 						overflow: hidden;
+					}
+					.title-wrapper {
+						min-height: 100%;
+						display: flex;
+						flex-direction: column;
+						gap: 16px;
+						justify-content: center;
 					}
 					.wp-block-post-author, 
 					.wp-block-post-date,

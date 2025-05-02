@@ -603,8 +603,8 @@ function homebase_load_collections() {
 							</li>";
 
 							$gallery .= "<div class=\"slide\" id=\"collection_{$collection->ID}_photo_$image\">";
-							$gallery .= "<div class=\"slide_image\"><img src=\"$photo_full[0]\"/></div>";
-							$gallery .= "<div class=\"slide_text\"><h2>$title</h2><p>$description</p></div>";
+							$gallery .= "<div class=\"slide_text\"><h3>$title</h3><p>$description</p></div>";
+							$gallery .= "<img src=\"$photo_full[0]\" />";
 							$gallery .= '</div>';
 
 						}

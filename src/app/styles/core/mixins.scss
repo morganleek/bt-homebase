@@ -147,16 +147,16 @@
 	}
 }
 
-@mixin close-icon {
+@mixin close-icon( $colour: #fff ) {
 	width: 32px;
 	height: 32px;
 	display: block;
 	cursor: pointer;
 	&::before, &::after {
 		content: "";
-		width: 100%;
+		width: 32px;
 		height: 1px;
-		background: #fff;
+		background: $colour;
 		position: absolute;
 		top: 50%;
 		left: 0;

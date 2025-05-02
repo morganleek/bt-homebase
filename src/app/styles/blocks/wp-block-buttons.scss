@@ -15,6 +15,19 @@
 					}
 				}
 			}
+			&.download {
+				svg {
+					width: 24px;
+					height: 25px;
+				}
+				@media (hover: hover) {
+					&:hover {
+						svg {
+							transform: translate(0, 3px);
+						}
+					}
+				}
+			}
 		}
 		&.is-style-outline {
 			.wp-block-button__link {
@@ -22,6 +35,10 @@
 				color: var(--wp--preset--color--brand-charcoal);
 				padding: 9px 16px 9px 16px;
 				line-height: 1.25em;
+				border: 1px solid;
+				&:not([class*="background-color"]) {
+					background: #fff;
+				}
 				.has-brand-charcoal-background-color & {
 					color: var(--wp--preset--color--white);
 				}

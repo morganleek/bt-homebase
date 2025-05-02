@@ -86,29 +86,30 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		} );
 	} );
 
-	document.querySelectorAll( ".display_photo" ).forEach( link => {
-		link.addEventListener( "click", ( e ) => {
-			e.preventDefault();
-			document.body.classList.add( "showing_gallery" );
-			// $('body').addClass('showing_gallery');
-			document.querySelector( ".full_gallery" ).classList.add( "active" );
-			// $('.full_gallery').addClass('active');
-			document.querySelector( ".full_gallery_slides" ).classList.add( "active" );
-			// $('').flickity('resize');
-			const collection = new Flickity( '.full_gallery_slides', {
-				cellAlign: 'left',
-				contain: true,
-				pageDots: false,
-				hash: true,
-				selectedAttraction: 0.01, 
-				friction: 0.15, 
-				wrapAround: true, 
-				arrowShape: { "x0": 10, "x1": 60, "y1": 50, "x2": 63, "y2": 47, "x3": 17 }
-			} );
+	// Display single
+	if( document.querySelector( ".display_photo" ) ) {
+		document.querySelectorAll( ".display_photo" ).forEach( link => {
+			link.addEventListener( "click", ( e ) => {
+				e.preventDefault();
+				document.body.classList.add( "showing_gallery" );
+				document.querySelector( ".full_gallery" ).classList.add( "active" );
+				document.querySelector( ".full_gallery_slides" ).classList.add( "active" );
+				new Flickity( '.full_gallery_slides', {
+					wrapAround: true
+				} );
+			});
+		} );
 
-			collection.resize();
-		});
-	} );
+		// Close 
+		document.querySelectorAll( '.close_full_gallery' ).forEach( close => {
+			close.addEventListener( "click", e => {
+				e.preventDefault();
+				document.body.classList.remove( 'showing_gallery' );
+				document.querySelector( ".full_gallery" ).classList.remove( "active" );
+				document.querySelector( ".full_gallery_slides" ).classList.remove( "active" );
+			} );
+		} );
+	}
 
 	// collections
 	document.querySelector( "#collections, #displays" )?.addEventListener( "click", ( e ) => {
@@ -183,12 +184,20 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		// open gallery 
+		// let galleries = [];
+		let gallery;
 		if( target.classList.contains( 'collection-image-link' ) ) {
-			console.log( 'collection-image-link' );
 			var galleryId = target.dataset.gallery;
 			document.body.classList.add( 'showing_gallery' );
+			
+			gallery = new Flickity( "#gallery_" + galleryId + " .full_gallery_slides", {
+				pageDots: false,
+				wrapAround: true
+			} );
+			
+			// Show
 			document.querySelector( "#gallery_" + galleryId ).classList.add( 'active' );
-			collection.resize();
+			gallery.resize();
 		}
 
 		// close gallery
@@ -197,6 +206,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			target.closest( '.full_gallery' ).classList.remove( 'active' );
 			const collectionHash = target.closest( '.full_gallery' ).dataset.collection;
 			history.pushState( {}, "", '#collection_' + collectionHash);
+			gallery.destroy();
 		}
 
 		// edit image
@@ -212,8 +222,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			loadDestinationCollections( original_collection );
 		}
 	} );
-
-	
 
 	document.querySelector( ".account_modal_close" )?.addEventListener( "click", ( e ) => {
 		closeModals();
@@ -476,16 +484,20 @@ const loadCollections = ( collection ) => {
 		document.querySelector( '#collections' ).classList.remove( 'loading' );
 		document.querySelector( '#collections > .wp-block-group' ).innerHTML = res.data;	
 		
-		collection = new Flickity( '.full_gallery_slides', {
-			cellAlign: 'left',
-			contain: true,
-			pageDots: false,
-			hash: true,
-			selectedAttraction: 0.01, 
-			friction: 0.15, 
-			wrapAround: true, 
-			arrowShape: { "x0": 10, "x1": 60, "y1": 50, "x2": 63, "y2": 47, "x3": 17 }
-		} );
+		// document.querySelectorAll( ".full_gallery_slides" ).forEach( ( slides, key ) => {
+		// 	if( key === 0 ) {
+		// 		new Flickity( slides, {
+		// 			pageDots: false,
+		// 			wrapAround: true, 
+		// 			// cellAlign: 'left',
+		// 			// contain: true,
+		// 			// hash: true,
+		// 			// selectedAttraction: 0.01, 
+		// 			// friction: 0.15, 
+		// 			// arrowShape: { "x0": 10, "x1": 60, "y1": 50, "x2": 63, "y2": 47, "x3": 17 }
+		// 		} );
+		// 	}
+		// } );
 	} )
 	.catch( error => {
 		showMessage( "Something has gone wrong" );

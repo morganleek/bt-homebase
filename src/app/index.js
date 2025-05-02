@@ -7,8 +7,6 @@ import "tiny-slider/src/tiny-slider.scss"
 // Slider - Library import example
 import { tns } from "tiny-slider";
 
-console.log( 'here' );
-
 document.addEventListener( 'DOMContentLoaded', () => {
 	document.querySelectorAll( '.wp-block-home-base-post-grid-list button' ).forEach( button => {
 		button.addEventListener( "click", ( e ) => {

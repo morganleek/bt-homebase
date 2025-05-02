@@ -33,27 +33,26 @@
 </div>
 
 <div class="full_gallery">
+	<a class="close_full_gallery" href="#">Close</a>
 	<div class="full_gallery_slides">
 		<?php while ( $photos->have_posts() ) :
 			$photos->the_post(); 
 			$photo = get_field( "file", get_the_ID() );
-			// $photo_full = wp_get_attachment_image_src( $photo, "full" ); 
-			// $photo = get_field( "file", get_the_ID() );
-			// $thumbnail = wp_get_attachment_image($photo);
 			$photo_full = wp_get_attachment_image_src( $photo, "full" );
-			
+
+			$photo_title = get_field( "gallery_title", get_the_ID() );
+			$photo_desc = get_field( "gallery_description", get_the_ID() );
 			?>
 			<div class="slide" id="view_photo_<?php the_ID(); ?>">
-				<div class="slide_image"><img src="<?php echo $photo_full[0]; ?>" /></div>
 				<div class="slide_text">
-					<h2><?php the_field( "gallery_title" ); ?></h2>
-					<p><?php the_field( "gallery_description" ); ?></p>
+					<?php print $photo_title ? "<h3>$photo_title</h3>" : ""; ?>
+					<?php print $photo_desc ? "<p>$photo_desc</p>" : ""; ?>
 					<div class="slide_buttons">
 						<?php homebase_save_to_collection_button( get_the_ID() ); ?>
 					</div>
 				</div>
+				<img src="<?php echo $photo_full[0]; ?>" />
 			</div>
 		<?php endwhile; ?>
 	</div>
-	<a class="close_full_gallery" href="#"></a>
 </div>
