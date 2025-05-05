@@ -23,6 +23,10 @@ strong {
 	}
 }
 
+:root :where(.is-layout-flow) > p + p {
+	margin-top: 1em;
+}
+
 @for $i from 1 through 6 {
 	h#{$i} {
 		&.has-x-large-font-size {
@@ -53,10 +57,16 @@ strong {
 	--field-border-width: 0 0 1px 0;
 	--field-pad: 10px 4px;
 	--border-color-active: transparent;
-	padding-left: 8px;
-	padding-right: 8px;
+	--text-color: #38332F !important;
+	padding-left: 0;
+	padding-right: 0;
+	// padding-left: 8px;
+	// padding-right: 8px;
+	.form-field {
+		margin-bottom: 16px;
+	}
 	select {
-		padding-left: 0;
+		padding-left: 0 !important;
 		// color: #A19A94;
 		&::placeholder {
 			color: #A19A94;
@@ -89,7 +99,7 @@ strong {
 	}
 	.frm_submit {
 		button.frm_button_submit {
-			margin: 0;
+			margin: 8px 0 0;
 			background: #38332F;
 			width: 100%;
 			text-align: left;

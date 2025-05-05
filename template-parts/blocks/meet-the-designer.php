@@ -4,7 +4,7 @@
 
 		$args = [ 
 			'posts_per_page' => '-1',
-			'product_cat' => 'meet-the-designer',
+			'product_cat' => 'meet-the-designer', 
 			'post_type' => 'product',
 			'orderby' => 'menu_order',
 			'order' => 'ASC'
@@ -14,7 +14,7 @@
 			while ( $inspireseries->have_posts() ) {
 				$inspireseries->the_post();
 				echo "<div class=\"meet-the-designer-post-wrapper\" id=\"" . get_the_ID() . "\">";
-					echo "<div class=\"meet-the-designer-post-title\"><h4>" . get_the_title() . "</h4></div>";
+					// echo "<div class=\"meet-the-designer-post-title\"><h4>" . get_the_title() . "</h4></div>";
 					// the_post_thumbnail( 'large', array( 'class' => 'meet-the-designer-post-thumbnail' ) );
 					// echo "<div class=\"meet-the-designer-content\">";
 					// 	the_content();
@@ -38,6 +38,7 @@
 					// echo "</div>";
 					echo "<div class=\"meet-the-designer-variation-wrapper\">";
 						woocommerce_template_single_add_to_cart();
+						// print do_shortcode( "[product_page id='" . get_the_ID() . "']" );
 					echo "</div>";
 				echo "</div>";
 				// echo get_post_field( 'post_content', $post->ID );

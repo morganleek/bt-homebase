@@ -167,6 +167,17 @@
 					'icon'            => 'admin-site-alt3',
 					'keywords'        => [],
 				] );
+
+				// Course Information
+				acf_register_block_type( [ 
+					'name'            => 'course-information',
+					'title'           => __( 'Course Information' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/course-information.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-site-alt3',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}

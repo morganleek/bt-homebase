@@ -1,5 +1,14 @@
+@use '../core/mixins';
+
 .wp-block-meet-the-designer {
 	.meet-the-designer-variation-wrapper {
+		max-width: 732px;
+		margin-left: auto;
+		margin-right: auto;
+		.woocommerce-variation-availability,
+		.reset_variations {
+			display: none !important;
+		}
 		table {
 			&.variations {
 				width: 100%;
@@ -8,6 +17,9 @@
 				}
 				td.value {
 					width: 100%;
+					select {
+						display: none;
+					}
 				}
 				.woocombo-container {
 					display: flex;
@@ -15,6 +27,9 @@
 					gap: 6px;
 					.woocombo-entity-wrapper {
 						width: 100%;
+						// &:has(.woocombo-entity.disabled) {
+						// 	display: none;
+						// }
 						.woocombo-entity {
 							width: 100%;
 							min-height: 56px;
@@ -47,6 +62,63 @@
 					}
 				}
 			}
+		}
+	}
+	.mc-variation-radios {
+		padding-left: 0;
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		li {
+			input {
+				display: none;
+				// position: absolute;
+				// opacity: 0;
+				&:checked + label {
+					background-color: #DBD6D1;
+					&::after {
+						background: url(./images/check-circle-broken.svg) 0 0/100% auto no-repeat;
+					}
+				}
+			}
+			label {
+				width: 100%;
+				min-height: 56px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 8px 16px;
+				border-radius: 8px;
+				background: #fff;
+				color: var(--wp--preset--color--brand-charcoal);
+				font-size: 1rem;
+				border: 0 none;
+				&::after {
+					content: "";
+					width: 24px;
+					height: 24px;
+					background: url(./images/placeholder-circle.svg) 0 0/100% auto no-repeat;
+				}
+			}
+		}
+	}
+	.single_variation_wrap {
+		background-color: var(--wp--preset--color--brand-charcoal);
+		border-radius: 12px;
+		padding: 16px 24px;
+		button[type="submit"] {
+			width: 100%;
+			text-align: left;
+			background-color: #fff;
+			color: var(--wp--preset--color--brand-charcoal);
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			@include mixins.arrow-after;
+		}
+		.quantity input.qty.input-text {
+			display: none;
 		}
 	}
 }

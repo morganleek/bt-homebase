@@ -38,15 +38,30 @@
 	max-width: 100%;
 	font-family: var(--wp--preset--font-family--gotham-narrow);
 	font-size: 1rem;
-	padding: 10px 4px;
+	padding: 10px 2px; // 4px;
 	box-sizing: border-box;
 	outline: none;
 	font-weight: 500;
 	&::placeholder {
 		color: #A19A94;
 	}
-	&:focus-visible {
+	&:focus,
+	&:focus-visible,
+	&:focus-within {
 		outline: 0 none;
+		border-color: var(--wp--preset--color--brand-yellow);
+		box-shadow: none;
+		border-width: 0 0 1px 0;
+	}
+	&:not([type=file]):not([type=range]):not([readonly]) {
+		&:focus,
+		&:focus-visible,
+		&:focus-within {
+			outline: 0 none;
+			border-color: var(--wp--preset--color--brand-yellow);
+			box-shadow: none;
+			border-width: 0 0 1px 0;
+		}	
 	}
 }
 

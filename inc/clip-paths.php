@@ -10,6 +10,9 @@
 			<clipPath id="close-modal" clipPathUnits="objectBoundingBox">
 				<path transform="scale(0.06666666667, 0.06666666667)" d="M13.5,14.914062l-6-6L1.5,14.914062.085938,13.5l6-6L.085938,1.5,1.5.085938l6,6L13.5.085938l1.414062,1.414062-6,6,6,6-1.414062,1.414062Z" style="fill:none;" />
 			</clipPath>
+			<clipPath id="close-small" clipPathUnits="objectBoundingBox">
+				<path transform="scale(0.076923, 0.0833333)" d="M11,11.914062l-4.5-4.5-4.5,4.5-1.414062-1.414062,4.5-4.5L.585938,1.5,2,.085938l4.5,4.5L11,.085938l1.414062,1.414062-4.5,4.5,4.5,4.5-1.414062,1.414062Z" style="fill:none;" />
+			</clipPath>
 		</svg>';
 	}
 
