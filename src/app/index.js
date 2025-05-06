@@ -7,7 +7,39 @@ import "tiny-slider/src/tiny-slider.scss"
 // Slider - Library import example
 import { tns } from "tiny-slider";
 
+// // GSAP
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// gsap.registerPlugin( ScrollTrigger );
+
 document.addEventListener( 'DOMContentLoaded', () => {
+	
+	// let mm = gsap.matchMedia();
+	// mm.add( "(min-width: 1000px)", () => {
+	// } );
+		
+	// Menu scroll trigger
+	const header = document.querySelector( "header.wp-block-template-part" );
+	if( header ) {
+		let lastScrollTop = window.scrollY;
+		let scrolling = false;
+
+		window.addEventListener('scroll', ( e ) => {
+			if( !scrolling ) {
+				scrolling = true;
+				setTimeout(() => {
+					// Scrolling up and scroll further that top 150px
+					console.log( window.scrollY > 150 );
+					const scrollUp = lastScrollTop < window.scrollY && window.scrollY > 150;
+					document.body.classList.toggle( "header-hide", scrollUp );
+					lastScrollTop = window.scrollY;
+					scrolling = false;
+				}, 250);
+			}
+		})
+
+	}
+
 	document.querySelectorAll( '.wp-block-home-base-post-grid-list button' ).forEach( button => {
 		button.addEventListener( "click", ( e ) => {
 			const button = e.target.closest( "button" );
@@ -119,7 +151,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	
 	document.body.addEventListener( 'wc-blocks_added_to_cart', blocks_added_to_cart );
 
-	document.body.removeEventListener( "wc-block-empty-cart-frontend" );
+	// document.body.removeEventListener( "wc-block-empty-cart-frontend" );
 } );
 
 // .is-layout-flow

@@ -101,6 +101,7 @@ module.exports = {
 		'patterns/**',
 		'readme.txt',
 		'screenshot.png',
+		'template-parts/**',
 		'templates/**',
 		'theme.json',
 		'vendor/**',

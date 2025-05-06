@@ -2,6 +2,20 @@ header.wp-block-template-part {
 	position: relative;
 	z-index: 10000;
 	margin: 0;
+	position: sticky;
+	top: 0;
+	background: #fff;
+	transition: transform 0.2s;
+	body.admin-bar & {
+		top: 46px;
+		@media (min-width: 783px) { 
+			top: 32px;
+		}
+	}
+	body.header-hide & {
+		transform: translate(0, -100%);
+		transition: transform 0.4s;
+	}
 	.header--nav-wrapper {
 		position: relative;
 		z-index: 10;

@@ -212,6 +212,9 @@
 						"border": {
 							"width": "1px"
 						},
+						"color": {
+							"text": "var(--wp--preset--color--brand-charcoal)"
+						},
 						"spacing": {
 							"padding": {
 								"bottom": "9px",
