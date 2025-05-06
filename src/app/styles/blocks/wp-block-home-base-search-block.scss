@@ -2,6 +2,10 @@
 	margin-top: 0 !important;
 } 
 
+body.show-home-base-search {
+	overflow-y: hidden;
+}
+
 .wp-block-home-base-search-modal:not(.block-editor-block-list__block) {
 	position: fixed;
 	top: 0;
@@ -91,12 +95,12 @@
 		position: absolute;
     background: #DBD6D1;
     width: 100%;
-    height: min(300px, 80vh);
     overflow: scroll;
     padding: 32px 32px 12px;
     z-index: 1;
     top: calc(100% - 12px);
-		border-radius: 0 0 12px 12px;
+    border-radius: 0 0 12px 12px;
+    height: calc(100svh - 200px);
 		ul {
 			list-style: none;
 			gap: 10px;
@@ -105,7 +109,61 @@
 			align-items: stretch;
 			padding-left: 0;
 			li {
-				color: var(--wp--preset--color--brand-charcoal);
+				background: #fff;
+				border-radius: 16px;
+				padding: 16px;
+				display: grid;
+				grid-template-columns: 92px minmax(0, 1fr);
+				gap: 8px 16px;
+				.image {
+					background-color: #E3E3E3;
+					width: 92px;
+					height: 92px;
+					border-radius: 12px;
+					overflow: hidden;
+					position: relative;
+					display: block;
+					&::before {
+						content: "";
+						width: 80px;
+						height: 80px;
+						background-color: #cdcdcd;
+						left: 50%;
+						top: 50%;
+						position: absolute;
+						transform: translate(-50%, -50%);
+						clip-path: url(#square-image-placeholder);
+					}
+					img {
+						width: 92px;
+						height: 92px;
+						object-fit: cover;
+						position: relative;
+						display: block;
+						z-index: 1;
+					}
+				}
+				.copy {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					padding: 2px 0;
+					.heading {
+						color: var(--wp--preset--color--brand-charcoal);
+						width: 100%;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+					.description {
+						font-size: 0.875rem;
+						margin: 0;
+						max-height: 64px;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						line-height: 1.5em;
+					}
+				}
 			}
 		}
 		h5 {

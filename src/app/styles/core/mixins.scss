@@ -114,6 +114,14 @@
 		background-color: $color;
 		clip-path: url(#heart-outline);
 		pointer-events: none;
+		transition: background-color 0.2s;
+	}
+	@media( hover: hover ) {
+		&:hover {
+			&::before {
+				background-color: var(--wp--preset--color--brand-yellow);
+			}
+		}
 	}
 	&.unsave,
 	&.unsaveimage {

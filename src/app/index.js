@@ -29,15 +29,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				scrolling = true;
 				setTimeout(() => {
 					// Scrolling up and scroll further that top 150px
-					console.log( window.scrollY > 150 );
 					const scrollUp = lastScrollTop < window.scrollY && window.scrollY > 150;
 					document.body.classList.toggle( "header-hide", scrollUp );
 					lastScrollTop = window.scrollY;
 					scrolling = false;
 				}, 250);
 			}
-		})
-
+		} );
 	}
 
 	document.querySelectorAll( '.wp-block-home-base-post-grid-list button' ).forEach( button => {

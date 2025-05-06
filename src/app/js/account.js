@@ -65,7 +65,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				.then( res => {
 					e.target.classList.toggle( 'unsave' );
 					// Show message
-					showMessage( successMessage );
+					// showMessage( successMessage );
 				})
 				.catch( error => {
 					console.log( error );
@@ -79,10 +79,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		button.addEventListener( 'click', ( e ) => {
 			const post_ID = e.target.dataset.postId;
 			const image_thumb_url = e.target.dataset.imageThumbUrl;
-			
-			document.getElementById( "save_image_id" ).value = post_ID;
-			document.querySelector( "#new_image_form .collection_image_preview" ).style.backgroundImage = 'url(' + image_thumb_url + ')';
-			document.body.classList.add( "collection_action", "collection_action_image" );
+			const isUnsave = e.target.classList.contains( 'unsaveimage' );
+
+			// Do nothing if already saved
+			if( !isUnsave ) {
+				document.getElementById( "save_image_id" ).value = post_ID;
+				document.querySelector( "#new_image_form .collection_image_preview" ).style.backgroundImage = 'url(' + image_thumb_url + ')';
+				document.body.classList.add( "collection_action", "collection_action_image" );
+			}	
 		} );
 	} );
 
@@ -91,12 +95,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		document.querySelectorAll( ".display_photo" ).forEach( link => {
 			link.addEventListener( "click", ( e ) => {
 				e.preventDefault();
-				document.body.classList.add( "showing_gallery" );
-				document.querySelector( ".full_gallery" ).classList.add( "active" );
-				document.querySelector( ".full_gallery_slides" ).classList.add( "active" );
-				new Flickity( '.full_gallery_slides', {
-					wrapAround: true
-				} );
+				if( !e.target.classList.contains( "heart") ) {
+					document.body.classList.add( "showing_gallery" );
+					document.querySelector( ".full_gallery" ).classList.add( "active" );
+					document.querySelector( ".full_gallery_slides" ).classList.add( "active" );
+					new Flickity( '.full_gallery_slides', {
+						wrapAround: true
+					} );
+				}
 			});
 		} );
 
@@ -265,7 +271,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				
 				closeModals(); 
 				// Show message
-				showMessage( "<h5>Image Saved</h5><p>This image has been saved to My Account</p><p><a class='saved_view_account' href='/my-account'>View My Account</a></p>" );
+				// showMessage( "<h5>Image Saved</h5><p>This image has been saved to My Account</p><p><a class='saved_view_account' href='/my-account'>View My Account</a></p>" );
 			})
 			.catch( error => {
 				console.log( error );
@@ -308,24 +314,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	if( document.querySelector( "#collections" ) ) {
 		loadCollections();
 	}
-
-	// Bookmark Post
-	document.querySelectorAll( ".display-save button.bookmark" ).forEach( button => {
-		button.addEventListener( "click", ( e ) => {
-			// const title = e.target.dataset.postTitle;
-			// const url = e.target.dataset.postUrl;
-			// let createBookmark = browser.bookmarks.create({
-			// 	title: title,
-			// 	url: url,
-			// });
-			
-			// createBookmark.then(onCreated);
-		} );
-
-		// const onCreated = (node) => {
-		// 	showMessage( "<h5>Page bookmarked</h5>" );
-		// }
-	} );
 	
 	// Show Help
 	// 
@@ -404,7 +392,7 @@ const processRequest = ( targetId ) => {
 			// reload collections
 			loadCollections();
 			// Show message
-			showMessage( confirmation );
+			// showMessage( confirmation );
 		})
 		.catch( error => {
 			console.log( error );
@@ -431,22 +419,7 @@ const processRequest = ( targetId ) => {
 // 			window.open(brochureURL, '_blank');
 // 		});
 		
-// 		$(".full_gallery").on("click", ".saveimage", function() {
-// 			event.preventDefault();
-// 			var post_ID = $(this).data('post-id');
-// 			var image_thumb_url = $(this).data('image-thumb-url');
-// 			$('#save_image_id').val(post_ID);
-// 			$('#new_image_form .collection_image_preview').css('background-image', 'url(' + image_thumb_url + ')');
-// 			$('body').addClass('collection_action collection_action_image');
-// 		});
-// 		$(".display_photos").on("click", ".unsaveimage", function() {
-// 			event.preventDefault();
-// 			$('body').addClass('collection_action collection_action_manage_image');
-// 		});
-// 		$(".full_gallery").on("click", ".unsaveimage", function() {
-// 			event.preventDefault();
-// 			$('body').addClass('collection_action collection_action_manage_image');
-// 		});
+
 		
 // COLLECTION MODAL ACTIONS
 
