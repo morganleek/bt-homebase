@@ -103,9 +103,39 @@
 
 	}
 	
+	&:has(> .profile-menu) {
+		& + .wp-block-group {
+			margin-top: 48px;
+		}
+	}
 	&.profile-menu {
 		display: flex;
 		justify-content: center;
+		padding-top: 8px;
+    padding-bottom: 8px;
+		gap: 8px 64px;
+		a {
+			position: relative;
+			padding-bottom: 8px;
+			&::after {
+				content: "";
+				width: 50px; // min(80%, 51px);
+				height: 1px;
+				background-color: var(--wp--preset--color--brand-yellow);
+				position: absolute;
+				top: 100%;
+				left: 50%;
+				transform: translate(-50%, 0);
+				opacity: 0;
+				transition: opacity 0.2s;
+			}
+			&:hover {
+				text-decoration: none;
+				&::after {
+					opacity: 1;
+				}
+			}
+		}
 	}
 	&#about-display-grid {
 		@media (max-width: 781px) { 

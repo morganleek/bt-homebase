@@ -1,4 +1,5 @@
 .wp-block-buttons {
+	row-gap: 8px;
 	.wp-block-button {
 		&[class*=has-icon__].has-icon__external-arrow {
 			gap: 15px;
@@ -64,4 +65,9 @@
 			}
 		}
 	}
+}
+
+svg:has(+ .download) {
+	width: 19px;
+	height: 23px;
 }

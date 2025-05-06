@@ -231,8 +231,14 @@
 					.wp-block-buttons {
 						margin-top: 0;
 						justify-content: flex-end;
+						width: 100%;
 						@media (max-width: 781px) { 
 							display: none;
+						}
+						.wp-block-button__link {
+							background-color: #fff;
+							color: var(--wp--preset--color--brand-charcoal);
+							border: 0 none;
 						}
 					}
 					.children {

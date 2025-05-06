@@ -418,7 +418,7 @@
 <?php if ( is_user_logged_in() ) : ?>
 		<div
 			class="wp-block-group alignfull has-brand-dust-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
-			style="margin-top:0;margin-bottom:0;padding-bottom:var(--wp--preset--spacing--40)">
+			style="margin-top:0;margin-bottom:0;padding-bottom:var(--wp--preset--spacing--80)">
 			<div
 				class="wp-block-group alignwide is-style-overlap has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
 				style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
@@ -436,7 +436,7 @@
 				id="our-centre">
 				<div class="my_account_tab wp-block-group alignwide" id="collections">
 					<h3>Collections</h3>
-					<div class="wp-block-group alignwide has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-radius:24px;padding-top:var(--wp--preset--spacing--60);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--60);padding-left:var(--wp--preset--spacing--30)"></div>
+					<div class="wp-block-group alignwide has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained" style="border-radius:24px;padding-top:var(--wp--preset--spacing--80);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--80);padding-left:var(--wp--preset--spacing--30)"></div>
 				</div>
 				<div class="my_account_tab wp-block-group alignwide" id="displays">
 					<h3>Displays</h3>
@@ -462,27 +462,37 @@
 							<?php 
 								$downloads = get_field( 'downloads', $course_kit->ID ); ?>
 								<?php if ( have_rows( 'downloads', $course_kit->ID ) ) : ?>
-									<div class="course_kit">
-										<h2><?php echo $course_kit->post_title; ?></h2>
-										<ul class="saved_displays">
-											<?php while ( have_rows( 'downloads', $course_kit->ID ) ) :
+									
+									<?php while ( have_rows( 'downloads', $course_kit->ID ) ) :
 												the_row(); ?>
-												<?php if ( get_sub_field( 'pdf' ) ) : ?>
-													<?php $thumbnail = get_sub_field( 'thumbnail' );
-													$thumb = $thumbnail['sizes']['search']; ?>
-													<li>
-														<span class="thumb" style="background-image:url(<?php echo $thumb; ?>);"></span>
-														<div class="saved_display_content">
-															<h2><?php the_sub_field( 'title' ); ?></h2>
-															<p><?php the_sub_field( 'description' ); ?></p>
+										<div class="course_kit">
+											<?php if ( get_sub_field( 'pdf' ) ) : ?>
+												<?php $thumbnail = get_sub_field( 'thumbnail' );
+												$thumb = $thumbnail['sizes']['thumbnail']; ?>
+													<img src="<?php print $thumbnail['sizes']['medium']; ?>" alt="<?php the_sub_field( 'title' ); ?>" />
+													<div>
+														<h4><?php the_sub_field( 'title' ); ?></h4>
+														<p><?php the_sub_field( 'description' ); ?></p>
+													</div>
+													<div>
+
+														<div class="wp-block-buttons is-content-justification-center is-layout-flex wp-block-buttons-is-layout-flex" style="column-gap: 10px;">
+															<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 23"><path d="M13.200195,22.5h-6.400391c-1.837891,0-2.760254,0-3.615723-.436523-.756836-.384766-1.361816-.989258-1.748047-1.74707-.436035-.856445-.436035-1.779297-.436035-3.616211v-.700195c0-.552734.447754-1,1-1s1,.447266,1,1v.700195c0,1.469727,0,2.279297.218262,2.708008.192871.378906.495117.680664.873047.873047.428711.21875,1.238281.21875,2.708496.21875h6.400391c1.469727,0,2.279297,0,2.708008-.21875.378906-.192383.680664-.494141.873047-.87207.21875-.429688.21875-1.239258.21875-2.708984V6.299805c0-1.470215,0-2.279785-.217773-2.70752-.193359-.378906-.495117-.681152-.874023-.874023-.428711-.218262-1.238281-.218262-2.708008-.218262h-2.700195c-.552246,0-1-.447754-1-1s.447754-1,1-1h2.700195c1.836914,0,2.759766,0,3.616211.436035.757812.38623,1.362305.991211,1.748047,1.748535.435547.85498.435547,1.777344.435547,3.615234v10.400391c0,1.836914,0,2.759766-.435547,3.616211-.385742.757812-.990234,1.362305-1.749023,1.748047-.855469.435547-1.77832.435547-3.615234.435547ZM14,17.5H6c-.552246,0-1-.447266-1-1s.447754-1,1-1h8c.552734,0,1,.447266,1,1s-.447266,1-1,1ZM14,13.5h-4.5c-.552246,0-1-.447266-1-1,0-.552246.447754-1,1-1h4.5c.552734,0,1,.447754,1,1,0,.552734-.447266,1-1,1ZM4,13.5c-2.205566,0-4-1.794434-4-4v-4c0-.552246.447754-1,1-1s1,.447754,1,1v4c0,1.103027.896973,2,2,2s2-.896973,2-2v-5.5c0-.275879-.224121-.5-.5-.5s-.5.224121-.5.5v5.5c0,.552246-.447754,1-1,1s-1-.447754-1-1v-5.5c0-1.378418,1.121582-2.5,2.5-2.5s2.5,1.121582,2.5,2.5v5.5c0,2.205566-1.794434,4-4,4ZM14,9.5h-3.5c-.552246,0-1-.447754-1-1s.447754-1,1-1h3.5c.552734,0,1,.447754,1,1s-.447266,1-1,1Z" style="fill:#38332f;"/></svg>
+															<div class="wp-block-button is-style-outline has-icon__external-arrow download">
+																<a class="wp-block-button__link wp-element-button brochure brochure_download" href="<?php the_sub_field( 'pdf' ); ?>" target="new">
+																	Download PDF
+																	<svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+																		<path d="M11.9998 19.5L6.0767 13.5073L7.38733 12.2067L11.0672 15.8534V5.5H12.9323V15.8534L16.6122 12.2067L17.9229 13.5073L11.9998 19.5Z" fill="#F9B000"></path>
+																	</svg>
+																</a>
+															</div>
 														</div>
-														<a class="brochure brochure_download" href="<?php the_sub_field( 'pdf' ); ?>" target="new"><span
-																class="is_brochure">Download PDF</span></a>
-													</li>
-												<?php endif; ?>
-											<?php endwhile; ?>
-										</ul>
-									</div>
+													</div>
+												
+											<?php endif; ?>
+										</div>
+									<?php endwhile; ?>
+										
 								<?php endif;	
 							?>
 						<?php endforeach; ?>
