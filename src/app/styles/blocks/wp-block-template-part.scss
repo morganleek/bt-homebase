@@ -99,10 +99,13 @@ header.wp-block-template-part {
 		}
 		.wp-block-navigation__responsive-container {
 			&.is-menu-open {
-				top: 80px;
 				background-color: var(--wp--preset--color--brand-dust);
 				padding-left: 16px;
 				padding-right: 16px;
+				top: 68px;
+				@media (min-width: 782px) { 
+					top: 80px;
+				}
 				body.admin-bar & {
 					top: 126px;
 					@media (min-width: 783px) { 

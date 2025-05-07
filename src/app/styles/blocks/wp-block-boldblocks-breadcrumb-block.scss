@@ -1,7 +1,7 @@
 .wp-block-boldblocks-breadcrumb-block {
 	ol {
 		row-gap: 0;
-		@media (max-width: 782px) {
+		@media (min-width: 782px) {
 			margin-top: 8px;
 			margin-bottom: 8px;
 		}
