@@ -61,10 +61,13 @@
 							content: "";
 							background: #f6f6f6;
 							width: 100%;
-							aspect-ratio: 5 / 3;
 							display: block;
 							border-radius: 24px;
 							margin-bottom: 24px;
+							aspect-ratio: 1.575;
+							@media (min-width: 782px) {
+								aspect-ratio: 5 / 3;
+							}
 						}
 					}
 				}
@@ -83,12 +86,18 @@
 					line-height: 1.35em;
 				}
 				.wp-block-post-featured-image {
-					aspect-ratio: 5 / 3 !important;
-					margin-bottom: 17px;
+					aspect-ratio: 1.575 !important;
+					margin-bottom: 10px;
+					@media (min-width: 782px) {
+						margin-bottom: 17px;
+						aspect-ratio: 5 / 3 !important;
+					}
 					& + h3,
 					& + h4 {
-						padding-left: 8px;
-						padding-right: 8px;
+						@media (min-width: 782px) { 
+							padding-left: 8px;
+							padding-right: 8px;
+						}
 					}
 				}
 				&.has-children {
@@ -186,16 +195,17 @@
 				}
 				& > .wp-block-group {
 					display: grid;
-					grid-template-columns: 152px auto;
+					grid-template-columns: 162px auto;
 					column-gap: 16px;
 					align-items: center;
 					justify-content: start;
 					padding-bottom: 0 !important;
-					min-height: 100px;
+					// min-height: 136px;
 					@media (min-width: 782px) { 
+						min-height: 100px;
 						column-gap: 32px;
 						grid-template-columns: 152px minmax(0, 1fr) minmax(0, 15%);
-					}
+					} // 1.3583333333
 					& > h3, & > h4, .title-wrapper {
 						margin: 0 !important;
 						align-self: center;
@@ -221,11 +231,18 @@
 					.wp-block-post-featured-image {
 						aspect-ratio: auto !important;
 						width: 100%;
-						max-height: 100%;
+						height: 100%;
+						a {
+							height: 100%;
+							display: block;
+						}
 						img {
 							// width: 152px !important;
-							height: 100px !important;
 							border-radius: 12px !important;
+							height: 120px !important;
+							@media (min-width: 782px) { 
+								height: 100px !important;
+							}
 						}
 					}
 					.wp-block-buttons {
@@ -253,7 +270,10 @@
 								}
 							}
 							h3, h4 {
-								font-size: 1.25rem;
+								white-space: nowrap;
+								@media (min-width: 782px) { 
+									font-size: 1.25rem;
+								}
 							}
 						}
 					}
