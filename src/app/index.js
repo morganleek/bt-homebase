@@ -13,11 +13,6 @@ import { tns } from "tiny-slider";
 // gsap.registerPlugin( ScrollTrigger );
 
 document.addEventListener( 'DOMContentLoaded', () => {
-	
-	// let mm = gsap.matchMedia();
-	// mm.add( "(min-width: 1000px)", () => {
-	// } );
-		
 	// Menu scroll trigger
 	const header = document.querySelector( "header.wp-block-template-part" );
 	if( header ) {
