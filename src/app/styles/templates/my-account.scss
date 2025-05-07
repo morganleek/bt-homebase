@@ -66,6 +66,14 @@
 		background-repeat: no-repeat;
 		min-height: 200px;
 	}
+	& > .wp-block-group {
+		@media (max-width: 781px) { 
+			padding-top: 24px !important;
+			padding-bottom: 24px !important;
+			padding-left: 16px !important;
+			padding-left: 16px !important;
+		}
+	}
 }
 
 .loading_collections {
@@ -131,9 +139,12 @@
 .collection_names {
 	display: grid;
 	grid-template-columns: repeat(2, minmax(0, 1fr));
-	gap: 40px var(--wp--preset--spacing--40);
 	list-style: none;
 	padding-left: 0;
+	gap: 40px 18px;
+	@media (min-width: 782px) { 
+		gap: 40px var(--wp--preset--spacing--40);
+	}
 	&.hidden {
 		display: none;
 		& + .wp-block-buttons {
@@ -151,12 +162,15 @@
 			}
 			img {
 				width: 100%;
-				aspect-ratio: 5/3;
 				border-radius: 12px;
 				display: block;
 				opacity: 1;
 				object-fit: cover;
 				height: auto;
+				aspect-ratio: 0.7678571429;
+				@media (min-width: 782px) { 
+					aspect-ratio: 5/3;
+				}
 			}
 		}
 		h3 {
@@ -379,37 +393,21 @@
 	}
 }
 
-@media screen and (max-width: 768px) {
+// @media screen and (max-width: 768px) {
 
-	.collection_names li {
-		width: 33.3333%;
-	}
+// 	.full_gallery .slide_image {
+// 		top: 90px;
+// 		left: 10px;
+// 		right: 10px;
+// 	}
 
-	.full_gallery .slide_image {
-		top: 90px;
-		left: 10px;
-		right: 10px;
-	}
+// 	.full_gallery .slide_text {
+// 		left: 20px;
+// 		right: 20px;
+// 		height: 140px;
+// 	}
 
-	.full_gallery .slide_text {
-		left: 20px;
-		right: 20px;
-		height: 140px;
-	}
-
-}
-
-@media screen and (max-width: 500px) {
-
-	.collection_names li {
-		width: 50%;
-	}
-
-	// .save_collections li {
-	// 	width: 50%;
-	// }
-}
-
+// }
 
 .homebase_my_account_auth_prompt {
 	#my-account-loginform {
@@ -484,13 +482,16 @@
 
 .course_kit {
 	display: grid;
-	grid-template-columns: 152px minmax(0, 1fr) 210px;
 	background: #fff;
 	padding: 8px;
 	background: #fff;
 	border-radius: 16px;
 	column-gap: 32px;
 	align-items: center;
+	grid-template-columns: 162px minmax(0, 1fr);
+	@media (min-width: 782px) { 
+		grid-template-columns: 152px minmax(0, 1fr) 210px;
+	}
 	& + .course_kit {
 		margin-top: 16px;
 	}
@@ -526,5 +527,23 @@
 .my_account_tab {
 	& > h3 {
 		padding-left: 10px;
+	}
+	.wp-block-query .wp-block-post-template.is-layout-flow, 
+	.wp-block-display-categories-grid .wp-block-post-template.is-layout-flow {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	@media (max-width: 781px) { 
+		// padding-left: 8px;
+		// padding-right: 8px;
+		.wp-block-query, 
+		.wp-block-display-categories-grid {
+			.wp-block-post-template.is-layout-flow {
+				.wp-block-post {
+					padding: 16px;
+					padding-right: 16px;
+				}
+			}
+		}
 	}
 }

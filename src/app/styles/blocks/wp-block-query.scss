@@ -140,7 +140,10 @@
 					}
 					&.display {
 						& > .wp-block-group {
-							grid-template-columns: 152px minmax(0, 1fr) 210px;
+							grid-template-columns: 162px minmax(0, 1fr);
+							@media (min-width: 782px) { 
+								grid-template-columns: 152px minmax(0, 1fr) 210px;
+							}
 						}
 					}
 				}
