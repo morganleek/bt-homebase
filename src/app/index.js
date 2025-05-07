@@ -33,7 +33,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 					document.body.classList.toggle( "header-hide", scrollUp );
 					lastScrollTop = window.scrollY;
 					scrolling = false;
-				}, 250);
+				}, 100);
 			}
 		} );
 	}
