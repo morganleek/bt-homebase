@@ -1,0 +1,36 @@
+{
+  "main.css": "app/main-cad7b50f.css",
+  "main.css.map": "app/main-cad7b50f.css.map",
+  "main.js": "app/main-aacd0204.js",
+  "main.js.map": "app/main-aacd0204.js.map",
+  "runtime.js": "app/runtime-c339366b.js",
+  "runtime.js.map": "app/runtime-c339366b.js.map",
+  "vendors~main.css": "app/vendors~main-a93ee486.css",
+  "vendors~main.css.map": "app/vendors~main-a93ee486.css.map",
+  "vendors~main.js": "app/vendors~main-5b704e87.js",
+  "vendors~main.js.map": "app/vendors~main-5b704e87.js.map",
+  "wpackioEp": {
+    "main": {
+      "assets": {
+        "js": [
+          "app/runtime-c339366b.js",
+          "app/vendors~main-5b704e87.js",
+          "app/main-aacd0204.js"
+        ],
+        "js.map": [
+          "app/runtime-c339366b.js.map",
+          "app/vendors~main-5b704e87.js.map",
+          "app/main-aacd0204.js.map"
+        ],
+        "css": [
+          "app/vendors~main-a93ee486.css",
+          "app/main-cad7b50f.css"
+        ],
+        "css.map": [
+          "app/vendors~main-a93ee486.css.map",
+          "app/main-cad7b50f.css.map"
+        ]
+      }
+    }
+  }
+}
