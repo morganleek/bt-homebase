@@ -157,6 +157,9 @@ body.show-home-base-search {
 		input[type="text"] {
 			padding-left: 16px;
 			font-size: 0.875rem;
+			@media (max-width: 599px) {
+				font-size: 1rem;
+			}
 		}
 		button {
 			background: transparent;
