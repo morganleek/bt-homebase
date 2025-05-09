@@ -142,6 +142,16 @@
 			row-gap: 32px;
 		}
 	}
+	&:has(> .frm_forms) {
+		@media (max-width: 781px) {
+			padding-left: 24px !important;
+			padding-right: 24px !important;
+			& + .wp-block-group {
+				padding-left: 8px !important;
+				padding-right: 8px !important;
+			}
+		}
+	}
 }
 
 *:not(.wp-block-cover):has(+ .wp-block-group > .is-style-overlap:first-child),

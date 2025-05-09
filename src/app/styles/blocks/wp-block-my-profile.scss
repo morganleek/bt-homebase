@@ -34,7 +34,7 @@
 		.dropdown {
 			position: absolute;
 			top: 100%;
-			left: 0;
+			right: -8px;
 			opacity: 0;
 			width: 155px;
 			padding: 8px;
@@ -47,6 +47,10 @@
 			background: #fff;
 			z-index: 1000;
 			transition: opacity 0.2s;
+			@media (min-width: 800px) {
+				left: 0;
+				right: auto;
+			}
 			&.visible {
 				opacity: 1;
 			}
