@@ -40,6 +40,7 @@ body.show-home-base-search {
 		position: relative;
 		.search-inner {
 			position: static;
+			margin-bottom: var(--wp--preset--spacing--20) !important;
 		}
 	}
 }
@@ -57,6 +58,30 @@ body.show-home-base-search {
 
 .wp-block-home-base-search-block {
 	// position: relative;
+	.close {
+		// position: absolute;
+    // z-index: 999;
+    // top: 24px;
+    // right: 24px;
+    color: var(--wp--preset--color--brand-charcoal);
+		background-color: transparent;
+		padding: 0;
+    width: auto !important;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+		justify-self: flex-end;
+		margin-bottom: var(--wp--preset--spacing--20);
+		margin-right: var(--wp--preset--spacing--20);
+		&::after {
+			content: "";
+			background: var(--wp--preset--color--brand-charcoal);
+			width: 15px;
+			height: 15px;
+			clip-path: url(#close-modal);
+			display: block;
+		}
+	}
 	.search-inner {
 		background: #fff;
 		border-radius: 12px;
@@ -180,7 +205,7 @@ body.show-home-base-search {
     overflow: scroll;
     padding: 32px 0 12px;
     z-index: 1;
-    top: 150px;
+    top: 210px;
     bottom: 0;
     // background: #DBD6D1;
     // border-radius: 0 0 12px 12px;
