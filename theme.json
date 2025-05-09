@@ -24,6 +24,11 @@
 					"slug": "brand-oliver"
 				},
 				{
+					"color": "#A19A94",
+					"name": "Light Olive",
+					"slug": "brand-light-oliver"
+				},
+				{
 					"color": "#38332F",
 					"name": "Charcoal",
 					"slug": "brand-charcoal"
