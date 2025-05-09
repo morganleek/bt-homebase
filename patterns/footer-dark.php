@@ -156,17 +156,17 @@
 <!-- /wp:getwid/map --></div>
 <!-- /wp:group -->
 
-<!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-charcoal"}}},"spacing":{"blockGap":"var:preset|spacing|20","padding":{"right":"8px","left":"8px"}}},"textColor":"brand-charcoal","layout":{"type":"default"}} -->
-<div class="wp-block-group alignwide has-brand-charcoal-color has-text-color has-link-color" style="padding-right:8px;padding-left:8px"><!-- wp:image {"width":"174px","sizeSlug":"large","linkDestination":"none"} -->
-<figure class="wp-block-image size-large is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/home-base-logo-horiz.svg" alt="" class="" style="width:174px"/></figure>
+<!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|brand-charcoal"}}},"spacing":{"blockGap":"var:preset|spacing|40","padding":{"right":"8px","left":"8px"},"margin":{"top":"40px"}}},"textColor":"brand-charcoal","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide has-brand-charcoal-color has-text-color has-link-color" style="margin-top:40px;padding-right:8px;padding-left:8px"><!-- wp:image {"width":"174px","sizeSlug":"large","linkDestination":"none"} -->
+<figure class="wp-block-image size-large is-resized"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/home-base-logo-horiz.svg" alt="" style="width:174px"/></figure>
 <!-- /wp:image -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
 <p class="has-small-font-size">©{YEAR} Home Base Design &amp; Build Centre</p>
 <!-- /wp:paragraph -->
 
-<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.5"}},"fontSize":"small"} -->
-<p class="has-small-font-size" style="line-height:1.5"><strong>Acknowledgment of Country</strong> <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-brand-oliver-color">Home Base Design &amp; Build Centre is situated on Whadjuk Boodjar. We acknowledge the Traditional Custodians of this land and pay respect to Elders past and present. We recognise and honour their cultural and spiritual relationship to place and their rich contribution to our society.</mark></p>
+<!-- wp:paragraph {"style":{"typography":{"lineHeight":"1.5"},"spacing":{"margin":{"top":"var:preset|spacing|40"}}},"fontSize":"small"} -->
+<p class="has-small-font-size" style="margin-top:var(--wp--preset--spacing--40);line-height:1.5"><strong>Acknowledgment of Country</strong> <mark style="background-color:rgba(0, 0, 0, 0)" class="has-inline-color has-brand-oliver-color">Home Base Design &amp; Build Centre is situated on Whadjuk Boodjar. We acknowledge the Traditional Custodians of this land and pay respect to Elders past and present. We recognise and honour their cultural and spiritual relationship to place and their rich contribution to our society.</mark></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group -->
