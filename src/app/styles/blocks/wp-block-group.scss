@@ -152,6 +152,17 @@
 			}
 		}
 	}
+	&#our-brands {
+		@media (max-width: 599px) {
+			grid-template-columns: 1fr 1fr !important;
+			gap: 16px;
+		}
+	}
+	&:has(> #our-brands) {
+		@media (max-width: 599px) {
+			margin-bottom: 0px !important;
+		}
+	}
 }
 
 *:not(.wp-block-cover):has(+ .wp-block-group > .is-style-overlap:first-child),

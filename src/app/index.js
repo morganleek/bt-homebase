@@ -12,6 +12,18 @@ import { tns } from "tiny-slider";
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
 // gsap.registerPlugin( ScrollTrigger );
 
+const closeSearch = () => {
+	const searches = document.querySelectorAll( ".wp-block-home-base-search-block input[type=\"text\"]" );
+	if( searches.length > 1 ) {
+		const first = searches.item(0);
+		const value = first.value;
+		for( let i = 1; i < searches.length; i++ ) {
+			searches[i].value = value;
+		}
+	}
+	document.body.classList.remove( "show-home-base-search" );
+}
+
 document.addEventListener( 'DOMContentLoaded', () => {
 	// Menu scroll trigger
 	const header = document.querySelector( "header.wp-block-template-part" );
@@ -32,6 +44,19 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			}
 		} );
 	}
+
+	// Hide search
+	document.body.addEventListener( "keydown", e => {
+		if( e.key === "Escape" && document.body.classList.contains( "show-home-base-search" ) ) {
+			closeSearch();
+		}
+	} );
+
+	document.querySelector( ".wp-block-home-base-search-modal" )?.addEventListener( "click", ( e ) => {
+		if( e.target.classList.contains( "wp-block-home-base-search-modal" ) ) {
+			closeSearch();
+		}
+	} );
 
 	document.querySelectorAll( '.wp-block-home-base-post-grid-list button' ).forEach( button => {
 		button.addEventListener( "click", ( e ) => {

@@ -45,7 +45,8 @@ body.show-home-base-search {
 }
 
 .wp-block-home-base-search-modal {
-	background: #DBD6D1;
+	background: rgba(219, 214, 209, 0.9);
+	backdrop-filter: blur(3px);
 	.wp-block-home-base-search-block {
 		max-width: 100% !important;
 		.search-inner {
