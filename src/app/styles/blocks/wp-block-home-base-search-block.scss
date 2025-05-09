@@ -160,6 +160,10 @@ body.show-home-base-search {
 			@media (max-width: 599px) {
 				font-size: 1rem;
 			}
+			&:focus,
+			&:focus-visible {
+				outline: 0 none;
+			}
 		}
 		button {
 			background: transparent;
