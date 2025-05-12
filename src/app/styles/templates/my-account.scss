@@ -171,9 +171,12 @@
 		.wp-block-post-featured-image {
 			display: block;
 			&:not(:has(img)) {
-				aspect-ratio: 5/3;
 				background: var(--wp--preset--color--brand-oliver);
 				border-radius: 12px;
+				aspect-ratio: 0.7678571429;
+				@media (min-width: 782px) { 
+					aspect-ratio: 5/3;
+				}
 			}
 			img {
 				width: 100%;
