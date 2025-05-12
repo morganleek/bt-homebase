@@ -25,6 +25,11 @@ html {
 // 	// 	padding: 1.25em 2.375em;
 // 	// }
 // }
+body {
+	&.showing_gallery {
+		overflow-y: hidden;
+	}
+}
 
 img {
 	&[loading="lazy"] {

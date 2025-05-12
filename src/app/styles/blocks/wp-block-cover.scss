@@ -5,6 +5,9 @@
 	}
 	.wp-block-cover__inner-container {
 		z-index: 1000;
+		body.showing_gallery & {
+			z-index: -1;
+		}
 	}
 	&:has(.wp-block-my-profile) {
 		overflow-y: visible;	

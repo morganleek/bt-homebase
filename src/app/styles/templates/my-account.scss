@@ -287,7 +287,8 @@
 			max-width: none;
 			height: 100svh;
 			display: grid;
-			grid-template-rows: 60px minmax(0, auto);
+			// grid-template-rows: 60px minmax(0, auto);
+			grid-template-rows: 60px minmax(0, auto) 60px;
 			img {
 				max-width: 100%;
 				max-height: 100%;
@@ -332,6 +333,11 @@
 	max-width: none;
 	margin: 0;
 	padding-top: 40px;
+	body.admin-bar & {
+		@media (hover: hover) {
+			top: 32px;
+		}
+	}
 	&.active {
 		display: block;
 	}
@@ -351,13 +357,14 @@
 .close_full_gallery {
 	position: absolute;
 	z-index: 999;
-	top: 24px;
-	right: 24px;
+	top: 8px;
+	right: 8px;
 	color: var(--wp--preset--color--brand-charcoal);
 	width: auto !important;
 	display: flex;
 	gap: 16px;
 	align-items: center;
+	padding: 16px;
 	&:hover {
 		text-decoration: none;
 	}
@@ -546,7 +553,10 @@
 
 .my_account_tab {
 	& > h3 {
-		padding-left: 10px;
+		padding-left: 16px;
+		@media (min-width: 782px) {
+			padding-left: 10px;
+		}
 	}
 	.wp-block-query .wp-block-post-template.is-layout-flow, 
 	.wp-block-display-categories-grid .wp-block-post-template.is-layout-flow {
@@ -590,6 +600,9 @@
     margin-bottom: calc(-1 * var(--home-base--overlap--gap)) !important;
 		margin-top: 0;
 		z-index: 1;
+		body.showing_gallery & {
+			transform: none;
+		}
 	}
 }
 

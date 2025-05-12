@@ -73,12 +73,31 @@ strong {
 		margin-bottom: 16px;
 	}
 	select {
-		padding-left: 0 !important;
-		// color: #A19A94;
+		padding-left: 2px !important;
+		height: 40px;
+		appearance: base-select;
 		&::placeholder {
 			color: #A19A94;
 		}
+		&::picker-icon {
+			content: "";
+			width: 20px;
+			height: 20px;
+			background: url(./images/chevron-down.svg) 0 0/100% auto no-repeat;
+			@media (min-width: 782px) {
+				width: 24px;
+				height: 24px;
+			}
+		}
+		@media (max-width: 599px) {
+			-webkit-appearance: initial;
+			appearance: base-select;
+		}
 	}
+	// select,
+	// ::picker(select) {	
+	// }
+	
 	input[type=text], 
 	input[type=password], 
 	input[type=email], 

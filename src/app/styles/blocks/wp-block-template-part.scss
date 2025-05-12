@@ -103,11 +103,13 @@ header.wp-block-template-part {
 				padding-left: 16px;
 				padding-right: 16px;
 				top: 68px;
+				justify-content: center;
 				@media (min-width: 782px) { 
 					top: 80px;
+					justify-content: flex-start;
 				}
 				body.admin-bar & {
-					top: 126px;
+					top: 114px;
 					@media (min-width: 783px) { 
 						top: 112px;
 					}
@@ -115,9 +117,12 @@ header.wp-block-template-part {
 				
 				.wp-block-navigation__responsive-container-content {
 					max-width: 544px;
-					padding-top: 44px;
+					padding-top: 0; // 44px;
 					margin-left: auto;
 					margin-right: auto;
+					@media (min-width: 782px) { 
+						padding-top: 44px;
+					}
 					.wp-block-navigation__container {
 						width: 100%;
 						gap: 4px;
