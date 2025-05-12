@@ -12,4 +12,7 @@
 	&:has(.wp-block-my-profile) {
 		overflow-y: visible;	
 	}
+	p.has-large-font-size {
+		--wp--preset--font-size--large: 1.125rem;
+	}
 }
