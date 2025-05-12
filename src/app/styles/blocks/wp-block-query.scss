@@ -213,11 +213,13 @@
 						margin: 0 !important;
 						align-self: center;
 						grid-area: 1 / 2 / 2 / 3;
-						white-space: nowrap;
-						text-overflow: ellipsis;
-						max-width: 100%;
-						display: block;
-						overflow: hidden;
+						@media (min-width: 782px) { 
+							white-space: nowrap;
+							text-overflow: ellipsis;
+							max-width: 100%;
+							display: block;
+							overflow: hidden;
+						}
 					}
 					.title-wrapper {
 						min-height: 100%;
