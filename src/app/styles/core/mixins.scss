@@ -90,9 +90,9 @@
 		transition: all .2s;
 		// transform: translate(0, -2px);
 	}
-	@media (hover: hover) {
-		&:hover {
-			text-decoration: none;
+	&:hover {
+		text-decoration: none;
+		@media (hover: hover) {
 			&::after {
 				transform: translate(2px, -2px);
 			}

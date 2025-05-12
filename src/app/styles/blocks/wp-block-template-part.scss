@@ -137,7 +137,7 @@ header.wp-block-template-part {
 							align-items: center;
 							padding: 16px 25px 16px 15px;
 							justify-content: space-between;
-							font-size: var(--wp--custom--typography--font-size--large);
+							font-size: 1.25rem; // var(--wp--custom--typography--font-size--large);
 							@include mixins.arrow-after;
 						}
 					}
