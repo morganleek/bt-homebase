@@ -157,6 +157,12 @@
 			grid-template-columns: 1fr 1fr !important;
 			gap: 16px;
 		}
+		body.home & {
+			@media (max-width: 599px) {
+				max-height: 566px;
+				overflow: scroll;
+			}	
+		}
 	}
 	&:has(> #our-brands) {
 		@media (max-width: 599px) {
