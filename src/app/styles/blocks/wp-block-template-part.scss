@@ -80,11 +80,13 @@ header.wp-block-template-part {
 			width: 127px;
 		}
 	}
-	.wp-block-navigation__responsive-container-open {
-
-	}
+	// .wp-block-navigation__responsive-container-open {}
 	.wp-block-navigation:not(.has-background) {
 		.wp-block-navigation__responsive-container-open {
+
+			html.has-modal-open & {
+				pointer-events: none;
+			}
 			svg.open {
 				html.has-modal-open & {
 					display: none;
@@ -93,7 +95,7 @@ header.wp-block-template-part {
 			svg.close {
 				display: none;
 				html.has-modal-open & {
-					display: block;
+					display: block;					
 				}
 			}
 		}

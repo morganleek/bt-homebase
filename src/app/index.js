@@ -25,6 +25,12 @@ const closeSearch = () => {
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	// document.querySelectorAll( ".wp-block-navigation__responsive-container-open.always-shown" ).forEach( link => {
+	// 	link.addEventListener( "click", ( e ) => {
+	// 		console.log( "menu click" );
+	// 	} );
+	// } );
+
 	// Menu scroll trigger
 	const header = document.querySelector( "header.wp-block-template-part" );
 	if( header ) {
