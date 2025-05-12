@@ -129,7 +129,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 		// add first collection		
 		// add collection
-		if( target.id === "add_new_collection" || target.id === "add_first_collection" ) {
+		if( target.hasAttribute( "id" ) && ( target.id === "add_new_collection" || target.id === "add_first_collection" ) ) {
 			document.body.classList.add( "collection_action", "collection_action_new" );
 		}
 
@@ -207,12 +207,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 
 		// close gallery
+		// console.log( target );
 		if( target.classList.contains( 'close_full_gallery' ) ) {
+			console.log( "HERE" );
 			document.body.classList.remove( 'showing_gallery' );
 			target.closest( '.full_gallery' ).classList.remove( 'active' );
 			const collectionHash = target.closest( '.full_gallery' ).dataset.collection;
 			history.pushState( {}, "", '#collection_' + collectionHash);
-			gallery.destroy();
+			if( gallery ) {
+				gallery.destroy();
+			}
 		}
 
 		// edit image
@@ -229,7 +233,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		}
 	} );
 
-	document.querySelector( ".account_modal_close" )?.addEventListener( "click", ( e ) => {
+	document.querySelector( ".close-wrapper, .account_modal_close" )?.addEventListener( "click", ( e ) => {
 		closeModals();
 	});
 
