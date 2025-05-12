@@ -417,10 +417,10 @@
 
 <?php if ( is_user_logged_in() ) : ?>
 		<div
-			class="wp-block-group alignfull has-brand-dust-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+			class="wp-block-group alignfull has-brand-dust-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained my-profile-wrapper"
 			style="margin-top:0;margin-bottom:0;padding-bottom:var(--wp--preset--spacing--80)">
 			<div
-				class="wp-block-group alignwide is-style-overlap has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained"
+				class="wp-block-group alignwide is-style-overlap has-white-background-color has-background has-global-padding is-layout-constrained wp-block-group-is-layout-constrained my-profile-navigation"
 				style="padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)">
 				<div class="wp-block-group profile-menu has-black-color has-text-color has-link-color is-content-justification-center is-nowrap is-layout-flex wp-block-group-is-layout-flex">
 					<p><a href="#collections">Collections</a></p>

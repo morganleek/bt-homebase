@@ -3,6 +3,13 @@
 // h1, h2, h3, h4, h5, h6 {
 // }
 
+h3 {
+	margin: 0.666em 0;
+	@media (min-width: 782px) {
+		margin: 1.333em 0;
+	}
+}
+
 strong {
 	font-weight: 700;
 }

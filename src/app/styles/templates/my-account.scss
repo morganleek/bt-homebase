@@ -567,12 +567,29 @@
 	}
 }
 
+.my-profile-wrapper {
+	@media (max-width: 781px) {
+		background: transparent;
+	}
+}
+.my-profile-navigation {
+	@media (max-width: 781px) {
+		display: none;
+	}
+}
+
 #our-centre {
 	@media (max-width: 781px) {
-		// background: #fff;
-    padding-top: 16px;
-    border-radius: 24px;
-    padding-bottom: 16px;
+		background: #f0efed;
+		padding-top: 16px;
+		border-radius: 24px;
+		padding-bottom: 16px;
+		// margin-top: -20px;
+		// z-index: 10000;
+		transform: translate(0, calc(-1 * var(--home-base--overlap--gap)));
+    margin-bottom: calc(-1 * var(--home-base--overlap--gap)) !important;
+		margin-top: 0;
+		z-index: 1;
 	}
 }
 

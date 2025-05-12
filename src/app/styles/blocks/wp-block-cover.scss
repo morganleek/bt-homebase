@@ -1,6 +1,7 @@
 .wp-block-cover {
 	@media (max-width: 782px) { 
-		min-height: 340px;
+		min-height: 380px; // 340px;
+		
 	}
 	.wp-block-cover__inner-container {
 		z-index: 1000;

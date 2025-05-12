@@ -45,7 +45,7 @@
 				"font-size": {
 					"heading-1": "clamp(2.25rem, 0.9797rem + 4.065vw, 3.5rem)",
 					"heading-2": "clamp(1.75rem, 1.3689rem + 1.2195vw, 2.125rem)",
-					"heading-3": "clamp(1rem, 0.4919rem + 1.626vw, 1.5rem)",
+					"heading-3": "1.5rem",
 					"heading-4": "clamp(1rem, 0.7459rem + 0.813vw, 1.25rem)",
 					"heading-5": "1rem",
 					"heading-6": "0.875rem",
