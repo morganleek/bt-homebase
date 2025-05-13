@@ -2,8 +2,14 @@
 	gap: 0;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: auto auto;
+	grid-template-rows: 1fr auto;
 	overflow: hidden;
+	min-height: 145vw;
+	@media (min-width: 782px) { 
+		grid-template-columns: 1fr;
+		grid-template-rows: auto auto;
+		min-height: 0;
+	}
 	& > figure {
 		width: 100%;
 		min-height: 100px;
@@ -39,7 +45,19 @@
 		}
 		& > figure {
 			img {
-				aspect-ratio: 2.916666 !important;
+				height: 100%;
+				object-fit: cover;
+				@media (min-width: 782px) { 
+					height: auto;
+					aspect-ratio: 2.916666 !important;
+				}
+			}
+		}
+		body.home & {
+			@media (max-width: 781px) { 
+				margin-left: -16px !important;
+				margin-right: -16px !important;
+
 			}
 		}
 	}

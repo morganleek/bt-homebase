@@ -12,15 +12,17 @@
 
 	print "<div class=\"display-social-links\">";
 		if($display_lead_phone_number) {
-			print "<button class=\"display-lead-phone_number\"><a href=\"tel:$display_lead_phone_number\"></a></button>";
+			print "<a class=\"display-lead-phone_number\" href=\"tel:$display_lead_phone_number\"></a>";
 		}
 		if($display_lead_email) {
-			print "<button class=\"display-lead-email\"><a href=\"mailto:$display_lead_email\"></a></button>";
+			print "<a class=\"display-lead-email\" href=\"mailto:$display_lead_email\"></a>";
 		}
 		if($display_lead_url) {
-			print "<button class=\"display-lead-url\"><a target=\"_blank\" href=\"$display_lead_url\" title=\"" . get_the_title() . "\"></a></button>";
+			print "<a class=\"display-lead-url\" target=\"_blank\" href=\"$display_lead_url\" title=\"" . get_the_title() . "\"></a>";
 		}
-		print "<button class=\"facebook\"><a class=\"reaction_facebook\" target=\"_blank\" href=\"http://www.facebook.com/sharer.php?u=" .get_permalink() . "&amp;t=" . get_the_title() . "\" title=\"Share on Facebook\"></a></button>";
-		print "<button class=\"instagram\"><a href=\"#\"></a></button>";
+		// print "<a class=\"facebook reaction_facebook\" target=\"_blank\" href=\"http://www.facebook.com/sharer.php?u=" .get_permalink() . "&amp;t=" . get_the_title() . "\" title=\"Share on Facebook\"></a>";
+		// print "<a class=\"instagram\" href=\"#\"></a>";
 
 	print "</div>";
+
+

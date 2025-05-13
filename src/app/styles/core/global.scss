@@ -107,7 +107,8 @@ button {
 	display: flex;
 	column-gap: 32px;
 	// margin: 0;
-	& > button {
+	& > button, 
+	& > a {
 		width: 24px;
 		height: 24px;
 		background: transparent;
