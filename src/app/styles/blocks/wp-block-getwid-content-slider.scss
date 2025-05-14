@@ -19,7 +19,42 @@
 		.wp-block-getwid-content-slider-slide__wrapper {
 			padding: 0 16px;
 		}
-	}	
+	}
+	&.meet-the-designer {
+		.wp-block-getwid-content-slider-slide {
+			.wp-block-getwid-content-slider-slide__wrapper {
+				padding: 16px;
+			}	
+			&:nth-child(3n+1),
+			&:nth-child(3n+2) {
+				.wp-block-getwid-content-slider-slide__wrapper {
+					padding-right: 54px
+				}
+			}
+		}
+		.slick-prev, 
+		.slick-next {
+			top: 100%;
+			right: 72px;
+			left: auto;
+			&::before {
+				display: none;
+			}
+			&::after {
+				content: "";
+				width: 32px;
+				height: 32px;
+				background: url(./images/carousel-arrow-right.svg) 0 0/100% auto no-repeat;
+				display: block;
+			}
+		}
+		.slick-prev {
+			right: 130px;
+			&::after {
+				background: url(./images/carousel-arrow-left.svg) 0 0/100% auto no-repeat;
+			}
+		}
+	}
 	.wp-block-card {
 		& > figure {
 			aspect-ratio: 2.1 !important;

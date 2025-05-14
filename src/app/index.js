@@ -114,6 +114,30 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		} );
 	} );
 
+	// Reviews Slider
+	document.querySelectorAll( '.review-slider' ).forEach( slider => {
+		tns( {
+			container: slider,
+			items: 1,
+			slideBy: 'page',
+			autoplay: true,
+			nav: false,
+			gutter: 16,
+			controls: true,
+			autoplayButtonOutput: false,
+			navPosition: "bottom",
+			autoPlay: false,
+			speed: 600,
+			loop: true,
+			responsive: {
+				782: {
+					items: 3,
+					gutter: 54,
+				}
+			}
+			// startIndex: 2
+		} );
+	} );
 
 	// Lazy load fade in
 	document.querySelectorAll( 'img[loading="lazy"]' ).forEach( ( img ) => {
