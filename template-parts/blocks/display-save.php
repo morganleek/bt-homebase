@@ -13,6 +13,6 @@
 			print "<button class=\"display-brochure\" title=\"Save Brochure\" data-post-id=\"{$post->ID}\"></button>";
 		}
 		else {
-			print "<a href=\"/my-account\" class=\"display-brochure logged-out\" data-post-id=\"{$post->ID}\"></a>";
+			print "<a href=\"/my-account\" class=\"display-brochure logged-out requires-login\" data-post-id=\"{$post->ID}\"></a>";
 		}
 	print "</div>";

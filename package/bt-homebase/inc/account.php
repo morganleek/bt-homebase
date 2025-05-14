@@ -123,7 +123,7 @@ function homebase_save_button( $post_ID, $post_type ) {
 		}
 
 	} else {
-		echo '<a href="/my-account" class="heart myaccount save logged-out"></a>';
+		echo '<a href="/my-account" class="heart myaccount save logged-out requires-login"></a>';
 	}
 
 }
@@ -276,7 +276,7 @@ function homebase_save_to_collection_button( $post_ID, $display_ID = 0 ) {
 			echo "<button class=\"heart myaccount saveimage\" data-post-id=\"$post_ID\" data-image-thumb-url=\"$photo_thumb_URL[0]\" title=\"\"></button>";
 		}
 	} else {
-		echo '<a href="/my-account" class="myaccount saveimage"></a>';
+		echo '<a href="/my-account" class="myaccount saveimage requires-login"></a>';
 	}
 }
 

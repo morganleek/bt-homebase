@@ -7,7 +7,7 @@ let collection = null;
 const showMessage = ( message ) => {
 	Toastify({
 		text: message,
-		duration: 3000,
+		duration: 6000,
 		gravity: "bottom", // `top` or `bottom`
 		position: "center", // `left`, `center` or `right`
 		escapeMarkup: false,
@@ -31,6 +31,9 @@ const closeModals = () => {
 document.addEventListener( 'DOMContentLoaded', () => {
 	if( document.querySelector( '.display-save' ) ) {
 		document.querySelectorAll( '.display-save .heart, .display-save .display-brochure' ).forEach( button => {
+			if( button.classList.contains( "logged-out" ) ) {
+				return;
+			}
 			button.addEventListener( 'click', ( e ) => {
 				const isUnsave = e.target.classList.contains( 'unsave' );
 				const data = {
@@ -46,18 +49,18 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				let successMessage = "";
 				if( e.target.classList.contains( 'heart' ) ) {
 					if( isUnsave ) {
-						successMessage = "<h4>" + postTypeTitles[data.post_type] + " Removed</h4><p>This " + postTypeTitles[data.post_type] + " has been removed from My Account</p>"
+						successMessage = postTypeTitles[data.post_type] + " has been removed from <a href=\"/my-account\">My Account</a>"
 					}
 					else {
-						successMessage = "<h4>" + postTypeTitles[data.post_type] + " Saved</h4><p>This " + postTypeTitles[data.post_type] + " has been saved to My Account</p>";
+						successMessage = postTypeTitles[data.post_type] + " has been saved to <a href=\"/my-account\">My Account</a>";
 					}
 				}
 				else {
 					if( isUnsave ) {
-						successMessage = "<p>This brochure has been removed from My Account<p>";
+						successMessage = "This brochure has been removed from your <a href=\"/my-account\">My Account</a>";
 					}
 					else {
-						successMessage = "<h4>Brochure Saved</h4><p>This brochure is now available to view in My Account</p>"
+						successMessage = "This brochure is now available to view in <a href=\"/my-account\">My Account</a>"
 					}
 				}
 		
@@ -65,7 +68,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				.then( res => {
 					e.target.classList.toggle( 'unsave' );
 					// Show message
-					// showMessage( successMessage );
+					showMessage( successMessage );
 				})
 				.catch( error => {
 					console.log( error );
@@ -209,7 +212,6 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		// close gallery
 		// console.log( target );
 		if( target.classList.contains( 'close_full_gallery' ) ) {
-			console.log( "HERE" );
 			document.body.classList.remove( 'showing_gallery' );
 			target.closest( '.full_gallery' ).classList.remove( 'active' );
 			const collectionHash = target.closest( '.full_gallery' ).dataset.collection;
@@ -281,7 +283,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				console.log( error );
 				showMessage( "Something has gone wrong" );
 			} );
-		}		
+		}	
 	} );
 
 	// email notes

@@ -6,6 +6,23 @@ import "tiny-slider/src/tiny-slider.scss"
 
 // Slider - Library import example
 import { tns } from "tiny-slider";
+import Toastify from 'toastify-js'
+
+const showMessage = ( message ) => {
+	Toastify({
+		text: message,
+		duration: 6000,
+		gravity: "bottom", // `top` or `bottom`
+		position: "center", // `left`, `center` or `right`
+		escapeMarkup: false,
+		style: {
+			background: "#fff",
+			color: "#000",
+			boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+			link: "#ff00ff"
+		},
+	}).showToast();
+}
 
 // // GSAP
 // import { gsap } from 'gsap';
@@ -330,8 +347,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	// $form.on('check_variations', function( event ) {
 	// 	console.log( 'check_variations' );
 	// } );
+
+	document.querySelectorAll( ".requires-login" ).forEach( link => {
+		// console.log( link );
+		// showMessage( "This feature requires <a href=\"#\">logging in</a>" );
+		link.addEventListener( "click", ( e ) => {
+			e.preventDefault();
+			showMessage( "This feature requires you log in to <a href=\"/my-account\">My Account</a>" );
+		} );
+	} );
 } );
-
-
-// document.querySelectorAll( "input[type=\"checkbox\"]")
-

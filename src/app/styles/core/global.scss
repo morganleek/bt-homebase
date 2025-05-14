@@ -188,7 +188,7 @@ button {
 			}
 		}
 		&.display-brochure {
-			@include mixins.display-brochure( #000, #FFF );
+			@include mixins.display-brochure( #000, #0f0f0f );
 		}
 		&.bookmark {
 			@include mixins.bookmark( #fff, #ffd300 );
@@ -308,6 +308,9 @@ button {
 	* {
 		margin-top: 0.2em;
 		margin-bottom: 0.2em;
+	}
+	a {
+		text-decoration: underline;
 	}
 }
 
