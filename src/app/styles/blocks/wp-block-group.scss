@@ -206,7 +206,12 @@
 			padding: 16px;
 			margin: 0;
 		}
-		
+	}
+	&.course-sponsors {
+		@media (max-width: 781px) { 
+			padding-left: 16px !important;
+			padding-right: 16px !important;
+		}
 	}
 }
 
