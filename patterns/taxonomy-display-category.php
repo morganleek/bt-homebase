@@ -18,7 +18,7 @@
 
 <!-- wp:group {"layout":{"type":"constrained","contentSize":"544px"}} -->
 <div class="wp-block-group"><!-- wp:home-base/search-block -->
-<div class="wp-block-home-base-search-block"><div class="search-inner"><div class="select-wrapper"><select class="categories"><option value="">All</option><option value="display">Display</option><option value="product">Courses</option><option value="page">Page</option><option value="post">Blog</option></select></div><input type="text" placeholder="Search for anything" value=""/><button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#38332F" stroke-width="2" stroke-linecap="square"></path></svg></button></div></div>
+<div class="wp-block-home-base-search-block"><div class="search-inner"><div class="select-wrapper"><select class="categories"><option value="">All</option><option value="display">Display</option><option value="product">Courses</option><option value="page">Other</option><option value="post">Blog</option></select></div><input type="text" placeholder="Search for anything" value=""/><button><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21L15.0001 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="#38332F" stroke-width="2" stroke-linecap="square"></path></svg></button></div></div>
 <!-- /wp:home-base/search-block --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div></div>
@@ -38,7 +38,9 @@
 <!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|20","padding":{"bottom":"0"}}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group" style="padding-bottom:0"><!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9","style":{"border":{"radius":"24px"}}} /-->
 
-<!-- wp:post-title {"level":4,"isLink":true} /--></div>
+<!-- wp:post-title {"level":4,"isLink":true} /-->
+
+<!-- wp:read-more {"content":"Explore"} /--></div>
 <!-- /wp:group -->
 <!-- /wp:post-template -->
 

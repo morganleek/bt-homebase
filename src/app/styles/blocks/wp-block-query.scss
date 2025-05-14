@@ -115,6 +115,15 @@
 						display: none;
 					}
 				}
+				.wp-block-read-more {
+					margin: 0 !important;
+					color: var(--wp--preset--color--brand-charcoal);
+					padding-left: 10px;
+					@include mixins.arrow-after;
+					&:not(.block-editor-block-list__block) {
+						display: none;
+					}
+				}
 			}
 		}
 		&.is-layout-flow {
@@ -188,13 +197,7 @@
 							overflow: hidden;
 							font-size: 0.875rem;
 						}
-						.wp-block-read-more {
-							color: var(--wp--preset--color--brand-charcoal);
-							font-size: 1rem;
-							margin-left: 0 !important;
-							margin-right: 0 !important;
-							@include mixins.arrow-after;
-						}
+						
 					}
 				}
 				& + .wp-block-post {
@@ -291,6 +294,14 @@
 						}
 					}
 				}
+			}
+			.wp-block-read-more {
+				color: var(--wp--preset--color--brand-charcoal);
+				font-size: 1rem;
+				margin: 0 !important;
+				justify-self: end;
+				padding-right: 24px;
+				@include mixins.arrow-after;
 			}
 		}
 		.children {

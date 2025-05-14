@@ -1,4 +1,20 @@
 {
+	"customTemplates": [
+		{
+			"name": "wp-custom-template-pages-dark-footer",
+			"postTypes": [
+				"page"
+			],
+			"title": "Page: Dark Footer"
+		},
+		{
+			"name": "wp-custom-template-page-dark-light-footer",
+			"postTypes": [
+				"page"
+			],
+			"title": "Page: Dark & Light Footer"
+		}
+	],
 	"settings": {
 		"appearanceTools": true,
 		"color": {
@@ -367,22 +383,6 @@
 			"area": "footer",
 			"name": "footer",
 			"title": "Footer"
-		}
-	],
-	"customTemplates": [
-		{
-			"name": "wp-custom-template-pages-dark-footer",
-			"postTypes": [
-				"page"
-			],
-			"title": "Page: Dark Footer"
-		},
-		{
-			"name": "wp-custom-template-page-dark-light-footer",
-			"postTypes": [
-				"page"
-			],
-			"title": "Page: Dark & Light Footer"
 		}
 	],
 	"version": 3,
