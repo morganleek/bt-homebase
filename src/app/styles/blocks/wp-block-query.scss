@@ -366,9 +366,15 @@
 		@media (max-width: 781px) { 
 			max-width: 67vw;
 		}
+		.wp-block-post-title {
+			& > a {
+				&::after {
+					display: none !important;
+				}
+			}
+		}
 		.wp-block-post-template.is-layout-grid {
 			display: block;
-
 		}
 		.tns-slider {
 			* {
