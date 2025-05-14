@@ -81,11 +81,11 @@
 	}
 	&.alignfull:has(+ .alignfull .wp-block-query > .wp-block-post-template.wp-block-post-template-is-layout-flow),
 	&.alignfull:has(.wp-block-query > .wp-block-post-template.wp-block-post-template-is-layout-flow) {
-		background-color: #F0EFED;
+		background-color: #F0EFED !important;
 	}
 	&.alignfull:has(+ .alignfull .wp-block-display-categories-grid > .wp-block-post-template.wp-block-post-template-is-layout-flow),
 	&.alignfull:has(.wp-block-display-categories-grid > .wp-block-post-template.wp-block-post-template-is-layout-flow) {
-		background-color: #F0EFED;
+		background-color: #F0EFED !important;
 	}
 	
 	&.about-menu {
