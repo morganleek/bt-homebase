@@ -188,7 +188,7 @@ button {
 			}
 		}
 		&.display-brochure {
-			@include mixins.display-brochure( #fff, #FFD300 );
+			@include mixins.display-brochure( #000, #FFF );
 		}
 		&.bookmark {
 			@include mixins.bookmark( #fff, #ffd300 );

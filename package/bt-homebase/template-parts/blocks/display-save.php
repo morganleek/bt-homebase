@@ -10,7 +10,7 @@
 		}
 		homebase_save_button( $post->ID, "display" );
 		if( is_user_logged_in() ) {
-			print "<button class=\"display-brochure\" data-post-id=\"{$post->ID}\"></button>";
+			print "<button class=\"display-brochure\" title=\"Save Brochure\" data-post-id=\"{$post->ID}\"></button>";
 		}
 		else {
 			print "<a href=\"/my-account\" class=\"display-brochure logged-out\" data-post-id=\"{$post->ID}\"></a>";
