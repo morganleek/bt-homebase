@@ -271,10 +271,71 @@
 			border-radius: 16px;
 			overflow: hidden;
 		}
+		form.cart {
+			display: flex;
+			justify-content: center;
+			gap: 16px;
+			margin-bottom: 0;
+			&::before {
+				display: none;
+			}
+			table.variations {
+				width: auto;
+				margin: 0;
+				.label,
+				.value {
+					padding-bottom: 0;
+				}
+			}
+			body.product_cat-courses & {
+				opacity: 0.5;
+				div.quantity {
+					display: none !important;
+				}	
+			}
+			button.single_add_to_cart_button, 
+			button[name=add-to-cart] {
+				background: #fff !important;
+				color: var(--wp--preset--color--brand-charcoal) !important;
+				    padding-top: 9px;
+			}
+			select {
+				border-radius: 8px;
+				padding: 3px 8px 3px 16px !important;
+				border-color: #fff !important;
+				background: none !important;
+				@include mixins.select;
+				&::picker-icon {
+					background-image: url(./images/chevron-down-white.svg) !important;
+					margin-top: 4px;
+				}
+			}
+			.single_variation_wrap {
+				display: flex;
+				align-items: center;
+				gap: 16px;
+				*[role="alert"] {
+					order: 100;
+					margin: 0;
+					line-height: 1;
+					p {
+						margin: 0;
+					}
+				}
+			}
+			
+		}
+		.wp-block-woocommerce-product-price {
+			text-align: center;
+			margin-top: 8px;
+		}
 	}
 	.woocommerce-breadcrumb {
 		margin: 0;
 	}
+	
+	
+	
 }
 
 .wc-block-mini-cart__button {
@@ -365,6 +426,14 @@
 
 .wc-block-components-drawer__screen-overlay {
 	z-index: 99999;
+}
+
+body.product_cat-courses.woocommerce {
+	.wp-block-woocommerce-product-price,
+	div.product form.cart div.quantity {
+		display: none !important;
+	}
+	
 }
 
 // .wc-block-components-quantity-selector {
