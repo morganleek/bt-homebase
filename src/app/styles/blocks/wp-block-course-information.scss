@@ -6,10 +6,21 @@
 		padding-left: 16px;
 	}
 }
+.wp-block-course-information-structure,
 .wp-block-course-information-details {
-	h5 {
-		& + * {
+	& > div {
+		h5 {
+			margin-bottom: 0;
+			& + * {
+				margin-top: 0;
+			}
+		}
+		& > *:first-child {
 			margin-top: 0;
+		}
+		@media (min-width: 782px) { 
+			columns: 2;
+			column-gap: 16px;
 		}
 	}
 }
