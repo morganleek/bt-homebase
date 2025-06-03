@@ -46,8 +46,13 @@
 						<div class="saved_display_content">
 							<ul class="actions">
 								<?php if ( $phone ) : ?>
-									<li><a href="#call_exhibitor_<?php echo $display->ID; ?>" class="call_now"
-											data-display-name="<?php echo $display->post_title; ?>">Call Now</a></li>
+									<li>
+										<a href="#" class="display-lead-phone_number" data-display-name="<?php echo $display->post_title; ?>" data-id="<?php print $display->ID; ?>">Call Now</a>
+										<dialog class="display-lead-phone-modal" data-id="<?php print $display->ID; ?>">
+											<button class="close-dialog">Close</button>
+											<h4 style="text-align: center;">Call <?php print $phone; ?></h4>
+										</dialog>
+									</li>
 								<?php endif; ?>
 								<?php if ( $email ) : ?>
 									<li><a href="#email_exhibitor_<?php echo $display->ID; ?>" class="email_now"

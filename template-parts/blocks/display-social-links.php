@@ -12,8 +12,8 @@
 
 	print "<div class=\"display-social-links\">";
 		if($display_lead_phone_number) {
-			print "<a class=\"display-lead-phone_number\" data-phone=\"$display_lead_phone_number\"></a>";
-			print "<dialog class=\"display-lead-phone-modal\">
+			print "<a class=\"display-lead-phone_number\" data-phone=\"$display_lead_phone_number\" data-id=\"{$post->ID}\"></a>";
+			print "<dialog class=\"display-lead-phone-modal\" data-id=\"{$post->ID}\">
 				<button class=\"close-dialog\">Close</button>
 				<h4 style=\"text-align: center;\">Call $display_lead_phone_number</h4>
 			</dialog>";

@@ -375,10 +375,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 	// Telephone numbers
 	document.querySelectorAll( ".display-lead-phone_number" ).forEach( ( phone ) => {
+		const id = phone.dataset.id;
 		phone.addEventListener( "click", ( e ) => {
 			e.preventDefault();
-			if( document.querySelector( ".display-lead-phone-modal" ) ) {
-				document.querySelector( ".display-lead-phone-modal" ).showModal();
+			if( document.querySelector( ".display-lead-phone-modal[data-id='" + id + "']" ) ) {
+				document.querySelector( ".display-lead-phone-modal[data-id='" + id + "']" ).showModal();
 			}
 			// longMessage( "Call " + e.target.dataset.phone );
 		} );
