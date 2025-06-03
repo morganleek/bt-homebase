@@ -116,3 +116,14 @@
 		remove_theme_support( 'wc-product-gallery-zoom' );
 	}
 	add_action( 'template_redirect', 'home_base_remove_product_zoom', 100 );
+
+	// Breadcrumbs
+	function home_base_change_breadcrumb_home_text( $defaults ) {
+		// Change the breadcrumb home text from 'Home' to 'Apartment'
+		$defaults['delimiter'] = '<span class="sep">&nbsp;&#47;&nbsp;</span>';
+		$defaults['before'] = "<span class=\"link\">";
+		$defaults['after'] = "</span>";
+		// error_log( print_r( $defaults, true ), 0 );
+		return $defaults;
+	}
+	add_filter( 'woocommerce_breadcrumb_defaults', 'home_base_change_breadcrumb_home_text', 100 );
