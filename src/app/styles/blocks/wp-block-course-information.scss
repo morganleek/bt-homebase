@@ -9,18 +9,28 @@
 .wp-block-course-information-structure,
 .wp-block-course-information-details {
 	& > div {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: top;
+		gap: 24px;
+		& > div {
+			// margin-top: 24px;
+			// margin-bottom: 24px;
+			width: 100%;
+			@media (min-width: 768px) { 
+				width: calc(50% - 12px);
+			}
+		}
 		h5 {
+			margin-top: 0;
 			margin-bottom: 0;
 			& + * {
 				margin-top: 0;
+				margin-bottom: 0;
 			}
 		}
 		& > *:first-child {
 			margin-top: 0;
-		}
-		@media (min-width: 782px) { 
-			columns: 2;
-			column-gap: 16px;
 		}
 	}
 }

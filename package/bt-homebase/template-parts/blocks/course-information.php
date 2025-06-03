@@ -21,28 +21,38 @@
 					<div>
 						<?php
 							if( $course_duration = get_field('course_duration', get_the_ID()) ) {
-								print "<h5>Duration</h5>";
-								print "<p>$course_duration</p>";
+								print "<div>
+									<h5>Duration</h5>
+									<p>$course_duration</p>
+								</div>";
 							}
 
 							if( $course_time = get_field('course_time' , get_the_ID()) ) {
-								print "<h5>Time</h5>";
-								print "<p>$course_time</p>";
+								print "<div>
+									<h5>Time</h5>
+									<p>$course_time</p>
+								</div>";
 							}
 
 							if( $course_location = get_field('course_location', get_the_ID()) ) {
-								print "<h5>Location</h5>";
-								print "<p>$course_location</p>";
+								print "<div>
+									<h5>Location</h5>
+									<p>$course_location</p>
+								</div>";
 							}
 
 							if( $course_cost = get_field('course_cost', get_the_ID()) ) {
-								print "<h5>Cost</h5>";
-								print "<p>$course_cost</p>";
+								print "<div>
+									<h5>Cost</h5>
+									<p>$course_cost</p>
+								</div>";
 							}
 
 							if( $course_payment_options = get_field('course_payment_options', get_the_ID()) ) {
-								print "<h5>Payment Options</h5>";
-								print "<p>$course_payment_options</p>";
+								print "<div>
+									<h5>Payment Options</h5>
+									<p>$course_payment_options</p>
+								</div>";
 							}
 						?>
 					</div>
