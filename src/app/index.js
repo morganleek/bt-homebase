@@ -24,6 +24,22 @@ const showMessage = ( message ) => {
 	}).showToast();
 }
 
+const longMessage = ( message ) => {
+	Toastify({
+		text: message,
+		duration: 10000,
+		gravity: "center", // `top` or `bottom`
+		position: "center", // `left`, `center` or `right`
+		escapeMarkup: false,
+		style: {
+			background: "#fff",
+			color: "#000",
+			boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.5)",
+			link: "#ff00ff"
+		},
+	}).showToast();
+}
+
 // // GSAP
 // import { gsap } from 'gsap';
 // import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -354,6 +370,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		link.addEventListener( "click", ( e ) => {
 			e.preventDefault();
 			showMessage( "This feature requires you log in to <a href=\"/my-account\">My Account</a>" );
+		} );
+	} );
+
+	// Telephone numbers
+	document.querySelectorAll( ".display-lead-phone_number" ).forEach( ( phone ) => {
+		phone.addEventListener( "click", ( e ) => {
+			e.preventDefault();
+			if( document.querySelector( ".display-lead-phone-modal" ) ) {
+				document.querySelector( ".display-lead-phone-modal" ).showModal();
+			}
+			// longMessage( "Call " + e.target.dataset.phone );
+		} );
+	} );
+
+	document.querySelectorAll( ".close-dialog" ).forEach( close => {
+		close.addEventListener( "click", e => {
+			e.target.closest( "dialog" ).close();
 		} );
 	} );
 } );

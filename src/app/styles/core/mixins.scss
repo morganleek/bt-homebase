@@ -257,3 +257,22 @@
 		transform: rotate(135deg);
 	}
 }
+
+@mixin close-button {
+	height: auto;
+	position: relative;
+	cursor: pointer;
+	display: flex;
+	gap: 6px;
+	align-items: center;
+	background: transparent;
+	color: var(--wp--preset--color--brand-charcoal);
+	padding: 0;
+	margin-left: auto;
+	&::after {
+		content: "";
+		width: 18px;
+		height: 18px;
+		background: url(./images/close.svg) 0 0/100% auto no-repeat;
+	}
+}
