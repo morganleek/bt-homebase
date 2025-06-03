@@ -10,9 +10,10 @@
 .wp-block-course-information-details {
 	& > div {
 		display: flex;
-		flex-wrap: wrap;
-		align-items: top;
-		gap: 24px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px;
+    padding-bottom: 8px;
 		& > div {
 			// margin-top: 24px;
 			// margin-bottom: 24px;
