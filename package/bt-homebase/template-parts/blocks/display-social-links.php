@@ -12,7 +12,11 @@
 
 	print "<div class=\"display-social-links\">";
 		if($display_lead_phone_number) {
-			print "<a class=\"display-lead-phone_number\" href=\"tel:$display_lead_phone_number\"></a>";
+			print "<a class=\"display-lead-phone_number\" data-phone=\"$display_lead_phone_number\"></a>";
+			print "<dialog class=\"display-lead-phone-modal\">
+				<button class=\"close-dialog\">Close</button>
+				<h4 style=\"text-align: center;\">Call $display_lead_phone_number</h4>
+			</dialog>";
 		}
 		if($display_lead_email) {
 			print "<a class=\"display-lead-email\" href=\"mailto:$display_lead_email\"></a>";
