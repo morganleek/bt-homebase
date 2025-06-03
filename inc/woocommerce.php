@@ -109,4 +109,10 @@
 	add_filter( 'woocommerce_product_single_add_to_cart_text', "home_base_woocommerce_product_single_add_to_cart_text", 20, 2 );
 
 	// Increase inline AJAX requests
-	add_filter( 'woocommerce_ajax_variation_threshold', fn ( $n ) => 100, 20, 1);
+	add_filter( 'woocommerce_ajax_variation_threshold', fn ( $n ) => 100, 20, 1);	
+
+	// Remove single product gallery zoom
+	function home_base_remove_product_zoom() {
+		remove_theme_support( 'wc-product-gallery-zoom' );
+	}
+	add_action( 'template_redirect', 'home_base_remove_product_zoom', 100 );

@@ -511,3 +511,7 @@ div[data-block-name="woocommerce/page-content-wrapper"] {
 .woocommerce div.product div.images {
 	margin-bottom: 0;
 }
+
+.woocommerce-product-gallery__image > a {
+	pointer-events: none;
+}
