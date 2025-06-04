@@ -48,6 +48,7 @@
 				// margin-right: -8px;
 			}
 			.wp-block-post {
+				position: relative;
 				&.type-post {
 					h3 {
 						font-size: var(--wp--custom--typography--font-size--heading-3);
@@ -81,6 +82,7 @@
 					display: block;
 					overflow: hidden;
 					a {
+						display: inline;
 						@include mixins.arrow-after;
 					}
 				}
@@ -98,7 +100,7 @@
 					& + h4 {
 						@media (min-width: 782px) { 
 							padding-left: 8px;
-							padding-right: 8px;
+							padding-right: 60px;
 						}
 					}
 				}
@@ -121,6 +123,14 @@
 					padding-left: 10px;
 					@include mixins.arrow-after;
 					&:not(.block-editor-block-list__block) {
+						display: none;
+					}
+				}
+				.display-location {
+					position: absolute;
+					bottom: 0;
+					right: 8px;
+					.display-grid-ref {
 						display: none;
 					}
 				}
@@ -292,6 +302,17 @@
 								}
 							}
 						}
+					}
+				}
+				.display-location {
+					position: absolute;
+					bottom: 4px;
+					right: 0;
+					@media (min-width: 782px) {
+					right: 24px;
+					}
+					.display-grid-ref {
+						display: none;
 					}
 				}
 			}
