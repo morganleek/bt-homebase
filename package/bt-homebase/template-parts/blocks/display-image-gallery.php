@@ -43,9 +43,9 @@
 				<div class="slide_text">
 					<?php print $photo['title_lg']; ?>
 					<?php print $photo['description']; ?>
-					<div class="slide_buttons">
+					<!-- <div class="slide_buttons">
 						<?php print $photo['button']; ?>
-					</div>
+					</div> -->
 				</div>
 				<?php echo $photo['full']; ?>
 			</div>
