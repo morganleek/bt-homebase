@@ -77,6 +77,7 @@
         // News articles
         $posts = new WP_Query( [ 
           'post_type'      => 'post',
+          'post_status'    => 'publish',
           's'              => $s,
           'posts_per_page' => 5,
         ] );
@@ -98,11 +99,38 @@
       }
       
       if( $post_type === 'display' || $post_type === '' ) {
-        // Displays
+        $already_shown = [];
+        // Displays by Title
         $displays = new WP_Query( [ 
           'post_type'      => 'display',
-          's'              => $s,
+          'post_status'    => 'publish',
+          'tag'              => $s,
+          'posts_per_page' => 10,
+        ] );
+  
+        if ( $displays->have_posts() ) {
+          while ( $displays->have_posts() ) {
+            $displays->the_post();
+            $results['displays'][] = [ 
+              'url'         => get_permalink(),
+              'title'       => get_the_title(),
+              'description' => get_the_excerpt(),
+              'price'       => '',
+              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
+            ];
+            $already_shown[] = get_the_ID();
+          }
+        } 
+  
+        wp_reset_postdata();
+
+        // Displays by tag
+        $displays = new WP_Query( [ 
+          'post_type'      => 'display',
+          'post_status'    => 'publish',
+          's'            => $s,
           'posts_per_page' => 5,
+          'post__not_in'  => $already_shown 
         ] );
   
         if ( $displays->have_posts() ) {
@@ -122,29 +150,30 @@
       }
 
       // Pages
-      if( $post_type === 'page' || $post_type === '' ) {
-        $pages = new WP_Query( [ 
-          'post_type'      => 'page',
-          's'              => $s,
-          'posts_per_page' => 5,
-        ] );
+      // if( $post_type === 'page' || $post_type === '' ) {
+      //   $pages = new WP_Query( [ 
+      //     'post_type'      => 'page',
+      //     'post_status'    => 'publish',
+      //     's'              => $s,
+      //     'posts_per_page' => 5,
+      //   ] );
 
-        if ( $pages->have_posts() ) {
-          while ( $pages->have_posts() ) {
-            $pages->the_post();
-            $results['pages'][] = [ 
-              'url'         => get_permalink(),
-              'title'       => get_the_title(),
-              'description' => get_the_excerpt(),
-              'price'       => '',
-              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-            ];
-          }
-        } 
+      //   if ( $pages->have_posts() ) {
+      //     while ( $pages->have_posts() ) {
+      //       $pages->the_post();
+      //       $results['pages'][] = [ 
+      //         'url'         => get_permalink(),
+      //         'title'       => get_the_title(),
+      //         'description' => get_the_excerpt(),
+      //         'price'       => '',
+      //         'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
+      //       ];
+      //     }
+      //   } 
+      //   wp_reset_postdata();
+      // }
 
-        wp_reset_postdata();
-      }
-
+      // Products
       if( $post_type === 'product' || $post_type === '' ) {
         // Products via WP_Query
         $sql = 'SELECT *,
@@ -195,8 +224,8 @@
         }
 
         // Cache values for 15min
-        wp_cache_set( "search_$s", $results, 'gcc', 900 );
       }
+      wp_cache_set( "search_$s", $results, 'gcc', 900 );
     }
 
     wp_send_json_success( $results );
@@ -264,8 +293,10 @@
 
 		if( $is_wc_search_query || $is_wc_category_query || $is_wc_filter_query ) {
 			$query->query['post_type'] = 'product';
+
 			// $query->query_vars['wc_query'] = 'product_query';
 			// $query->query_vars['post_type'] = 'product';
+
 			if( !isset( $query->query['orderby'] ) || $query->query['orderby'] == 'availability' ) {
 				$query->query_vars['meta_query'] = array(
 					'stock_status' => array(

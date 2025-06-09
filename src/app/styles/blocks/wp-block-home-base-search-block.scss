@@ -209,6 +209,11 @@ body.show-home-base-search {
     bottom: 0;
     // background: #DBD6D1;
     // border-radius: 0 0 12px 12px;
+		& > svg {
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
 		ul {
 			list-style: none;
 			gap: 10px;
