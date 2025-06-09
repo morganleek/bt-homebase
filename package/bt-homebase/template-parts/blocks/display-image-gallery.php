@@ -47,7 +47,7 @@
 						<?php print $photo['button']; ?>
 					</div>
 				</div>
-				<img src="<?php echo $photo['full']; ?>" />
+				<?php echo $photo['full']; ?>
 			</div>
 		<?php endforeach; ?>
 	</div>
