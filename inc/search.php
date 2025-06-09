@@ -105,7 +105,7 @@
           'post_type'      => 'display',
           'post_status'    => 'publish',
           'tag'              => $s,
-          'posts_per_page' => 10,
+          'posts_per_page' => 20,
         ] );
   
         if ( $displays->have_posts() ) {
@@ -348,3 +348,33 @@
 	}
 
 	add_filter( 'posts_request', 'gcc_posts_request', 10, 2 );
+
+  function hb_tag_suggestions() {
+    // Check for cached tags
+    if( $tags = wp_cache_get( "homebase_display_tags", 'hb' ) ) {
+      wp_send_json_success( $tags );
+      wp_die();
+    }
+
+    $tags_all = get_terms( [ 
+      'taxonomy'   => 'post_tag',
+      'post_type'  => 'display',
+      'hide_empty' => true,
+    ] );
+
+    $tags = [];
+
+    if ( !empty( $tags_all ) && !is_wp_error( $tags_all ) ) {
+      foreach ( $tags_all as $tag ) {
+        $tags[] = strtolower( $tag->name );
+      }
+      wp_cache_set( "homebase_display_tags", $tags, 'hb', 900 );
+    }
+
+    wp_send_json_success( $tags );
+    
+    wp_die();
+  }
+
+  add_action( 'wp_ajax_hb_search_tags', 'hb_tag_suggestions' );
+  add_action( 'wp_ajax_nopriv_hb_search_tags', 'hb_tag_suggestions' );
