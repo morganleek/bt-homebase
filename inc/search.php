@@ -378,3 +378,65 @@
 
   add_action( 'wp_ajax_hb_search_tags', 'hb_tag_suggestions' );
   add_action( 'wp_ajax_nopriv_hb_search_tags', 'hb_tag_suggestions' );
+
+  function hb_migrate_display_galleries() {
+    global $wpdb;
+    // print_r( 1, true );
+    // wp_die();
+    
+    if( !isset( $_REQUEST['id'] ) ) {
+      print 'Missing params';
+      wp_die();
+    }
+    
+    $id = intval( $_REQUEST['id'] );
+
+    // Get all existing gallery IDs
+    // SELECT * FROM `wp_p2p` WHERE `p2p_from` = 49178
+    $p2p_ids = $wpdb->get_col( 
+      $wpdb->prepare( 
+        "SELECT `p2p_to` FROM `{$wpdb->prefix}p2p` WHERE `p2p_from` = %d", 
+        $id 
+      )
+    );
+
+    // error_log( print_r( $p2p_ids, true ), 0 );
+
+    $gallery = [];
+    foreach( $p2p_ids as $pId ) {
+      // 49275
+      $title = $wpdb->get_var( 
+        $wpdb->prepare( "SELECT `meta_value` FROM `{$wpdb->prefix}postmeta` WHERE `post_id` = %d AND `meta_key` = 'gallery_title'", $pId ) 
+      );
+      $file = $wpdb->get_var( 
+        $wpdb->prepare( "SELECT `meta_value` FROM `{$wpdb->prefix}postmeta` WHERE `post_id` = %d AND `meta_key` = 'file'", $pId ) 
+      ); // 49265
+
+      // error_log( print_r( $title, true ), 0 );
+
+      // Add title to media
+      if( $file && $title ) {
+        $attachment = [ 
+          'ID'         => $file,
+          'post_title' => $title,
+        ];
+        wp_update_post( $attachment );
+        // error_log( print_r( $attachment, true ), 0 );
+      }
+
+      // Add image to ACF Gallery
+      if( $file ) {
+        $gallery[] = $file;
+      }
+    }
+    // Push new gallery on to ACF field
+    update_field( "gallery", $gallery , $id );
+    // error_log( print_r( $gallery, true ), 0 );
+
+    wp_send_json_success( $id );
+    
+    wp_die();
+  }
+
+  add_action( 'wp_ajax_hb_migrate_display_galleries', 'hb_migrate_display_galleries' );
+  add_action( 'wp_ajax_nopriv_hb_migrate_display_galleries', 'hb_migrate_display_galleries' );

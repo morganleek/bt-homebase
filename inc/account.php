@@ -264,20 +264,26 @@ add_action( 'init', 'homebase_collections' );
 
 // 2.1
 
-function homebase_save_to_collection_button( $post_ID, $display_ID = 0 ) {
+function homebase_save_to_collection_button( $post_ID, $return = false ) {
+	$html = '';
 	if ( is_user_logged_in() ) {
 		// $current_user = wp_get_current_user();
 		// $current_user_ID = $current_user->ID;
 		if ( homebase_image_saved( $post_ID ) ) {
-			echo "<button class=\"heart myaccount unsaveimage\" data-post-id=\"$post_ID\" title=\"\"></button>";
+			$html .= "<button class=\"heart myaccount unsaveimage\" data-post-id=\"$post_ID\" title=\"\"></button>";
 		} else {
-			$photo = get_field( "file", $post_ID );
-			$photo_thumb_URL = wp_get_attachment_image_src( $photo, "thumbnail" );
-			echo "<button class=\"heart myaccount saveimage\" data-post-id=\"$post_ID\" data-image-thumb-url=\"$photo_thumb_URL[0]\" title=\"\"></button>";
+			// $photo = get_field( "file", $post_ID );
+			$photo_thumb_URL = wp_get_attachment_image_src( $post_ID, "thumbnail" );
+			$html .= "<button class=\"heart myaccount saveimage\" data-post-id=\"$post_ID\" data-image-thumb-url=\"$photo_thumb_URL[0]\" title=\"\"></button>"; // 
 		}
 	} else {
-		echo '<a href="/my-account" class="myaccount saveimage requires-login"></a>';
+		$html .= '<a href="/my-account" class="myaccount saveimage requires-login"></a>';
 	}
+
+	if( $return ) {
+		return $html;
+	}
+	print $html;
 }
 
 // 2.2 
