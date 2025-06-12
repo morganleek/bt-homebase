@@ -4,7 +4,7 @@
 	$sponsors = get_field( 'sponsors', $post->ID ); 
 
 	if( $sponsors ) {
-		print "<div class=\"wp-block-course-sponsors wp-block-group alignwide is-layout-flow wp-block-group-is-layout-flow\" style=\"border-radius:16px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--20);padding-left:var(--wp--preset--spacing--30)\">";
+		print "<div class=\"wp-block-course-sponsors wp-block-group alignwide is-style-overlap course-sponsors has-brand-dust-background-color has-background\" style=\"margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--70);padding-left:var(--wp--preset--spacing--30)\">";
 			print "<h4 class=\"wp-block-heading\">This course is proudly sponsored by</h4>";
 			print "<ul class=\"sponsors-list\">";
 				foreach( $sponsors as $sponsor ) {
