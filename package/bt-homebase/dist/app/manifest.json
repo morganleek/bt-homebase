@@ -1,6 +1,6 @@
 {
-  "main.css": "app/main-e5811cc9.css",
-  "main.css.map": "app/main-e5811cc9.css.map",
+  "main.css": "app/main-5a7c7563.css",
+  "main.css.map": "app/main-5a7c7563.css.map",
   "main.js": "app/main-53d6e81e.js",
   "main.js.map": "app/main-53d6e81e.js.map",
   "runtime.js": "app/runtime-c339366b.js",
@@ -24,11 +24,11 @@
         ],
         "css": [
           "app/vendors~main-a93ee486.css",
-          "app/main-e5811cc9.css"
+          "app/main-5a7c7563.css"
         ],
         "css.map": [
           "app/vendors~main-a93ee486.css.map",
-          "app/main-e5811cc9.css.map"
+          "app/main-5a7c7563.css.map"
         ]
       }
     }

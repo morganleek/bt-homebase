@@ -178,6 +178,17 @@
 					'icon'            => 'admin-site-alt3',
 					'keywords'        => [],
 				] );
+
+				// Course Sponsors
+				acf_register_block_type( [ 
+					'name'            => 'course-sponsors',
+					'title'           => __( 'Course Sponsors' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/course-sponsors.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-site-alt3',
+					'keywords'        => [],
+				] );
 			}
 		}
 	}
