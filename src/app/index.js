@@ -390,4 +390,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			e.target.closest( "dialog" ).close();
 		} );
 	} );
+
+	// Custom Details Attendees forms
+	if( document.querySelector( "#customer-order-details" ) ) {
+		const orderDetails = document.querySelector( "#customer-order-details" ).dataset;
+		
+		if( orderDetails.attendees && orderDetails.attendees === 'hide' ) {
+			document.querySelectorAll( ".attendee2, .attendee_3" ).forEach( div => div.style.display = "none" );
+		}
+		if(orderDetails.attendeeCount && orderDetails.attendeeCount === "2" && orderDetails.attendees && orderDetails.attendees === 'show'){
+			document.querySelectorAll( ".attendee_3" ).forEach( div => div.style.display = "none" );
+		}
+	}
 } );

@@ -127,3 +127,19 @@
 		return $defaults;
 	}
 	add_filter( 'woocommerce_breadcrumb_defaults', 'home_base_change_breadcrumb_home_text', 100 );
+
+	function homebase_woocommerce_checkout_before_customer_details() {
+		$cart = WC()->cart;
+		$show_attendees = 'hide';
+		$no_attendees = 1;
+		foreach($cart->get_cart() as $cartkey => $cartitem){
+			if(has_term('Courses', 'product_cat', $cartitem['product_id'])){
+				if($cartitem['quantity'] > 1){
+					$show_attendees = 'show';
+					$no_attendees = $cartitem['quantity'];
+				}
+			}
+		}
+		print "<div id=\"customer-order-details\" data-attendees=\"$show_attendees\" data-attendee-count=\"$no_attendees\"></div>";
+	}
+	add_action( 'woocommerce_checkout_before_customer_details', 'homebase_woocommerce_checkout_before_customer_details', 20 );

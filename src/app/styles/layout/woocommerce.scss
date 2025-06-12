@@ -289,9 +289,9 @@
 			}
 			body.product_cat-courses & {
 				opacity: 0.5;
-				div.quantity {
-					display: none !important;
-				}	
+				// div.quantity {
+				// 	display: none !important;
+				// }	
 			}
 			button.single_add_to_cart_button, 
 			button[name=add-to-cart] {
@@ -435,11 +435,15 @@
 }
 
 body.product_cat-courses.woocommerce {
-	.wp-block-woocommerce-product-price,
-	div.product form.cart div.quantity {
+	.wp-block-woocommerce-product-price {
 		display: none !important;
 	}
-	
+	div.product form.cart div.quantity {
+		// display: none !important;
+		.qty {
+			height: 40px;
+		}
+	}
 }
 
 // .wc-block-components-quantity-selector {
@@ -586,3 +590,12 @@ div[data-block-name="woocommerce/page-content-wrapper"] {
 	}
 }
 
+.woocommerce,
+.woocommerce-page {
+	.col2-set {
+		.col-1, .col-2 {
+			width: auto;
+			float: none;
+		}
+	}
+} 
