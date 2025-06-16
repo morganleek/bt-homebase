@@ -134,7 +134,7 @@ class BoneThemeInit
 
 		// Change Hamburger
 		if( $block['blockName'] === "core/navigation" ) {
-			$svg_regex = "/<svg.*?\/svg>/i";
+			$svg_regex = "/<svg width=\"24\" height=\"24\".*?\/svg>/i";
 			$svg = '<svg class="open" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12H21M3 6H21M9 18H21" stroke="#38332F" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/></svg><svg class="close" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 2L2 22M2 2L22 22" stroke="#38332F" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"/></svg>';
 			$block_content = preg_replace( $svg_regex, $svg, $block_content );
 
