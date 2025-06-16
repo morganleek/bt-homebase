@@ -150,7 +150,8 @@ class BoneThemeInit
 			$block_content = preg_replace( $svg_regex, $svg, $block_content );
 		} */
 
-		if( $block['blockName'] === "acf/my-account" ) {
+		// error_log( $block['blockName'], 0 );
+		if( $block['blockName'] === "acf/my-account" || $block['blockName'] === "core/group" ) {
 			$login_regex = "/(id=\"user_login\" )/i";
 			$block_content = preg_replace( $login_regex, "id=\"user_login\" placeholder=\"Email\" ", $block_content );
 

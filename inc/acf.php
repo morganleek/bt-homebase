@@ -189,6 +189,28 @@
 					'icon'            => 'admin-site-alt3',
 					'keywords'        => [],
 				] );
+
+				// OBSN Login
+				acf_register_block_type( [ 
+					'name'            => 'obsn-login',
+					'title'           => __( 'OBSN Login' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/obsn-login.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-site-alt3',
+					'keywords'        => [],
+				] );
+
+				// OBSN Nav
+				// acf_register_block_type( [ 
+				// 	'name'            => 'obsn-nav',
+				// 	'title'           => __( 'OBSN Nav' ),
+				// 	'description'     => __( '' ),
+				// 	'render_template' => 'template-parts/blocks/obsn-nav.php',
+				// 	'category'        => 'formatting',
+				// 	'icon'            => 'admin-site-alt3',
+				// 	'keywords'        => [],
+				// ] );
 			}
 		}
 	}
