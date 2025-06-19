@@ -55,14 +55,26 @@
 									</li>
 								<?php endif; ?>
 								<?php if ( $email ) : ?>
-									<li><a href="#email_exhibitor_<?php echo $display->ID; ?>" class="email_now"
-											data-display-name="<?php echo $display->post_title; ?>">Message Now</a></li>
+									<li>
+										<a href="#email_exhibitor_<?php echo $display->ID; ?>" class="display-lead-email" data-display-name="<?php echo $display->post_title; ?>" data-id="<?php print $display->ID; ?>">Message Now</a>
+										<dialog class="display-email-modal" data-id="<?php print $display->ID; ?>">
+											<button class="close-dialog">Close</button>
+											<h4>Message <?php print $display->post_title; ?></h4><br />
+											<?php 
+												$regex = "/(id=\"field_supplier__field\")(.*?)(value=\"\")/i";
+												$form = FrmFormsController::get_form_shortcode( [ 'id' => 2 ] );
+												$form = preg_replace( $regex, '\1\2value="' . $email . '"', $form );
+												print $form;
+											?>
+										</dialog>
+									</li>
 								<?php endif; ?>
 								<?php if ( $url ) : ?>
 									<li><a href="<?php echo $url; ?>" target="new" class="visit_website_now"
 											data-display-name="<?php echo $display->post_title; ?>">Visit Website</a></li>
 								<?php endif; ?>
 								<li><a href="#" class="edit_notes" data-post-id="<?php echo $save->ID; ?>">My Notes</a></li>
+									
 							</ul>
 						</div>
 					</div>

@@ -381,7 +381,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			if( document.querySelector( ".display-lead-phone-modal[data-id='" + id + "']" ) ) {
 				document.querySelector( ".display-lead-phone-modal[data-id='" + id + "']" ).showModal();
 			}
-			// longMessage( "Call " + e.target.dataset.phone );
+		} );
+	} );
+
+	// Email form
+	document.querySelectorAll( ".display-lead-email" ).forEach( ( email ) => {
+		const id = email.dataset.id;
+		email.addEventListener( "click", ( e ) => {
+			e.preventDefault();
+			if( document.querySelector( ".display-email-modal[data-id='" + id + "']" ) ) {
+				document.querySelector( ".display-email-modal[data-id='" + id + "']" ).showModal();
+			}
 		} );
 	} );
 
