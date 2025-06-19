@@ -56,17 +56,7 @@
 								<?php endif; ?>
 								<?php if ( $email ) : ?>
 									<li>
-										<a href="#email_exhibitor_<?php echo $display->ID; ?>" class="display-lead-email" data-display-name="<?php echo $display->post_title; ?>" data-id="<?php print $display->ID; ?>">Message Now</a>
-										<dialog class="display-email-modal" data-id="<?php print $display->ID; ?>">
-											<button class="close-dialog">Close</button>
-											<h4>Message <?php print $display->post_title; ?></h4><br />
-											<?php 
-												$regex = "/(id=\"field_supplier__field\")(.*?)(value=\"\")/i";
-												$form = FrmFormsController::get_form_shortcode( [ 'id' => 2 ] );
-												$form = preg_replace( $regex, '\1\2value="' . $email . '"', $form );
-												print $form;
-											?>
-										</dialog>
+										<a href="#email_exhibitor_<?php echo $display->ID; ?>" class="display-lead-email" data-display-name="<?php echo $display->post_title; ?>" data-display-email="<?php echo $email; ?>" data-id="<?php print $display->ID; ?>">Message Now</a>
 									</li>
 								<?php endif; ?>
 								<?php if ( $url ) : ?>
@@ -465,6 +455,16 @@
 								<?php endforeach; ?>
 								<?php wp_reset_postdata(); ?>
 							</ul>
+							<dialog class="display-email-modal">
+								<button class="close-dialog">Close</button>
+								<h4>Message <span class="post-title"></span></h4><br />
+								<?php 
+									// $regex = "/(id=\"field_supplier__field\")(.*?)(value=\"\")/i";
+									$form = FrmFormsController::get_form_shortcode( [ 'id' => 2 ] );
+									// $form = preg_replace( $regex, '\1\2value="' . $email . '"', $form );
+									print $form;
+								?>
+							</dialog>
 						</div>
 					<?php else : ?>
 						<div class="my_account_empty">

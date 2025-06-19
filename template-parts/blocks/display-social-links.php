@@ -19,7 +19,16 @@
 			</dialog>";
 		}
 		if($display_lead_email) {
-			print "<a class=\"display-lead-email\" href=\"mailto:$display_lead_email\"></a>";
+			print "<a href=\"#email_exhibitor_{$post->ID}\" class=\"display-lead-email\" data-display-name=\"{$post->post_title}\" data-display-email=\"$display_lead_email\" data-id=\"{$post->ID}\"></a>";
+			print "<dialog class=\"display-email-modal\">";
+				print "<button class=\"close-dialog\">Close</button>";
+				print "<h4>Message <span class=\"post-title\">{$post->post_title}</span></h4><br />";
+
+				// $regex = "/(id=\"field_supplier__field\")(.*?)(value=\"\")/i";
+				$form = FrmFormsController::get_form_shortcode( [ 'id' => 2 ] );
+				// $form = preg_replace( $regex, '\1\2value="' . $display_lead_email . '"', $form );
+				print $form;
+			print "</dialog>";
 		}
 		if($display_lead_url) {
 			print "<a class=\"display-lead-url\" target=\"_blank\" href=\"$display_lead_url\" title=\"" . get_the_title() . "\"></a>";

@@ -389,8 +389,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		const id = email.dataset.id;
 		email.addEventListener( "click", ( e ) => {
 			e.preventDefault();
-			if( document.querySelector( ".display-email-modal[data-id='" + id + "']" ) ) {
-				document.querySelector( ".display-email-modal[data-id='" + id + "']" ).showModal();
+			const a = e.target.closest( "a" );
+			const name = a.dataset.displayName;
+			const email = a.dataset.displayEmail;
+			if( document.querySelector( ".display-email-modal" ) ) {
+				document.querySelector( ".display-email-modal .post-title" ).innerHTML = name;
+				document.querySelector( ".display-email-modal #field_supplier__field" ).value = email;
+				document.querySelector( ".display-email-modal" ).showModal();
 			}
 		} );
 	} );
