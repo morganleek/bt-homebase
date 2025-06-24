@@ -18,6 +18,10 @@ html {
 		box-sizing: inherit;
 	}
 }
+html ::-webkit-scrollbar,
+body ::-webkit-scrollbar {
+  display: none;
+}
 
 // :where(.wp-block-group.has-background) {
 // 	padding: 1.25em var(--wp--custom--spacing--outer);
