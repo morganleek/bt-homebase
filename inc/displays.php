@@ -108,9 +108,16 @@ add_action( 'init', 'create_display_categories' );
 function bones_theme_display_order( $query ){
 	if( ! is_admin() && is_archive() ) {
 		if( isset( $query->query['display-category'] ) ) {
+			
 			$query->set( 'orderby', 'title' );
 			$query->set( 'order', 'ASC' );
+
+			// only show items with active salesforce checkbox
+			$query->set( 'meta_key', 'salesforce_active' );
+			$query->set( 'meta_value', '1' );
+			$query->set( 'meta_compare', '=' );
 		}
 	}
 };
+
 add_action( 'pre_get_posts', 'bones_theme_display_order', 0); 
