@@ -40,7 +40,9 @@
 
 <!-- wp:post-title {"level":4,"isLink":true} /-->
 
-<!-- wp:read-more {"content":"Explore"} /--></div>
+<!-- wp:read-more {"content":"Explore"} /-->
+
+<!-- wp:acf/display-location {"name":"acf/display-location","data":[],"mode":"preview"} /--></div>
 <!-- /wp:group -->
 <!-- /wp:post-template -->
 
