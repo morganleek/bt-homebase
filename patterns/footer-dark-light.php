@@ -47,11 +47,11 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"21px"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">55 Salvado Rd, Subiaco, WA 6008</p>
+<p class="has-small-font-size" id="block-704b84f1-2666-42aa-8991-2440e8e7ab6f"><a href="https://maps.app.goo.gl/kFTkBgUUbzEEAMnSA" target="_blank" rel="noreferrer noopener">55 Salvado Rd, Subiaco, WA 6008</a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size">T: 08 6323 5161</p>
+<p class="has-small-font-size" id="block-7d50c0a9-2e55-43cf-b626-fe14b87d6a7c">T: <a href="tel:+61863235161">08 6323 5161</a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
