@@ -19,11 +19,11 @@
 <!-- wp:group {"style":{"spacing":{"blockGap":"8px"}},"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 <div class="wp-block-group"><!-- wp:buttons {"style":{"spacing":{"blockGap":{"left":"8px"}}},"layout":{"type":"flex","verticalAlignment":"top"}} -->
 <div class="wp-block-buttons"><!-- wp:button {"backgroundColor":"white","className":"header-search-trigger","style":{"spacing":{"padding":{"left":"0","right":"0","top":"0","bottom":"0"}}}} -->
-<div class="wp-block-button header-search-trigger"><a class="wp-block-button__link has-white-background-color has-background wp-element-button" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><img class="wp-image-50613" style="width: 24px;" src="https://ho.1fo.au/wp-content/uploads/2025/03/search.svg" alt=""></a></div>
+<div class="wp-block-button header-search-trigger"><a class="wp-block-button__link has-white-background-color has-background wp-element-button" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><img class="wp-image-50613" style="width: 24px;" src="<?php print get_bloginfo('url'); ?>/wp-content/uploads/2025/03/search.svg" alt=""></a></div>
 <!-- /wp:button -->
 
 <!-- wp:button {"backgroundColor":"white","className":"header-profile-trigger","style":{"spacing":{"padding":{"left":"0","right":"0","top":"0","bottom":"0"}}}} -->
-<div class="wp-block-button header-profile-trigger"><a class="wp-block-button__link has-white-background-color has-background wp-element-button" href="/my-account" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><img class="wp-image-50612" style="width: 24px;" src="https://ho.1fo.au/wp-content/uploads/2025/03/user.svg" alt=""></a></div>
+<div class="wp-block-button header-profile-trigger"><a class="wp-block-button__link has-white-background-color has-background wp-element-button" href="/my-account" style="padding-top:0;padding-right:0;padding-bottom:0;padding-left:0"><img class="wp-image-50612" style="width: 24px;" src="<?php print get_bloginfo('url'); ?>/wp-content/uploads/2025/03/user.svg" alt=""></a></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 

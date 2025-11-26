@@ -139,11 +139,11 @@
 
 <!-- wp:group {"style":{"spacing":{"blockGap":"21px"}},"layout":{"type":"constrained"}} -->
 <div class="wp-block-group"><!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size"><a href="https://ho.1fo.au/privacy-policy/" data-type="page" data-id="11566">Privacy Policy</a></p>
+<p class="has-small-font-size"><a href="<?php print get_bloginfo('url'); ?>/privacy-policy/" data-type="page" data-id="11566">Privacy Policy</a></p>
 <!-- /wp:paragraph -->
 
 <!-- wp:paragraph {"fontSize":"small"} -->
-<p class="has-small-font-size"><a href="https://ho.1fo.au/privacy-policy/" data-type="page" data-id="11566">Terms of Service</a></p>
+<p class="has-small-font-size"><a href="<?php print get_bloginfo('url'); ?>/privacy-policy/" data-type="page" data-id="11566">Terms of Service</a></p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:group --></div>
