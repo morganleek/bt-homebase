@@ -7,7 +7,7 @@
  * @link UNLICENSED
  * @license UNLICENSED
  * 
- * Copyright (c) 2025 
+ * Copyright (c) 2026 
  * 
  * This software is released under the UNLICENSED License
  * https://opensource.org/licenses/UNLICENSED
