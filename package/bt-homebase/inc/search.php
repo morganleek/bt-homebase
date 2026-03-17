@@ -128,37 +128,49 @@
         wp_reset_postdata();
 
         // Displays by tag name
-        $displays = new WP_Query( [ 
-          'post_type'      => 'display',
-          'post_status'    => 'publish',
-          'tag'            => str_replace(" ", "-", trim( $s )),
-          'posts_per_page' => 5,
-          'post__not_in'   => $already_shown,
-          'meta_key'       => 'salesforce_active',
-          'meta_value'     => '1',
-          'meta_compare'   => '=',
-        ] );
+        // $displays = new WP_Query( [ 
+        //   'post_type'      => 'display',
+        //   'post_status'    => 'publish',
+        //   'tag'            => str_replace(" ", "-", trim( $s )),
+        //   'posts_per_page' => 5,
+        //   'post__not_in'   => $already_shown,
+        //   'meta_key'       => 'salesforce_active',
+        //   'meta_value'     => '1',
+        //   'meta_compare'   => '=',
+        // ] );
   
-        if ( $displays->have_posts() ) {
-          while ( $displays->have_posts() ) {
-            $displays->the_post();
-            $results['displays'][] = [ 
-              'url'         => get_permalink(),
-              'title'       => get_the_title(),
-              'description' => get_the_excerpt(),
-              'price'       => '',
-              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-            ];
-          }
-        } 
+        // if ( $displays->have_posts() ) {
+        //   while ( $displays->have_posts() ) {
+        //     $displays->the_post();
+        //     $results['displays'][] = [ 
+        //       'url'         => get_permalink(),
+        //       'title'       => get_the_title(),
+        //       'description' => get_the_excerpt(),
+        //       'price'       => '',
+        //       'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
+        //     ];
+        //   }
+        // } 
   
-        wp_reset_postdata();
+        // wp_reset_postdata();
 
         // Displays general search including tag partial
+        $term_ids = $wpdb->get_col( $wpdb->prepare(
+          "SELECT `term_id` FROM {$wpdb->terms} WHERE name LIKE %s",
+          '%' . $wpdb->esc_like( $s ) . '%'
+        ) );
+
         $displays = new WP_Query( [ 
           'post_type'      => 'display',
           'post_status'    => 'publish',
-          's'              => $s,
+          'tax_query' => [
+            [
+              'taxonomy' => 'post_tag',
+              'field'    => 'term_id',
+              'terms'    => $term_ids,
+              'operator' => 'IN',
+            ],
+          ],
           'posts_per_page' => 5,
           'post__not_in'   => $already_shown,
           'meta_key'       => 'salesforce_active',
