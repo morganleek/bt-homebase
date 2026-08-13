@@ -104,7 +104,7 @@
         $displays = new WP_Query( [ 
           'post_type'      => 'display',
           'post_status'    => 'publish',
-          'tag'            => $s,
+          's'              => $s,
           'posts_per_page' => 20,
           'meta_key'       => 'salesforce_active',
           'meta_value'     => '1',
@@ -114,6 +114,33 @@
         if ( $displays->have_posts() ) {
           while ( $displays->have_posts() ) {
             $displays->the_post();
+            $results['displays'][] = [ 
+              'url'         => get_permalink(),
+              'title'       => get_the_title(),
+              'description' => get_the_excerpt(),
+              'price'       => '',
+              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
+            ];
+            $already_shown[] = get_the_ID();
+          }
+        } 
+  
+        wp_reset_postdata();
+
+        // Displays by Tag
+        $displayTags = new WP_Query( [ 
+          'post_type'      => 'display',
+          'post_status'    => 'publish',
+          'tag'            => $s,
+          'posts_per_page' => 20,
+          'meta_key'       => 'salesforce_active',
+          'meta_value'     => '1',
+          'meta_compare'   => '=',
+        ] );
+  
+        if ( $displayTags->have_posts() ) {
+          while ( $displayTags->have_posts() ) {
+            $displayTags->the_post();
             $results['displays'][] = [ 
               'url'         => get_permalink(),
               'title'       => get_the_title(),
