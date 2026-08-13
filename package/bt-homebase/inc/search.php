@@ -110,10 +110,12 @@
           'meta_value'     => '1',
           'meta_compare'   => '=',
         ] );
-  
+
+        
         if ( $displays->have_posts() ) {
           while ( $displays->have_posts() ) {
             $displays->the_post();
+            error_log( get_permalink(), false );
             $results['displays'][] = [ 
               'url'         => get_permalink(),
               'title'       => get_the_title(),
