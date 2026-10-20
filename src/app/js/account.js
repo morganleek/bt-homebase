@@ -1,8 +1,19 @@
-import axios, {isCancel, AxiosError} from 'axios';
 import Toastify from 'toastify-js'
 import Flickity from 'flickity';
 
 let collection = null;
+
+const ajaxGet = ( params ) => {
+	const url = new URL( home_base.ajax_url, window.location.origin );
+	Object.keys( params ).forEach( key => url.searchParams.append( key, params[ key ] ) );
+
+	return fetch( url ).then( res => {
+		if( !res.ok ) {
+			throw new Error( res.statusText );
+		}
+		return res.json();
+	} );
+};
 
 const showMessage = ( message ) => {
 	Toastify({
@@ -64,7 +75,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 					}
 				}
 		
-				axios.get( home_base.ajax_url, { params: data } )
+				ajaxGet( data )
 				.then( res => {
 					e.target.classList.toggle( 'unsave' );
 					// Show message
@@ -177,11 +188,11 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 			document.body.classList.add( 'collection_action_loading' );
 
-			axios.get( home_base.ajax_url, { params: data } )
+			ajaxGet( data )
 			.then( res => {
-				console.log( res.data.data );
-				document.querySelector( '#saved_notes' ).value = res.data.data.notes;
-				document.querySelector( '#saved_notes_id' ).value = res.data.data.post_id;
+				console.log( res.data );
+				document.querySelector( '#saved_notes' ).value = res.data.notes;
+				document.querySelector( '#saved_notes_id' ).value = res.data.post_id;
 				
 				document.body.classList.remove( 'collection_action_loading' );
 				document.body.classList.add( 'collection_action', 'collection_action_notes' );
@@ -265,7 +276,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			}
 			
 			document.body.classList.add( "collection_action_loading" );
-			axios.get( home_base.ajax_url, { params: data } )
+			ajaxGet( data )
 			.then( res => {
 				document.body.classList.remove( "collection_action_loading" );
 				// console.log( document.querySelector( "#photo_" + photo + " .myaccount" ) );
@@ -392,9 +403,9 @@ const processRequest = ( targetId ) => {
 	if( new_collection_name ) {
 		document.body.classList.add( "collection_action_loading" );
 	
-		axios.get( home_base.ajax_url, { params: data } )
+		ajaxGet( data )
 		.then( res => {
-			closeModals(); 
+			closeModals();
 			// reload collections
 			loadCollections();
 			// Show message
@@ -453,15 +464,13 @@ const processRequest = ( targetId ) => {
 const loadCollections = ( collection ) => {
 	document.querySelector( '#collections' ).classList.add( 'loading' );
 
-	axios.get( home_base.ajax_url, { 
-		params: {
-			action: 'homebase_load_collections',
-			collection: collection
-		} 
+	ajaxGet( {
+		action: 'homebase_load_collections',
+		collection: collection
 	} )
 	.then( res => {
 		document.querySelector( '#collections' ).classList.remove( 'loading' );
-		document.querySelector( '#collections > .wp-block-group' ).innerHTML = res.data;	
+		document.querySelector( '#collections > .wp-block-group' ).innerHTML = res;
 		
 		// document.querySelectorAll( ".full_gallery_slides" ).forEach( ( slides, key ) => {
 		// 	if( key === 0 ) {
@@ -486,15 +495,13 @@ const loadCollections = ( collection ) => {
 const loadDestinationCollections = ( original_collection ) => {
 	document.querySelector( '#collections' ).classList.add( 'loading' );
 
-	axios.get( home_base.ajax_url, { 
-		params: {
-			action: 'homebase_load_destination_collections',
-			exclude: original_collection
-		}
+	ajaxGet( {
+		action: 'homebase_load_destination_collections',
+		exclude: original_collection
 	} )
 	.then( res => {
 		document.querySelector( '#collections' ).classList.remove( 'loading' );
-		document.querySelector( '#edit_image_collections' ).innerHTML = res.data;	
+		document.querySelector( '#edit_image_collections' ).innerHTML = res;
 	} )
 	.catch( error => {
 		showMessage( "Something has gone wrong" );
