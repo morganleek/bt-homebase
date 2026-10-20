@@ -41,8 +41,12 @@
 	padding: 9px 16px !important;
 	font-size: 1rem;
 	gap: .5em;
+	justify-content: center;
 	&:focus-visible {
 		outline: 0 none;
+	}
+	& > .wc-block-components-notice-banner__content {
+		flex-basis: auto;
 	}
 	&.is-info {
 		background-color: #fff;
