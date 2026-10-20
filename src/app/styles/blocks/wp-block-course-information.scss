@@ -37,7 +37,18 @@
 }
 
 .wc-block-components-notice-banner {
+	border-radius: 8px;
+	padding: 9px 16px !important;
+	font-size: 1rem;
+	gap: .5em;
 	&:focus-visible {
 		outline: 0 none;
+	}
+	&.is-info {
+		background-color: #fff;
+		border-color: var(--wp--preset--color--brand-yellow);
+		& > svg {
+			background-color: var(--wp--preset--color--brand-yellow);
+		}
 	}
 }
