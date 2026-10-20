@@ -8,7 +8,37 @@
 }
 .wp-block-course-information-structure,
 .wp-block-course-information-details {
-	& > div {
+	&:has(> .wp-block-course-information-column) {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(max(min(300px, 100%), (100% - (1rem * (2 - 1))) /2), 1fr));
+		gap: 1rem;
+	}
+	.wp-block-course-information-column {
+		margin: 0;
+		& > * {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+	}
+	.presenter-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 12px;
+		img {
+			width: 64px;
+			aspect-ratio: 1;
+			object-fit: cover;
+			border-radius: 100px;
+			overflow: hidden;
+			display: block;
+		}
+		h4 {
+			margin: 0;
+		}
+	}
+	.tabular {
 		display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
