@@ -78,16 +78,17 @@
 					// text-overflow: ellipsis;
 					// white-space: nowrap;
 					// overflow: hidden;
-					@include mixins.arrow-after;
-					&::after {
-						margin-left: 0;
-					}
+					
 					font-size: var(--wp--custom--typography--font-size--heading-4);
 					max-width: 100%;
 					display: block;
 					a {
 						display: inline;
-						margin-right: 15px;
+						margin-right: 10px;
+					}
+					@include mixins.arrow-after;
+					&::after {
+						margin-left: 0;
 					}
 				}
 				.wp-block-post-excerpt__excerpt {
@@ -104,7 +105,7 @@
 					& + h4 {
 						@media (min-width: 782px) { 
 							padding-left: 8px;
-							padding-right: 60px;
+							padding-right: 48px;
 						}
 					}
 				}
