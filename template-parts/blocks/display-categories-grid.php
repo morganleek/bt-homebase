@@ -34,7 +34,7 @@
 						if( $children ) {
 							print "<ul class=\"children\">";
 							foreach( $children as $child ) {
-								$child_link = get_term_link( $term );
+								$child_link = get_term_link( $child );
 								$child_featured_image = get_field( 'featured_image', $child );
 								print "<li class=\"child\">";
 									print "<figure style=\"aspect-ratio:16/9;\" class=\"wp-block-post-featured-image\">";
