@@ -75,15 +75,19 @@
 					}
 				}
 				h3, h4 {
+					// text-overflow: ellipsis;
+					// white-space: nowrap;
+					// overflow: hidden;
+					@include mixins.arrow-after;
+					&::after {
+						margin-left: 0;
+					}
 					font-size: var(--wp--custom--typography--font-size--heading-4);
-					white-space: nowrap;
-					text-overflow: ellipsis;
 					max-width: 100%;
 					display: block;
-					overflow: hidden;
 					a {
 						display: inline;
-						@include mixins.arrow-after;
+						margin-right: 15px;
 					}
 				}
 				.wp-block-post-excerpt__excerpt {
