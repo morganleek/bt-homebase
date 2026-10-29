@@ -301,13 +301,18 @@
 			}
 			select {
 				border-radius: 8px;
-				padding: 3px 8px 3px 16px !important;
+				padding: 3px 36px 3px 16px !important;
 				border-color: #fff !important;
 				background: none !important;
+				position: relative;
 				@include mixins.select;
 				&::picker-icon {
 					background-image: url(./images/chevron-down-white.svg) !important;
-					margin-top: 4px;
+					margin-top: 0;
+					position: absolute;
+					top: 50%;
+					right: 6px;
+					transform: translate(0, -50%);
 				}
 			}
 			.single_variation_wrap {

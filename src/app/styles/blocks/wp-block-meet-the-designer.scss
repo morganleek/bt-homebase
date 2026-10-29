@@ -109,6 +109,7 @@
 		& + .mc-variation-radios {
 			flex-direction: row;
 			flex-wrap: wrap;
+			margin-top: 0;
 
 			// display: grid;
 			// grid-template-columns: repeat(auto-fill, minmax(max(min(120px, 100%), (100% - (1rem * (7 - 1))) /7), 1fr));
