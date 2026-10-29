@@ -49,6 +49,30 @@
     return '';
   }
 
+  // Restrict a WP_Query's 's' search to specific post columns (e.g. title only, or content only)
+  function hb_search_columns_filter( array $columns ) {
+    return function( $search, $wp_query ) use ( $columns ) {
+      global $wpdb;
+      if ( empty( $wp_query->query_vars['search_terms'] ) ) {
+        return $search;
+      }
+      $q = $wp_query->query_vars;
+      $n = ! empty( $q['exact'] ) ? '' : '%';
+      $clauses = '';
+      $searchand = '';
+      foreach ( (array) $q['search_terms'] as $term ) {
+        $like = $n . $wpdb->esc_like( $term ) . $n;
+        $ors = [];
+        foreach ( $columns as $col ) {
+          $ors[] = $wpdb->prepare( "{$wpdb->posts}.`$col` LIKE %s", $like );
+        }
+        $clauses .= "{$searchand}(" . implode( ' OR ', $ors ) . ')';
+        $searchand = ' AND ';
+      }
+      return $clauses !== '' ? " AND ({$clauses}) " : $search;
+    };
+  }
+
   // Search
   function hb_search() {
     global $wpdb;
@@ -79,7 +103,7 @@
           'post_type'      => 'post',
           'post_status'    => 'publish',
           's'              => $s,
-          'posts_per_page' => 5,
+          'posts_per_page' => 20,
         ] );
   
         if ( $posts->have_posts() ) {
@@ -100,98 +124,49 @@
       
       if( $post_type === 'display' || $post_type === '' ) {
         $already_shown = [];
-        // Displays by Title
-        $displays = new WP_Query( [ 
+        $results['displays'] = [];
+
+        // Collects a WP_Query's posts into $results['displays'] and $already_shown,
+        // leaving later (lower-ranked) buckets to exclude posts already collected
+        $collect_displays = function( WP_Query $query ) use ( &$results, &$already_shown ) {
+          if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+              $query->the_post();
+              $results['displays'][] = [
+                'url'          => get_permalink(),
+                'title'        => get_the_title(),
+                'description'  => get_the_excerpt(),
+                'price'        => '',
+                'thumbnail'    => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
+                'location_map' => bones_theme_display_location_and_map( get_the_ID() ),
+              ];
+              $already_shown[] = get_the_ID();
+            }
+          }
+          wp_reset_postdata();
+        };
+
+        $base_args = [
           'post_type'      => 'display',
           'post_status'    => 'publish',
-          's'              => $s,
           'posts_per_page' => 20,
           'meta_key'       => 'salesforce_active',
           'meta_value'     => '1',
           'meta_compare'   => '=',
-        ] );
+        ];
 
-        
-        if ( $displays->have_posts() ) {
-          while ( $displays->have_posts() ) {
-            $displays->the_post();
-            error_log( get_permalink(), false );
-            $results['displays'][] = [ 
-              'url'         => get_permalink(),
-              'title'       => get_the_title(),
-              'description' => get_the_excerpt(),
-              'price'       => '',
-              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-            ];
-            $already_shown[] = get_the_ID();
-          }
-        } 
-  
-        wp_reset_postdata();
+        // 1. Exact tag match
+        $collect_displays( new WP_Query( array_merge( $base_args, [
+          'tag' => $s,
+        ] ) ) );
 
-        // Displays by Tag
-        $displayTags = new WP_Query( [ 
-          'post_type'      => 'display',
-          'post_status'    => 'publish',
-          'tag'            => $s,
-          'posts_per_page' => 20,
-          'meta_key'       => 'salesforce_active',
-          'meta_value'     => '1',
-          'meta_compare'   => '=',
-        ] );
-  
-        if ( $displayTags->have_posts() ) {
-          while ( $displayTags->have_posts() ) {
-            $displayTags->the_post();
-            $results['displays'][] = [ 
-              'url'         => get_permalink(),
-              'title'       => get_the_title(),
-              'description' => get_the_excerpt(),
-              'price'       => '',
-              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-            ];
-            $already_shown[] = get_the_ID();
-          }
-        } 
-  
-        wp_reset_postdata();
-
-        // Displays by tag name
-        // $displays = new WP_Query( [ 
-        //   'post_type'      => 'display',
-        //   'post_status'    => 'publish',
-        //   'tag'            => str_replace(" ", "-", trim( $s )),
-        //   'posts_per_page' => 5,
-        //   'post__not_in'   => $already_shown,
-        //   'meta_key'       => 'salesforce_active',
-        //   'meta_value'     => '1',
-        //   'meta_compare'   => '=',
-        // ] );
-  
-        // if ( $displays->have_posts() ) {
-        //   while ( $displays->have_posts() ) {
-        //     $displays->the_post();
-        //     $results['displays'][] = [ 
-        //       'url'         => get_permalink(),
-        //       'title'       => get_the_title(),
-        //       'description' => get_the_excerpt(),
-        //       'price'       => '',
-        //       'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-        //     ];
-        //   }
-        // } 
-  
-        // wp_reset_postdata();
-
-        // Displays general search including tag partial
+        // 2. Partial tag match (tag name contains search term)
         $term_ids = $wpdb->get_col( $wpdb->prepare(
           "SELECT `term_id` FROM {$wpdb->terms} WHERE name LIKE %s",
           '%' . $wpdb->esc_like( $s ) . '%'
         ) );
 
-        $displays = new WP_Query( [ 
-          'post_type'      => 'display',
-          'post_status'    => 'publish',
+        $collect_displays( new WP_Query( array_merge( $base_args, [
           'tax_query' => [
             [
               'taxonomy' => 'post_tag',
@@ -200,27 +175,26 @@
               'operator' => 'IN',
             ],
           ],
-          'posts_per_page' => 5,
-          'post__not_in'   => $already_shown,
-          'meta_key'       => 'salesforce_active',
-          'meta_value'     => '1',
-          'meta_compare'   => '=',
-        ] );
-  
-        if ( $displays->have_posts() ) {
-          while ( $displays->have_posts() ) {
-            $displays->the_post();
-            $results['displays'][] = [ 
-              'url'         => get_permalink(),
-              'title'       => get_the_title(),
-              'description' => get_the_excerpt(),
-              'price'       => '',
-              'thumbnail'   => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-            ];
-          }
-        } 
-  
-        wp_reset_postdata();
+          'post__not_in' => $already_shown,
+        ] ) ) );
+
+        // 3. Title match
+        $title_filter = hb_search_columns_filter( [ 'post_title' ] );
+        add_filter( 'posts_search', $title_filter, 10, 2 );
+        $collect_displays( new WP_Query( array_merge( $base_args, [
+          's'            => $s,
+          'post__not_in' => $already_shown,
+        ] ) ) );
+        remove_filter( 'posts_search', $title_filter, 10 );
+
+        // 4. Content match
+        $content_filter = hb_search_columns_filter( [ 'post_content', 'post_excerpt' ] );
+        add_filter( 'posts_search', $content_filter, 10, 2 );
+        $collect_displays( new WP_Query( array_merge( $base_args, [
+          's'            => $s,
+          'post__not_in' => $already_shown,
+        ] ) ) );
+        remove_filter( 'posts_search', $content_filter, 10 );
       }
 
       // Pages

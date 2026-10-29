@@ -6,6 +6,10 @@
 	// ] );
 	$photos = get_field( 'gallery', get_the_ID() );
 
+	if( $photos === null ) {
+		return;
+	}
+
 	$photos_display = array_map( fn( $photo ) => [ 
 		'ID'						=> $photo['ID'],
 		'title_sm'      => ! empty( $photo['title'] ) ? "<h6>" . $photo['title'] . "</h6>" : "",
