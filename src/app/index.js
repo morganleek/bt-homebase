@@ -63,6 +63,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	// 		console.log( "menu click" );
 	// 	} );
 	// } );
+	
 
 	// Menu scroll trigger
 	const header = document.querySelector( "header.wp-block-template-part" );
@@ -197,6 +198,15 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				document.querySelector( `#${href[1]}` ).scrollIntoView( { behavior: "smooth" } );
 			}
 		} );
+	} );
+
+	// Open external links in a new tab
+	document.addEventListener( "click", ( e ) => {
+		const a = e.target.closest( "a[href]" );
+		if( a && a.hostname && a.hostname !== window.location.hostname ) {
+			a.target = "_blank";
+			a.rel = a.rel ? `${a.rel} noopener noreferrer` : "noopener noreferrer";
+		}
 	} );
 
 	// My account dropdown
