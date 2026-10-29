@@ -107,9 +107,14 @@
 	#time, 
 	#date {
 		& + .mc-variation-radios {
-			display: grid;
-			grid-template-columns: repeat(auto-fill, minmax(max(min(120px, 100%), (100% - (1rem * (7 - 1))) /7), 1fr));
+			flex-direction: row;
+			flex-wrap: wrap;
+
+			// display: grid;
+			// grid-template-columns: repeat(auto-fill, minmax(max(min(120px, 100%), (100% - (1rem * (7 - 1))) /7), 1fr));
+			// grid-template-columns: repeat(auto-fill, minmax(max(min(60px, 100%), (100% - (1rem * (6 - 1))) /6), 1fr))
 			& > li {
+				flex: 1 1 16%;
 				label {
 					text-align: center;
 					border: 2px solid transparent;
