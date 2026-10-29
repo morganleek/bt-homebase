@@ -103,7 +103,7 @@
           'post_type'      => 'post',
           'post_status'    => 'publish',
           's'              => $s,
-          'posts_per_page' => 20,
+          'posts_per_page' => 30,
         ] );
   
         if ( $posts->have_posts() ) {
@@ -149,7 +149,7 @@
         $base_args = [
           'post_type'      => 'display',
           'post_status'    => 'publish',
-          'posts_per_page' => 20,
+          'posts_per_page' => 30,
           'meta_key'       => 'salesforce_active',
           'meta_value'     => '1',
           'meta_compare'   => '=',
