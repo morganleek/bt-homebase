@@ -65,7 +65,12 @@
 		} else {
 			foreach( $options as $option ) {
 				$checked = sanitize_title( $args[ 'selected' ] ) === $args[ 'selected' ] ? checked( $args[ 'selected' ], sanitize_title( $option ), false ) : checked( $args[ 'selected' ], $option, false );
-				$radios .= "<li><input type=\"radio\" id=\"{$name}-{$option}\" name=\"{$name}\" value=\"{$option}\" {$checked}><label for=\"{$name}-{$option}\">{$option}</label></li>";
+				$title = preg_replace(
+						'/\b(Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\s+/i',
+						'$1<br />',
+						$option
+				);
+				$radios .= "<li><input type=\"radio\" id=\"{$name}-{$option}\" name=\"{$name}\" value=\"{$option}\" {$checked}><label for=\"{$name}-{$option}\">{$title}</label></li>";
 			}
 		}
 		
