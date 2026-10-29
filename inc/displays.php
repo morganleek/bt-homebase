@@ -121,3 +121,26 @@ function bones_theme_display_order( $query ){
 };
 
 add_action( 'pre_get_posts', 'bones_theme_display_order', 0); 
+
+function bones_theme_display_location_and_map( $post_id ) {
+	$display_number = get_field('display_number', $post_id);
+	$display_grid_ref = get_field('display_grid_ref', $post_id);
+
+	$html = "";
+	$html .= "<div class=\"display-location\">";
+		$html .= "<ul class=\"display-location-list\">";
+		if( is_admin() && !$display_number ) {
+			$html .= "<li class=\"display-number\">000</li>";
+		}	
+		if($display_number) {
+			$html .= "<li class=\"display-number\">$display_number</li>";
+		}
+		if($display_grid_ref) {
+			$map_pdf = get_field( 'map_pdf', 'option' );
+			$html .= "<li class=\"display-grid-ref\"><span>$display_grid_ref</span><span>View Map</span><a href=\"{$map_pdf['url']}\" target=\"_blank\"></a></li>";
+		}
+		$html .= "</ul>";
+	$html .= "</div>";
+
+	return $html;
+}
