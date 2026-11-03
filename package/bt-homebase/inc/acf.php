@@ -102,6 +102,100 @@
 					'keywords'        => [],
 				] );
 
+				// Display Category Slider
+				acf_register_block_type( [
+					'name'            => 'display-category-slider',
+					'title'           => __( 'Display Category Slider' ),
+					'description'     => __( 'Slider of all displays in a chosen display category.' ),
+					'render_template' => 'template-parts/blocks/display-category-slider.php',
+					'category'        => 'formatting',
+					'icon'            => 'grid-view',
+					'keywords'        => [],
+				] );
+
+				acf_add_local_field_group( [
+					'key'      => 'group_display_category_slider',
+					'title'    => 'Block: Display Category Slider',
+					'fields'   => [
+						[
+							'key'           => 'field_display_category_slider_term',
+							'label'         => 'Display Category',
+							'name'          => 'display_category',
+							'type'          => 'taxonomy',
+							'taxonomy'      => 'display-category',
+							'field_type'    => 'select',
+							'required'      => 1,
+							'allow_null'    => 0,
+							'add_term'      => 0,
+							'save_terms'    => 0,
+							'load_terms'    => 0,
+							'return_format' => 'id',
+							'multiple'      => 0,
+						],
+					],
+					'location' => [
+						[
+							[
+								'param'    => 'block',
+								'operator' => '==',
+								'value'    => 'acf/display-category-slider',
+							],
+						],
+					],
+				] );
+
+				// Specific Display Slider
+				acf_register_block_type( [
+					'name'            => 'specific-display-slider',
+					'title'           => __( 'Specific Display Slider' ),
+					'description'     => __( 'Slider of hand-picked displays.' ),
+					'render_template' => 'template-parts/blocks/specific-display-slider.php',
+					'category'        => 'formatting',
+					'icon'            => 'grid-view',
+					'keywords'        => [],
+				] );
+
+				acf_add_local_field_group( [
+					'key'      => 'group_specific_display_slider',
+					'title'    => 'Block: Specific Display Slider',
+					'fields'   => [
+						[
+							'key'           => 'field_specific_display_slider_displays',
+							'label'         => 'Displays',
+							'name'          => 'displays',
+							'type'          => 'relationship',
+							'post_type'     => [ 'display' ],
+							'post_status'   => [ 'publish' ],
+							'filters'       => [ 'search', 'taxonomy' ],
+							'required'      => 1,
+							'return_format' => 'id',
+						],
+					],
+					'location' => [
+						[
+							[
+								'param'    => 'block',
+								'operator' => '==',
+								'value'    => 'acf/specific-display-slider',
+							],
+						],
+					],
+				] );
+
+				// Only offer Display Categories in the taxonomy filter (no Tags).
+				// Set at prepare time so the dropdown changes but the list of selectable displays doesn't.
+				add_filter( 'acf/prepare_field/key=field_specific_display_slider_displays', function( $field ) {
+					$slugs = get_terms( [
+						'taxonomy'   => 'display-category',
+						'hide_empty' => false,
+						'fields'     => 'slugs',
+					] );
+					if( ! is_wp_error( $slugs ) ) {
+						$field['taxonomy'] = array_map( fn( $slug ) => "display-category:$slug", $slugs );
+					}
+					return $field;
+				} );
+
 				// Tags Selector
 				acf_register_block_type( [ 
 					'name'            => 'tags-selector',
