@@ -73,6 +73,199 @@
     };
   }
 
+  /**
+   * Display search helpers
+   *
+   * Matching rules (agreed with client):
+   *  - Multi-word searches must match as a phrase (words adjacent, in order), or all
+   *    words must appear within the same single tag. Words scattered across a listing
+   *    no longer match.
+   *  - Singular/plural variants match each other (vanity/vanities, kitchen/kitchens,
+   *    glass/glasses, bench/benches).
+   *  - Tags and titles allow partial-word matches (e.g. "bli" finds "public", "blinds").
+   *  - Content (description copy) only matches whole words, so "custom" no longer
+   *    matches "customers". Markup/block attributes are stripped before matching.
+   */
+  function hb_search_stopwords() {
+    return [ 'a', 'an', 'and', 'or', 'the', 'of', 'for', 'with', 'in', 'on', 'to', 'n' ];
+  }
+
+  // Split a search string into lowercase words, dropping stopwords when other words remain
+  function hb_search_words( $s ) {
+    $words = preg_split( '/[^\p{L}\p{N}]+/u', mb_strtolower( $s ), -1, PREG_SPLIT_NO_EMPTY );
+    $kept  = array_values( array_diff( $words, hb_search_stopwords() ) );
+    return $kept ?: $words;
+  }
+
+  // Regex fragment for one word that also matches its singular/plural variants
+  function hb_search_word_pattern( $w ) {
+    $len = mb_strlen( $w );
+    if ( $len > 4 && preg_match( '/ies$/u', $w ) ) {
+      // vanities -> vanit(y|ies)
+      return preg_quote( mb_substr( $w, 0, -3 ), '/' ) . '(?:y|ies)';
+    }
+    if ( $len > 2 && preg_match( '/[^aeiou]y$/u', $w ) ) {
+      // vanity -> vanit(y|ies)
+      return preg_quote( mb_substr( $w, 0, -1 ), '/' ) . '(?:y|ies)';
+    }
+    if ( $len > 3 && preg_match( '/(?:s|x|z|ch|sh)es$/u', $w ) ) {
+      // benches -> bench(es)
+      return preg_quote( mb_substr( $w, 0, -2 ), '/' ) . '(?:es)?';
+    }
+    if ( $len > 3 && preg_match( '/[^s]s$/u', $w ) ) {
+      // kitchens -> kitchen(s|es)
+      return preg_quote( mb_substr( $w, 0, -1 ), '/' ) . '(?:s|es)?';
+    }
+    // kitchen -> kitchen(s|es)
+    return preg_quote( $w, '/' ) . '(?:s|es)?';
+  }
+
+  // Regex fragment for the whole phrase; words may be separated by spaces/punctuation
+  // and optionally one connecting word ("kitchens and bathrooms", "kitchens & bathrooms")
+  function hb_search_phrase_pattern( array $words ) {
+    $connectors = implode( '|', hb_search_stopwords() );
+    $separator  = '[^\p{L}\p{N}]+(?:(?:' . $connectors . ')[^\p{L}\p{N}]+)?';
+    return implode( $separator, array_map( 'hb_search_word_pattern', $words ) );
+  }
+
+  // Plain, lowercase text for matching (no HTML, block comments, shortcodes or entities)
+  function hb_search_clean_text( $text ) {
+    $text = strip_shortcodes( (string) $text );
+    $text = wp_strip_all_tags( $text );
+    $text = html_entity_decode( $text, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+    return mb_strtolower( preg_replace( '/\s+/u', ' ', $text ) );
+  }
+
+  /**
+   * Search displays.
+   *
+   * Returns [ 'displays' => primary matches, 'other_displays' => lower-ranked matches ].
+   *  - Default:      primary = tag + title matches, other = content-only matches
+   *  - $tag_mode:    the user picked a tag suggestion, so primary = displays with that
+   *                  exact tag, other = everything else that matches
+   */
+  function hb_search_displays( $s, $tag_mode = false, $limit = 30 ) {
+    $words = hb_search_words( $s );
+    if ( empty( $words ) ) {
+      return [ 'displays' => [], 'other_displays' => [] ];
+    }
+
+    $phrase        = hb_search_phrase_pattern( $words );
+    $re_exact      = '/^' . $phrase . '$/iu';
+    $re_partial    = '/' . $phrase . '/iu';
+    $re_whole      = '/(?<![\p{L}\p{N}])' . $phrase . '(?![\p{L}\p{N}])/iu';
+    $re_words_each = array_map( function( $w ) { return '/' . hb_search_word_pattern( $w ) . '/iu'; }, $words );
+
+    // All active displays (≈250, so matching in PHP is cheap and lets us strip markup)
+    $display_ids = get_posts( [
+      'post_type'      => 'display',
+      'post_status'    => 'publish',
+      'posts_per_page' => -1,
+      'fields'         => 'ids',
+      'meta_key'       => 'salesforce_active',
+      'meta_value'     => '1',
+      'meta_compare'   => '=',
+    ] );
+    if ( empty( $display_ids ) ) {
+      return [ 'displays' => [], 'other_displays' => [] ];
+    }
+
+    // Tags per display
+    $tags_by_post = [];
+    $terms = wp_get_object_terms( $display_ids, 'post_tag', [ 'fields' => 'all_with_object_id' ] );
+    if ( ! is_wp_error( $terms ) ) {
+      foreach ( $terms as $t ) {
+        $tags_by_post[ $t->object_id ][] = mb_strtolower( html_entity_decode( $t->name, ENT_QUOTES | ENT_HTML5, 'UTF-8' ) );
+      }
+    }
+
+    // Each word as a complete tag on its own (allowing singular/plural)
+    $re_words_tag = array_map( function( $w ) {
+      return '/^' . hb_search_word_pattern( $w ) . '$/iu';
+    }, $words );
+
+    $tiers = [ 'exact_tag' => [], 'partial_tag' => [], 'title' => [], 'across_tags' => [], 'content' => [] ];
+
+    foreach ( $display_ids as $id ) {
+      $post = get_post( $id );
+      $tags = $tags_by_post[ $id ] ?? [];
+
+      // 1. Exact tag (allowing singular/plural)
+      foreach ( $tags as $tag ) {
+        if ( preg_match( $re_exact, $tag ) ) {
+          $tiers['exact_tag'][] = $id;
+          continue 2;
+        }
+      }
+
+      // 2. Tag contains the phrase, or contains every search word
+      foreach ( $tags as $tag ) {
+        if ( preg_match( $re_partial, $tag ) ) {
+          $tiers['partial_tag'][] = $id;
+          continue 2;
+        }
+        $all = true;
+        foreach ( $re_words_each as $re ) {
+          if ( ! preg_match( $re, $tag ) ) { $all = false; break; }
+        }
+        if ( $all ) {
+          $tiers['partial_tag'][] = $id;
+          continue 2;
+        }
+      }
+
+      // 3. Title contains the phrase
+      if ( preg_match( $re_partial, hb_search_clean_text( $post->post_title ) ) ) {
+        $tiers['title'][] = $id;
+        continue;
+      }
+
+      // 4. Multi-word only: every word is itself one of the display's tags
+      //    (e.g. tags "custom" + "vanities" for "custom vanities"). Words inside longer
+      //    tags don't count, so "outdoors" + "kitchen flooring" won't match "outdoor kitchens".
+      if ( count( $words ) > 1 && $tags ) {
+        $all = true;
+        foreach ( $re_words_tag as $re ) {
+          if ( ! preg_grep( $re, $tags ) ) { $all = false; break; }
+        }
+        if ( $all ) {
+          $tiers['across_tags'][] = $id;
+          continue;
+        }
+      }
+
+      // 5. Content/excerpt contains the phrase as whole words
+      $content = hb_search_clean_text( $post->post_content . ' ' . $post->post_excerpt );
+      if ( preg_match( $re_whole, $content ) ) {
+        $tiers['content'][] = $id;
+      }
+    }
+
+    if ( $tag_mode ) {
+      $primary = $tiers['exact_tag'];
+      $other   = array_merge( $tiers['partial_tag'], $tiers['title'], $tiers['across_tags'], $tiers['content'] );
+    } else {
+      $primary = array_merge( $tiers['exact_tag'], $tiers['partial_tag'], $tiers['title'] );
+      $other   = array_merge( $tiers['across_tags'], $tiers['content'] );
+    }
+
+    $format = function( $id ) {
+      return [
+        'url'          => get_permalink( $id ),
+        'title'        => get_the_title( $id ),
+        'description'  => get_the_excerpt( $id ),
+        'price'        => '',
+        'thumbnail'    => get_the_post_thumbnail_url( $id, 'post-thumbnail' ),
+        'location_map' => bones_theme_display_location_and_map( $id ),
+      ];
+    };
+
+    return [
+      'displays'       => array_map( $format, array_slice( $primary, 0, $limit ) ),
+      'other_displays' => array_map( $format, array_slice( $other, 0, $limit ) ),
+    ];
+  }
+
   // Search
   function hb_search() {
     global $wpdb;
@@ -83,9 +276,12 @@
     // $repsonse = '';
     $s = strtolower(sanitize_text_field($_REQUEST['s']));
     $post_type = isset( $_REQUEST['post_type'] ) ? strtolower(sanitize_text_field($_REQUEST['post_type'])) : '';
+    // Set when the user picked a tag suggestion rather than typing freely
+    $tag_mode = ! empty( $_REQUEST['tag'] );
 
-    // Check for cached values
-    $results = wp_cache_get( "search_$s", 'gcc' );
+    // Check for cached values (keyed on everything that changes the result)
+    $cache_key = 'search_' . md5( $s . '|' . $post_type . '|' . (int) $tag_mode );
+    $results = wp_cache_get( $cache_key, 'gcc' );
 
     if( !$results ) {
       $reg_string = regifySearch( $s );
@@ -123,78 +319,7 @@
       }
       
       if( $post_type === 'display' || $post_type === '' ) {
-        $already_shown = [];
-        $results['displays'] = [];
-
-        // Collects a WP_Query's posts into $results['displays'] and $already_shown,
-        // leaving later (lower-ranked) buckets to exclude posts already collected
-        $collect_displays = function( WP_Query $query ) use ( &$results, &$already_shown ) {
-          if ( $query->have_posts() ) {
-            while ( $query->have_posts() ) {
-              $query->the_post();
-              $results['displays'][] = [
-                'url'          => get_permalink(),
-                'title'        => get_the_title(),
-                'description'  => get_the_excerpt(),
-                'price'        => '',
-                'thumbnail'    => get_the_post_thumbnail_url( get_the_ID(), 'post-thumbnail' ),
-                'location_map' => bones_theme_display_location_and_map( get_the_ID() ),
-              ];
-              $already_shown[] = get_the_ID();
-            }
-          }
-          wp_reset_postdata();
-        };
-
-        $base_args = [
-          'post_type'      => 'display',
-          'post_status'    => 'publish',
-          'posts_per_page' => 30,
-          'meta_key'       => 'salesforce_active',
-          'meta_value'     => '1',
-          'meta_compare'   => '=',
-        ];
-
-        // 1. Exact tag match
-        $collect_displays( new WP_Query( array_merge( $base_args, [
-          'tag' => $s,
-        ] ) ) );
-
-        // 2. Partial tag match (tag name contains search term)
-        $term_ids = $wpdb->get_col( $wpdb->prepare(
-          "SELECT `term_id` FROM {$wpdb->terms} WHERE name LIKE %s",
-          '%' . $wpdb->esc_like( $s ) . '%'
-        ) );
-
-        $collect_displays( new WP_Query( array_merge( $base_args, [
-          'tax_query' => [
-            [
-              'taxonomy' => 'post_tag',
-              'field'    => 'term_id',
-              'terms'    => $term_ids,
-              'operator' => 'IN',
-            ],
-          ],
-          'post__not_in' => $already_shown,
-        ] ) ) );
-
-        // 3. Title match
-        $title_filter = hb_search_columns_filter( [ 'post_title' ] );
-        add_filter( 'posts_search', $title_filter, 10, 2 );
-        $collect_displays( new WP_Query( array_merge( $base_args, [
-          's'            => $s,
-          'post__not_in' => $already_shown,
-        ] ) ) );
-        remove_filter( 'posts_search', $title_filter, 10 );
-
-        // 4. Content match
-        $content_filter = hb_search_columns_filter( [ 'post_content', 'post_excerpt' ] );
-        add_filter( 'posts_search', $content_filter, 10, 2 );
-        $collect_displays( new WP_Query( array_merge( $base_args, [
-          's'            => $s,
-          'post__not_in' => $already_shown,
-        ] ) ) );
-        remove_filter( 'posts_search', $content_filter, 10 );
+        $results = array_merge( $results, hb_search_displays( $s, $tag_mode ) );
       }
 
       // Pages
@@ -273,7 +398,7 @@
 
         // Cache values for 15min
       }
-      wp_cache_set( "search_$s", $results, 'gcc', 900 );
+      wp_cache_set( $cache_key, $results, 'gcc', 900 );
     }
 
     wp_send_json_success( $results );
