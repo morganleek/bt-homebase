@@ -129,10 +129,10 @@ function bones_theme_display_location_and_map( $post_id ) {
 	$html = "";
 	$html .= "<div class=\"display-location\">";
 		$html .= "<ul class=\"display-location-list\">";
-		if( is_admin() && !$display_number ) {
-			$html .= "<li class=\"display-number\">000</li>";
-		}	
-		if($display_number) {
+		// if( is_admin() && !$display_number ) {
+		// 	$html .= "<li class=\"display-number\">000</li>";
+		// }	
+		if($display_number && $display_number !== "–") {
 			$html .= "<li class=\"display-number\">$display_number</li>";
 		}
 		if($display_grid_ref) {

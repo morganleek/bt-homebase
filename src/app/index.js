@@ -48,10 +48,10 @@ const longMessage = ( message ) => {
 const closeSearch = () => {
 	const searches = document.querySelectorAll( ".wp-block-home-base-search-block input[type=\"text\"]" );
 	if( searches.length > 1 ) {
-		const first = searches.item(0);
-		const value = first.value;
+		// const first = searches.item(0);
+		// const value = first.value;
 		for( let i = 1; i < searches.length; i++ ) {
-			searches[i].value = value;
+			searches[i].value = "";
 		}
 	}
 	document.body.classList.remove( "show-home-base-search" );
@@ -86,17 +86,17 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	}
 
 	// Hide search
-	document.body.addEventListener( "keydown", e => {
-		if( e.key === "Escape" && document.body.classList.contains( "show-home-base-search" ) ) {
-			closeSearch();
-		}
-	} );
+	// document.body.addEventListener( "keydown", e => {
+	// 	if( e.key === "Escape" && document.body.classList.contains( "show-home-base-search" ) ) {
+	// 		closeSearch();
+	// 	}
+	// } );
 
-	document.querySelector( ".wp-block-home-base-search-modal" )?.addEventListener( "click", ( e ) => {
-		if( e.target.classList.contains( "wp-block-home-base-search-modal" ) ) {
-			closeSearch();
-		}
-	} );
+	// document.querySelector( ".wp-block-home-base-search-modal" )?.addEventListener( "click", ( e ) => {
+	// 	if( e.target.classList.contains( "wp-block-home-base-search-modal" ) ) {
+	// 		closeSearch();
+	// 	}
+	// } );
 
 	document.querySelectorAll( '.wp-block-home-base-post-grid-list button' ).forEach( button => {
 		button.addEventListener( "click", ( e ) => {
@@ -184,10 +184,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	} );
 
 	// Show Search
-	document.querySelector( ".wp-block-button.header-search-trigger" )?.addEventListener( "click", ( e ) => {
-		e.preventDefault();
-		document.body.classList.toggle( "show-home-base-search" );
-	} );
+	// document.querySelector( ".wp-block-button.header-search-trigger" )?.addEventListener( "click", ( e ) => {
+	// 	e.preventDefault();
+	// 	document.body.classList.toggle( "show-home-base-search" );
+	// } );
 
 	// Smooth scroll 
 	document.querySelectorAll( '.wp-site-blocks a[href*="#"]' ).forEach( a => {
