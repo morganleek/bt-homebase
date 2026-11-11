@@ -523,25 +523,42 @@
 	add_filter( 'posts_request', 'gcc_posts_request', 10, 2 );
 
   function hb_tag_suggestions() {
+    global $wpdb;
+
+    // Limit to tags used on published displays when the search is filtered to displays
+    $post_type = ( isset( $_GET['post_type'] ) && $_GET['post_type'] === 'display' ) ? 'display' : '';
+    $cache_key = $post_type ? "homebase_display_tags_display" : "homebase_display_tags";
+
     // Check for cached tags
-    if( $tags = wp_cache_get( "homebase_display_tags", 'hb' ) ) {
+    if( $tags = wp_cache_get( $cache_key, 'hb' ) ) {
       wp_send_json_success( $tags );
       wp_die();
     }
 
-    $tags_all = get_terms( [ 
-      'taxonomy'   => 'post_tag',
-      'post_type'  => 'display',
-      'hide_empty' => true,
-    ] );
+    if( $post_type ) {
+      // get_terms() ignores post_type, so query tags attached to published posts of this type
+      $names = $wpdb->get_col( $wpdb->prepare(
+        "SELECT DISTINCT t.name
+          FROM {$wpdb->terms} t
+          INNER JOIN {$wpdb->term_taxonomy} tt ON tt.term_id = t.term_id AND tt.taxonomy = 'post_tag'
+          INNER JOIN {$wpdb->term_relationships} tr ON tr.term_taxonomy_id = tt.term_taxonomy_id
+          INNER JOIN {$wpdb->posts} p ON p.ID = tr.object_id AND p.post_type = %s AND p.post_status = 'publish'
+          ORDER BY t.name ASC",
+        $post_type
+      ) );
+    } else {
+      $names = get_terms( [ 
+        'taxonomy'   => 'post_tag',
+        'hide_empty' => true,
+        'fields'     => 'names',
+      ] );
+    }
 
     $tags = [];
 
-    if ( !empty( $tags_all ) && !is_wp_error( $tags_all ) ) {
-      foreach ( $tags_all as $tag ) {
-        $tags[] = strtolower( $tag->name );
-      }
-      wp_cache_set( "homebase_display_tags", $tags, 'hb', 900 );
+    if ( !empty( $names ) && !is_wp_error( $names ) ) {
+      $tags = array_values( array_unique( array_map( 'strtolower', $names ) ) );
+      wp_cache_set( $cache_key, $tags, 'hb', 900 );
     }
 
     wp_send_json_success( $tags );
