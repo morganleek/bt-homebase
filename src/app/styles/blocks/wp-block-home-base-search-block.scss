@@ -25,15 +25,15 @@ body.show-home-base-search {
 			top: 32px;
 		}
 	}
-	&::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		left: 0;
-		right: 0;
-		height: 80px;
-		background-color: #fff;
-	}
+	// &::before {
+	// 	content: "";
+	// 	position: absolute;
+	// 	top: 0;
+	// 	left: 0;
+	// 	right: 0;
+	// 	height: 80px;
+	// 	background-color: #fff;
+	// }
 	.search-outer {
 		padding-top: 80px;
 		height: 100svh;
