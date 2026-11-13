@@ -12,7 +12,7 @@ module.exports = {
 	// on it's own, which might not always be satisfying. But it is in most cases.
 	host: "localhost", // 49.176.255.9
 	// Your WordPress development server address
-	proxy: "https://ho.1fo.au",
+	proxy: "https://home.1fo.au",
 	// PORT on your localhost where you would want live server to hook
 	port: 3040,
 	// UI passed directly to browsersync

@@ -284,6 +284,17 @@
 					'keywords'        => [],
 				] );
 
+				// Course FAQs
+				acf_register_block_type( [ 
+					'name'            => 'course-faqs',
+					'title'           => __( 'Course FAQs' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/course-faqs.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-site-alt3',
+					'keywords'        => [],
+				] );
+
 				// OBSN Login
 				acf_register_block_type( [ 
 					'name'            => 'obsn-login',
