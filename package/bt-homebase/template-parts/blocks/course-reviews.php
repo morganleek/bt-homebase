@@ -4,7 +4,7 @@
 			print "<div class='review-slider'>";
 				forEach( $reviews as $review ) {
 					print "<div class='slide'>";
-						print "<p><strong>" . $review['title'] . "</strong></p>";				
+						print !empty( $review['title'] ) ? "<p><strong>" . $review['title'] . "</strong></p>" : "";
 						print $review['review'];
 					print "</div>";
 				}
