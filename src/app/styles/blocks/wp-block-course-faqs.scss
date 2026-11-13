@@ -85,3 +85,8 @@
 		animation: hb-course-faq-in .2s ease-out;
 	}
 }
+
+.wp-block-group:has(> .no-course-faqs),
+.wp-block-group:has(> .no-course-reviews) {
+	display: none !important;
+}

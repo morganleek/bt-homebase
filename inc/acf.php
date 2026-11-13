@@ -295,6 +295,17 @@
 					'keywords'        => [],
 				] );
 
+				// Course Reviews
+				acf_register_block_type( [ 
+					'name'            => 'course-reviews',
+					'title'           => __( 'Course Reviews' ),
+					'description'     => __( '' ),
+					'render_template' => 'template-parts/blocks/course-reviews.php',
+					'category'        => 'formatting',
+					'icon'            => 'admin-site-alt3',
+					'keywords'        => [],
+				] );
+
 				// OBSN Login
 				acf_register_block_type( [ 
 					'name'            => 'obsn-login',

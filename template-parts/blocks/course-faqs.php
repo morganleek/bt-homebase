@@ -9,3 +9,6 @@
 			}
 		print "</div>";
 	}
+	else {
+		print "<div class='no-course-faqs'></div>";
+	}

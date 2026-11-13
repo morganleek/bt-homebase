@@ -2,7 +2,7 @@
 
 <!-- wp:acf/site-notice {"name":"acf/site-notice","mode":"preview"} /-->
 
-<!-- wp:template-part {"slug":"header"} /-->
+<!-- wp:template-part {"slug":"header","theme":"bt-homebase"} /-->
 
 <!-- wp:group {"tagName":"main","style":{"spacing":{"margin":{"top":"0","bottom":"0"},"padding":{"bottom":"var:preset|spacing|60"}}},"backgroundColor":"brand-dust","layout":{"inherit":true,"type":"constrained"}} -->
 <main class="wp-block-group has-brand-dust-background-color has-background" style="margin-top:0;margin-bottom:0;padding-bottom:var(--wp--preset--spacing--60)"><!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30","right":"var:preset|spacing|30"},"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
@@ -22,7 +22,9 @@
 
 <!-- wp:columns {"align":"wide","className":"is-style-stack-reversed","style":{"spacing":{"margin":{"top":"var:preset|spacing|40"}}}} -->
 <div class="wp-block-columns alignwide is-style-stack-reversed" style="margin-top:var(--wp--preset--spacing--40)"><!-- wp:column {"width":"50%"} -->
-<div class="wp-block-column" style="flex-basis:50%"><!-- wp:woocommerce/product-details {"hideTabTitle":true,"align":"wide","className":"is-style-minimal"} /--></div>
+<div class="wp-block-column" style="flex-basis:50%"><!-- wp:woocommerce/product-details {"hideTabTitle":true,"className":"is-style-minimal"} -->
+<div class="wp-block-woocommerce-product-details alignwide is-style-minimal"></div>
+<!-- /wp:woocommerce/product-details --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"width":"50%"} -->
@@ -33,6 +35,14 @@
 
 <!-- wp:acf/course-information {"name":"acf/course-information","mode":"preview"} /-->
 
+<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30","right":"var:preset|spacing|30"}},"border":{"radius":{"topLeft":"24px","topRight":"24px","bottomLeft":"24px","bottomRight":"24px"}}},"backgroundColor":"white","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide has-white-background-color has-background" style="border-top-left-radius:24px;border-top-right-radius:24px;border-bottom-left-radius:24px;border-bottom-right-radius:24px;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">FAQs</h3>
+<!-- /wp:heading -->
+
+<!-- wp:acf/course-faqs {"name":"acf/course-faqs","mode":"preview"} /--></div>
+<!-- /wp:group -->
+
 <!-- wp:group {"align":"wide","style":{"elements":{"link":{"color":{"text":"var:preset|color|white"}}},"spacing":{"padding":{"right":"var:preset|spacing|30","left":"var:preset|spacing|30","top":"var:preset|spacing|30","bottom":"var:preset|spacing|30"},"margin":{"top":"var:preset|spacing|30","bottom":"0"}},"border":{"radius":"16px"}},"backgroundColor":"brand-charcoal","textColor":"white","layout":{"type":"default"}} -->
 <div class="wp-block-group alignwide has-white-color has-brand-charcoal-background-color has-text-color has-background has-link-color" style="border-radius:16px;margin-top:var(--wp--preset--spacing--30);margin-bottom:0;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)"><!-- wp:woocommerce/add-to-cart-form /-->
 
@@ -40,8 +50,16 @@
 <!-- /wp:group -->
 
 <!-- wp:group {"align":"wide","style":{"spacing":{"margin":{"top":"0","bottom":"0"}}},"layout":{"type":"constrained"}} -->
-<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:0"><!-- wp:acf/course-sponsors {"name":"acf/course-sponsors","data":[],"align":"wide","mode":"preview"} /--></div>
+<div class="wp-block-group alignwide" style="margin-top:0;margin-bottom:0"><!-- wp:acf/course-sponsors {"name":"acf/course-sponsors","align":"wide","mode":"preview"} /--></div>
+<!-- /wp:group -->
+
+<!-- wp:group {"align":"wide","style":{"spacing":{"padding":{"top":"var:preset|spacing|30","bottom":"var:preset|spacing|30","left":"var:preset|spacing|30","right":"var:preset|spacing|30"},"margin":{"top":"0","bottom":"0"}},"border":{"radius":{"topLeft":"24px","topRight":"24px","bottomLeft":"24px","bottomRight":"24px"}}},"backgroundColor":"white","layout":{"type":"default"}} -->
+<div class="wp-block-group alignwide has-white-background-color has-background" style="border-top-left-radius:24px;border-top-right-radius:24px;border-bottom-left-radius:24px;border-bottom-right-radius:24px;margin-top:0;margin-bottom:0;padding-top:var(--wp--preset--spacing--30);padding-right:var(--wp--preset--spacing--30);padding-bottom:var(--wp--preset--spacing--30);padding-left:var(--wp--preset--spacing--30)"><!-- wp:heading {"level":3} -->
+<h3 class="wp-block-heading">Latest reviews</h3>
+<!-- /wp:heading -->
+
+<!-- wp:acf/course-reviews {"name":"acf/course-reviews","mode":"preview"} /--></div>
 <!-- /wp:group --></main>
 <!-- /wp:group -->
 
-<!-- wp:template-part {"slug":"footer-dark","tagName":"footer","area":"footer"} /-->
+<!-- wp:template-part {"slug":"footer-dark","theme":"bt-homebase","tagName":"footer","area":"footer"} /-->

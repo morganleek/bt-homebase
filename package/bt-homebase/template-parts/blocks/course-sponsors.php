@@ -12,6 +12,7 @@
 						print isset( $sponsor['link']['url'] ) ? "<a href=\"" . $sponsor['link']['url'] . "\" target=\"" . $sponsor['link']['target'] . "\">" : "";
 							print wp_get_attachment_image( $sponsor['sponsor']['ID'], 'large' );
 						print isset( $sponsor['link']['url'] ) ? "</a>" : "";
+						print !empty( $sponsor['sponsor_level'] ) ? "<p>{$sponsor['sponsor_level']}</p>" : "";
 						// print "<pre>" . print_r( isset( $sponsor['link']['url'] ), true ) . "</pre>";
 						// print "<pre>" . print_r( $sponsor, true ) . "</pre>";
 					print "</li>";
