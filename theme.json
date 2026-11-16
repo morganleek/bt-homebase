@@ -146,6 +146,14 @@
 							"fontStyle": "normal",
 							"fontWeight": "400",
 							"src": [
+								"file:./assets/fonts/GothamNarrow-Book.woff2"
+							]
+						},
+						{
+							"fontFamily": "\"Gotham Narrow\"",
+							"fontStyle": "normal",
+							"fontWeight": "500",
+							"src": [
 								"file:./assets/fonts/GothamNarrow-Medium.woff2"
 							]
 						},
@@ -369,7 +377,7 @@
 		},
 		"typography": {
 			"fontFamily": "var(--wp--preset--font-family--gotham-narrow)",
-			"fontWeight": "500",
+			"fontWeight": "400",
 			"lineHeight": "1.5em"
 		}
 	},
