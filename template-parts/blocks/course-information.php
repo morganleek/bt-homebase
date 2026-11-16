@@ -55,6 +55,39 @@
 					</div>
 					<div class="wp-block-course-information-column">
 						<h3>Your Presenter</h3>
+						<?php 
+							if( $presenters = get_field( 'presenters', get_the_ID() ) ) {
+								foreach( $presenters as $presenter ) {
+									?>
+										<div class="presenter-wrapper">
+											<img src="<?php print $presenter['presenter_image']['sizes']['thumbnail']; ?>" alt="<?php print $presenter['presenter_name']; ?>" />
+											<h4><?php print $presenter['presenter_name']; ?></h4>
+										</div>
+										<div>
+											<?php print $presenter['presenter_bio']; ?>
+										</div>
+									<?php
+								}
+							}
+							else {
+								if( $presenter_name = get_field('presenter_name', get_the_ID()) ) { ?>
+									<div class="presenter-wrapper">
+										<?php if( $presenter_name = get_field('presenter_name', get_the_ID()) ) { ?>
+											<?php if( $presenter_image = get_field('presenter_image', get_the_ID()) ) { ?>
+												<img src="<?php print $presenter_image['sizes']['thumbnail']; ?>" alt="<?php print $presenter_name; ?>" />
+											<?php } ?>
+											<h4><?php print $presenter_name; ?></h4>
+										<?php } ?>
+									</div>
+									<?php if( $presenter_bio = get_field('presenter_bio', get_the_ID()) ) { ?>
+										<div>
+											<?php print $presenter_bio; ?>
+										</div>
+									<?php } ?>
+								<?php }
+							}
+						?>
+
 						<div class="presenter-wrapper">
 							<?php if( $presenter_name = get_field('presenter_name', get_the_ID()) ) { ?>
 								<?php if( $presenter_image = get_field('presenter_image', get_the_ID()) ) { ?>
