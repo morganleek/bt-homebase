@@ -350,7 +350,8 @@ const initSuburbAutocomplete = ( input ) => {
 	} );
 };
 
-const SUBURB_SELECTOR = "input[name='a1_project_suburb']";
+const SUBURB_FIELDS = [ 'a1_project_suburb', 'a2_project_suburb', 'a3_project_suburb' ];
+const SUBURB_SELECTOR = SUBURB_FIELDS.map( ( name ) => `input[name='${ name }']` ).join( ', ' );
 const attachSuburbAutocomplete = () => {
 	document.querySelectorAll( SUBURB_SELECTOR ).forEach( initSuburbAutocomplete );
 };
@@ -370,7 +371,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	// Suburb autocomplete — also catch the field if it's rendered/re-rendered later
 	attachSuburbAutocomplete();
 	new MutationObserver( () => {
-		if ( document.querySelector( `${ SUBURB_SELECTOR }:not([data-suburb-autocomplete])` ) ) {
+		if ( [ ...document.querySelectorAll( SUBURB_SELECTOR ) ].some( ( el ) => ! el.dataset.suburbAutocomplete ) ) {
 			attachSuburbAutocomplete();
 		}
 	} ).observe( document.body, { childList: true, subtree: true } );
