@@ -251,6 +251,110 @@ document.addEventListener( 'DOMContentLoaded', () => {
 // .is-layout-grid
 // .wp-block-post-template-is-layout-grid
 
+/**
+ * Load the Google Maps JS API (Places library) once.
+ * Reuses the copy enqueued by Checkout Field Editor Pro ('google-autocomplete') if present.
+ */
+let googleMapsPromise = null;
+
+// Resolve once window.google.maps exists (another plugin may be mid-load, or already done).
+const waitForGoogleMaps = ( timeout = 10000 ) => new Promise( ( resolve, reject ) => {
+	const start = Date.now();
+	const check = () => {
+		if ( window.google?.maps ) return resolve( window.google );
+		if ( Date.now() - start > timeout ) return reject( new Error( 'Timed out waiting for Google Maps' ) );
+		setTimeout( check, 100 );
+	};
+	check();
+} );
+
+// Make sure the Places library is available, even if Maps was loaded without it.
+const ensurePlaces = async ( google ) => {
+	if ( google.maps.places?.Autocomplete ) return google;
+	if ( typeof google.maps.importLibrary === 'function' ) {
+		await google.maps.importLibrary( 'places' );
+		return google;
+	}
+	// Old loader without importLibrary: places may still arrive shortly
+	await new Promise( ( resolve, reject ) => {
+		const start = Date.now();
+		const check = () => {
+			if ( google.maps.places?.Autocomplete ) return resolve();
+			if ( Date.now() - start > 5000 ) return reject( new Error( 'Google Places library not available' ) );
+			setTimeout( check, 100 );
+		};
+		check();
+	} );
+	return google;
+};
+
+const loadGooglePlaces = ( apiKey ) => {
+	if ( googleMapsPromise ) return googleMapsPromise;
+
+	const alreadyRequested = window.google?.maps
+		|| document.querySelector( 'script[src*="maps.googleapis.com/maps/api/js"]' );
+
+	if ( ! alreadyRequested ) {
+		if ( ! apiKey ) return Promise.reject( new Error( 'Missing Google Places API key' ) );
+
+		const script = document.createElement( 'script' );
+		script.src = `https://maps.googleapis.com/maps/api/js?v=3&libraries=places&loading=async&key=${ encodeURIComponent( apiKey ) }`;
+		script.async = true;
+		document.head.appendChild( script );
+	}
+
+	googleMapsPromise = waitForGoogleMaps().then( ensurePlaces );
+	googleMapsPromise.catch( () => { googleMapsPromise = null; } );
+
+	return googleMapsPromise;
+};
+
+/**
+ * Attach an Australian suburb autocomplete to an input.
+ */
+const initSuburbAutocomplete = ( input ) => {
+	if ( input.dataset.suburbAutocomplete ) return;
+	input.dataset.suburbAutocomplete = 'pending';
+
+	const apiKey = window.home_base?.places_api_key;
+	loadGooglePlaces( apiKey ).then( ( google ) => {
+		const autocomplete = new google.maps.places.Autocomplete( input, {
+			types: [ 'locality' ],
+			componentRestrictions: { country: 'au' },
+			fields: [ 'address_components', 'name' ],
+		} );
+
+		autocomplete.addListener( 'place_changed', () => {
+			const place = autocomplete.getPlace();
+			if ( ! place ) return;
+
+			const locality = place.address_components?.find( ( c ) => c.types.includes( 'locality' ) );
+			input.value = locality ? locality.long_name : ( place.name || input.value );
+			input.dispatchEvent( new Event( 'change', { bubbles: true } ) );
+		} );
+
+		// Stop Enter from submitting the form while choosing a suggestion
+		input.addEventListener( 'keydown', ( e ) => {
+			if ( e.key === 'Enter' && document.querySelector( '.pac-container .pac-item' ) ) {
+				const visible = [ ...document.querySelectorAll( '.pac-container' ) ]
+					.some( ( el ) => el.offsetParent !== null );
+				if ( visible ) e.preventDefault();
+			}
+		} );
+
+		input.setAttribute( 'autocomplete', 'off' );
+		input.dataset.suburbAutocomplete = 'ready';
+	} ).catch( ( err ) => {
+		delete input.dataset.suburbAutocomplete;
+		console.warn( 'Suburb autocomplete unavailable:', err.message );
+	} );
+};
+
+const SUBURB_SELECTOR = "input[name='a1_project_suburb']";
+const attachSuburbAutocomplete = () => {
+	document.querySelectorAll( SUBURB_SELECTOR ).forEach( initSuburbAutocomplete );
+};
+
 function extractNumber(htmlString) {
   const regex = /\d+\.\d+/;
   const match = htmlString.match(regex);
@@ -263,6 +367,14 @@ function extractNumber(htmlString) {
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	// Suburb autocomplete — also catch the field if it's rendered/re-rendered later
+	attachSuburbAutocomplete();
+	new MutationObserver( () => {
+		if ( document.querySelector( `${ SUBURB_SELECTOR }:not([data-suburb-autocomplete])` ) ) {
+			attachSuburbAutocomplete();
+		}
+	} ).observe( document.body, { childList: true, subtree: true } );
+
   // Listen for changes on any input inside .mc-variation-radios
   document.addEventListener( 'change', ( e ) => {
     if (e.target.matches('.mc-variation-radios input')) {

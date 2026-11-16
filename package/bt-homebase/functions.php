@@ -113,8 +113,14 @@ class BoneThemeInit
 		// wp_add_inline_style( 'bones-theme-style', $this->bones_theme_get_font_face_styles() );
 		// 
 
+		// Google Places API key from Checkout Field Editor Pro advanced settings
+		$thwcfe_settings = get_option( 'thwcfe_advanced_settings', [] );
+
 		$ajax_object = [
-			'ajax_url' => admin_url( 'admin-ajax.php' )
+			'ajax_url'         => admin_url( 'admin-ajax.php' ),
+			'places_api_key'   => is_array( $thwcfe_settings ) && ! empty( $thwcfe_settings['autofill_apikey'] )
+				? $thwcfe_settings['autofill_apikey']
+				: '',
 		];
 		
 		wp_localize_script( 
