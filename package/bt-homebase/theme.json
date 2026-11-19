@@ -257,7 +257,7 @@
 			}
 		},
 		"color": {
-			"text": "var(--wp--preset--color--brand-oliver)"
+			"text": "var(--wp--preset--color--brand-charcoal)"
 		},
 		"css": "",
 		"elements": {
