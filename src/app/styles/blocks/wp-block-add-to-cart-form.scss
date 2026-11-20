@@ -78,6 +78,7 @@ form.cart .hb-qty-choices {
 			transition: border-color 0.2s;
 			* {
 				color: var(--wp--preset--color--brand-charcoal);
+				font-weight: 600 !important;
 			}
 			@media (hover: hover) {
 				&:hover {
