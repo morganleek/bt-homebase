@@ -1,5 +1,6 @@
 import "./style.scss";
 import "./js/account";
+import { initQuantityChoices } from "./js/quantity-choices";
 
 import "toastify-js/src/toastify.css"
 import "tiny-slider/src/tiny-slider.scss"
@@ -58,6 +59,9 @@ const closeSearch = () => {
 }
 
 document.addEventListener( 'DOMContentLoaded', () => {
+	// Quantity field → radio buttons with prices (see inc/woocommerce.php)
+	initQuantityChoices();
+
 	// document.querySelectorAll( ".wp-block-navigation__responsive-container-open.always-shown" ).forEach( link => {
 	// 	link.addEventListener( "click", ( e ) => {
 	// 		console.log( "menu click" );

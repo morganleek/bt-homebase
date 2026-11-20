@@ -145,7 +145,6 @@
 	}
 	.single_variation_wrap {
 		width: 100%;
-		background-color: var(--wp--preset--color--brand-charcoal);
 		border-radius: 12px;
 		padding: 16px 24px;
 		display: block !important;
@@ -159,9 +158,9 @@
 			align-items: center;
 			@include mixins.arrow-after;
 		}
-		.quantity input.qty.input-text {
-			display: none;
-		}
+		// .quantity input.qty.input-text {
+		// 	display: none;
+		// }
 	}
 	.variations_form.cart {
 		flex-direction: column;

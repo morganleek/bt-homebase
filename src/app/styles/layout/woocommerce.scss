@@ -604,3 +604,7 @@ div[data-block-name="woocommerce/page-content-wrapper"] {
 		}
 	}
 } 
+
+.wp-block-woocommerce-add-to-cart-form .variations_button {
+	display: block !important;
+}

@@ -1,3 +1,106 @@
 .wp-block-add-to-cart-form {
 	
 }
+
+// Extra Product Options tables are rendered straight after the quantity field
+// (see inc/woocommerce.php), i.e. between the quantity and the Add to cart button.
+// Give them a full row of their own so they aren't squeezed in beside either.
+form.cart > table.thwepo-extra-options,
+form.cart .woocommerce-variation-add-to-cart > table.thwepo-extra-options {
+	grid-column: 1 / -1;
+	flex-basis: 100%;
+	width: 100%;
+}
+
+form.cart .woocommerce-variation-add-to-cart:has(> table.thwepo-extra-options),
+form.cart .wp-block-group:has(> table.thwepo-extra-options) {
+	flex-wrap: wrap;
+}
+
+form.cart .wp-block-group > table.thwepo-extra-options {
+	flex-basis: 100%;
+	margin: 0;
+}
+
+// Quantity choices (src/app/js/quantity-choices.js): radios that replace the quantity
+// field. Styled to match the variation radios (.mc-variation-radios).
+form.cart .hb-qty-choices {
+	grid-column: 1 / -1;
+	flex-basis: 100%;
+	width: 100%;
+	margin: 0 0 1em;
+	padding-left: 0;
+	list-style: none;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 8px;
+
+	&[hidden] {
+		display: none;
+	}
+
+	li {
+		margin: 0;
+
+		input {
+			position: absolute;
+			opacity: 0;
+			pointer-events: none;
+
+			&:checked + label {
+				background-color: #DBD6D1;
+				border-color: var(--wp--preset--color--brand-charcoal);
+			}
+
+			&:focus-visible + label {
+				outline: 2px solid var(--wp--preset--color--brand-charcoal);
+				outline-offset: 2px;
+			}
+		}
+
+		label {
+			width: 100%;
+			height: 100%;
+			min-height: 68px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 2px;
+			padding: 8px 16px;
+			border-radius: 8px;
+			border: 2px solid transparent;
+			background: #fff;
+			color: var(--wp--preset--color--brand-charcoal);
+			font-size: 1rem;
+			text-align: center;
+			cursor: pointer;
+			transition: border-color 0.2s;
+			* {
+				color: var(--wp--preset--color--brand-charcoal);
+			}
+			@media (hover: hover) {
+				&:hover {
+					border-color: var(--wp--preset--color--brand-charcoal);
+				}
+			}
+		}
+	}
+
+	&__price {
+		font-size: var(--wp--preset--font-size--small, 0.875rem);
+
+		&:empty {
+			display: none;
+		}
+
+		del {
+			opacity: 0.6;
+			margin-right: 4px;
+		}
+
+		ins {
+			text-decoration: none;
+		}
+	}
+}
