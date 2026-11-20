@@ -204,7 +204,24 @@
 			tr:has(td > input[type="checkbox"]) {
 				grid-column: span 2;
 			}
-			h1, h2, h3 {
+			// h1, h2, h3 {
+			// }
+			.woocommerce & {
+				select, 
+				select.thwepof-input-field {
+					background: #fff !important;
+					color: var(--wp--preset--color--brand-oliver);
+					padding-left: 7px !important;
+					padding-top: 7px !important;
+					font-weight: 500;
+					font-family: var(--wp--preset--font-family--gotham-narrow);
+					&::picker-icon {
+						background-image: none !important;
+						background-color: #000;
+						clip-path: path("M11.907732,15.765592c-.502064.502064-1.317416.502064-1.81948,0l-7.711704-7.711703c-.502064-.502064-.502064-1.317417,0-1.819481s1.317417-.502064,1.819481,0l6.803971,6.803972,6.803972-6.799955c.502064-.502064,1.317416-.502064,1.81948,0s.502064,1.317416,0,1.81948l-7.711703,7.711703L11.907732,15.765592Z");
+
+					}
+				}
 			}
 			td {
 				padding: 0;
@@ -222,3 +239,4 @@
 		}
 	}
 }
+
