@@ -170,7 +170,7 @@
 .single_variation_wrap {
 	padding: 0 !important;
 	h1, h2, h3 {
-		margin: 0;
+		margin: 10px 0 0;
 	}
 	div[class*="woocommerce-variation"] {
 		width: 100%;
@@ -200,7 +200,8 @@
 			gap: 10px;
 			tr:has(td > h1), 
 			tr:has(td > h2), 
-			tr:has(td > h3) {
+			tr:has(td > h3),
+			tr:has(td > input[type="checkbox"]) {
 				grid-column: span 2;
 			}
 			h1, h2, h3 {
