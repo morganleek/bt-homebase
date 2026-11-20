@@ -31,16 +31,16 @@
 		if( empty( $options ) || ! $product ) {
 			return $html;
 		}
-		
+
 		// Check it is in `Meet` categories
-		$terms = get_the_terms( get_the_ID(), 'product_cat' );
-		if( $terms !== false ) {
-			// Check is a course
-			$terms_filtered = array_filter( $terms, fn( $t ) => $t->slug === "meet-the-designer" || $t->slug === "BDAWA" );
-			if( count( $terms_filtered) === 0 ) {
-				return $html;
-			}
-		}
+		// $terms = get_the_terms( get_the_ID(), 'product_cat' );
+		// if( $terms !== false ) {
+		// 	// Check is a course
+		// 	$terms_filtered = array_filter( $terms, fn( $t ) => $t->slug === "meet-the-designer" || $t->slug === "BDAWA" );
+		// 	if( count( $terms_filtered) === 0 ) {
+		// 		return $html;
+		// 	}
+		// }
 		
 		// HTML for our radio buttons
 		$radios = '<ul class="mc-variation-radios">';

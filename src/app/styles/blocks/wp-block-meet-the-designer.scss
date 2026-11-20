@@ -1,6 +1,8 @@
 @use '../core/mixins';
 
+.wp-block-add-to-cart-form,
 .wp-block-meet-the-designer {
+	.variations_form,
 	.meet-the-designer-variation-wrapper {
 		max-width: 732px;
 		margin-left: auto;
@@ -142,9 +144,11 @@
 		}
 	}
 	.single_variation_wrap {
+		width: 100%;
 		background-color: var(--wp--preset--color--brand-charcoal);
 		border-radius: 12px;
 		padding: 16px 24px;
+		display: block !important;
 		button[type="submit"] {
 			width: 100%;
 			text-align: left;
@@ -157,6 +161,64 @@
 		}
 		.quantity input.qty.input-text {
 			display: none;
+		}
+	}
+	.variations_form.cart {
+		flex-direction: column;
+	}
+}
+
+.single_variation_wrap {
+	padding: 0 !important;
+	h1, h2, h3 {
+		margin: 0;
+	}
+	div[class*="woocommerce-variation"] {
+		width: 100%;
+	}
+	table {
+		td {
+			padding: 0;
+		}
+	}
+}
+
+.wp-block-add-to-cart-form {
+	table.variations {
+		tbody, 
+		tbody tr {
+			display: block;
+			td, td.value {
+				display: block;
+			}
+		}
+	}
+	table.thwepo-extra-options {
+		margin-bottom: 1.6em;
+		tbody {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 10px;
+			tr:has(td > h1), 
+			tr:has(td > h2), 
+			tr:has(td > h3) {
+				grid-column: span 2;
+			}
+			h1, h2, h3 {
+			}
+			td {
+				padding: 0;
+				display: block;
+				// label.label-tag {
+				// 	display: block;
+				// }
+				// br {
+				// 	// display: none;
+				// }
+				input {
+					width: 100%;
+				}
+			}
 		}
 	}
 }
