@@ -308,9 +308,14 @@
 				$regular = (float) wc_get_price_to_display( $priced, [ 'qty' => $qty ] );
 				$total   = self::apply_bulk_discount( $regular, $qty, $parent );
 
-				$prices[ $qty ] = $total < $regular
-					? wc_format_sale_price( $regular, $total )
-					: wc_price( $total );
+				$prices[ $qty ] = wc_price( $total );
+				if ( $total < $regular ) {
+					$prices[ $qty ] .= sprintf(
+						' <span class="hb-qty-choices__saving">%s</span>',
+						/* translators: %s: amount saved */
+						sprintf( __( 'Save %s', 'bones_name' ), wc_price( $regular - $total ) )
+					);
+				}
 			}
 			return $prices;
 		}

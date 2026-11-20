@@ -41,6 +41,20 @@ form.cart .hb-qty-choices {
 
 	li {
 		margin: 0;
+		position: relative;
+
+		.hb-qty-choices__saving {
+			position: absolute;
+			top: 0;
+			right: 10px;
+			transform: translate(0, -50%);
+			line-height: 1;
+			background: #f8af00;
+			font-size: 13px;
+			padding: 3px 7px;
+			border-radius: 10px;
+		}
+
 
 		input {
 			position: absolute;
@@ -93,15 +107,6 @@ form.cart .hb-qty-choices {
 
 		&:empty {
 			display: none;
-		}
-
-		del {
-			opacity: 0.6;
-			margin-right: 4px;
-		}
-
-		ins {
-			text-decoration: none;
 		}
 	}
 }
