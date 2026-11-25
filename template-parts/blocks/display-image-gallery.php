@@ -6,7 +6,15 @@
 	// ] );
 	$photos = get_field( 'gallery', get_the_ID() );
 
-	if( $photos === null ) {
+	// ACF returns false/null/'' when the gallery is empty or unset.
+	if( empty( $photos ) || ! is_array( $photos ) ) {
+		return;
+	}
+
+	// Skip any entries that aren't full image arrays (e.g. deleted attachments).
+	$photos = array_filter( $photos, fn( $photo ) => is_array( $photo ) && ! empty( $photo['ID'] ) );
+
+	if( empty( $photos ) ) {
 		return;
 	}
 
