@@ -608,3 +608,24 @@ div[data-block-name="woocommerce/page-content-wrapper"] {
 .wp-block-woocommerce-add-to-cart-form .variations_button {
 	display: block !important;
 }
+
+.woocommerce-page form.woocommerce-cart-form table th.product-quantity, .woocommerce-page form.woocommerce-cart-form table td.product-quantity {
+  display: none;
+}
+
+.woocommerce-cart-form__cart-item {
+	dl.variation {
+		display: grid;
+		grid-template-columns: auto 1fr;
+		gap: 2px 6px;
+		dt {
+			color: #000;
+			margin: 0;
+		}
+		dd {
+			* {
+				margin: 0;
+			}
+		}
+	}	
+}
