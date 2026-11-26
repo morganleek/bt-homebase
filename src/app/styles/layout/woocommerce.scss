@@ -619,19 +619,20 @@ div[data-block-name="woocommerce/page-content-wrapper"] {
 			border-top: 2px solid var(--wp--preset--color--brand-dust) !important;
 		}
 	}
-	dl.variation {
-		display: grid;
-		grid-template-columns: auto 1fr;
-		gap: 2px 6px;
-		font-size: 0.8125rem;
-		dt {
-			color: #000;
+}
+
+dl.variation {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: 2px 6px;
+	font-size: 0.8125rem;
+	dt {
+		color: #000;
+		margin: 0;
+	}
+	dd {
+		* {
 			margin: 0;
 		}
-		dd {
-			* {
-				margin: 0;
-			}
-		}
-	}	
-}
+	}
+}	
