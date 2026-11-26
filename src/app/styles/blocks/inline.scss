@@ -155,21 +155,21 @@ body.single-post .posted-on {
 }
 
 /* Displays carousel titles: Figma HB/Labels/Label 1 (Large on desktop, Small on mobile). Weight 400 is the Gotham Narrow Medium file */
-.wp-block-display-categories-slider h3, .wp-block-display-categories-slider h3 a {
-  font-size: 20px !important;
-  line-height: 24px !important;
-  font-weight: 400 !important;
-  letter-spacing: 0;
-}
+// .wp-block-display-categories-slider h3, .wp-block-display-categories-slider h3 a {
+//   font-size: 20px !important;
+//   line-height: 24px !important;
+//   font-weight: 400 !important;
+//   letter-spacing: 0;
+// }
 
-@media (max-width: 781px) {
-  .wp-block-display-categories-slider h3, .wp-block-display-categories-slider h3 a {
-    font-size: 20px !important;
-    line-height: 24px !important;
-  }
+// @media (max-width: 781px) {
+//   .wp-block-display-categories-slider h3, .wp-block-display-categories-slider h3 a {
+//     font-size: 20px !important;
+//     line-height: 24px !important;
+//   }
 
-  /* H3 Small 20/24 on mobile (was Label 1 Small 16/20), Rich 2026-11-11 */
-}
+//   /* H3 Small 20/24 on mobile (was Label 1 Small 16/20), Rich 2026-11-11 */
+// }
 
 
 /* Rounded boxes (overlap style or own corner radius): 32px inset on desktop so text clears the 24px corner radius.
@@ -399,11 +399,11 @@ footer.wp-block-template-part .wp-block-columns .is-layout-flex:has(> p + p) > :
 
   /* theme pulls the track 14px left, off centre */
   /* All carousel card titles on mobile are H3 Small 20/24, like Displays (Courses used an H4 at 16/19) */
-  .wp-block-query.is-style-slider .wp-block-post-title:not(#hb), .wp-block-query.is-style-slider .wp-block-post-title a {
-    font-size: 20px !important;
-    line-height: 24px !important;
-    font-weight: 400 !important;
-  }
+  // .wp-block-query.is-style-slider .wp-block-post-title:not(#hb), .wp-block-query.is-style-slider .wp-block-post-title a {
+  //   font-size: 20px !important;
+  //   line-height: 24px !important;
+  //   font-weight: 400 !important;
+  // }
 }
 
 /* read-more-grey: excerpt Read more links in the body text grey, underlined so they still read as links; yellow was distracting and fails contrast on white (Rich 2026-11-11) */
