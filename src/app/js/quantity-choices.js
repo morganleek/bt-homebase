@@ -5,6 +5,9 @@
  * The real `quantity` input stays in the form (just hidden) and is updated when a
  * radio is picked, so cart validation, Min/Max Quantities and the Extra Product
  * Options quantity conditions keep working unchanged.
+ *
+ * No quantity is pre-selected: the input is held at 0 and the add-to-cart button
+ * is disabled until the customer picks one of the radios.
  */
 
 const getProductId = ( form ) =>
@@ -27,6 +30,20 @@ const setup = ( form, data, index ) => {
 	wrapper.parentNode.insertBefore( list, wrapper );
 
 	const name = `hb_qty_choice_${ index }`;
+	const button = form.querySelector( '.single_add_to_cart_button, button[type="submit"]' );
+
+	// Has the customer picked a quantity yet? Kept separately from input.value because
+	// WooCommerce resets the input to the variation's minimum whenever one is chosen.
+	let chosen = false;
+
+	// Block adding to cart until a quantity is picked (only while the radios are shown).
+	const updateButton = () => {
+		const needed = ! list.hidden && ! chosen;
+		if ( button ) {
+			button.disabled = needed;
+			button.classList.toggle( 'hb-qty-choice-needed', needed );
+		}
+	};
 
 	const setQuantity = ( qty ) => {
 		if ( String( input.value ) === String( qty ) ) {
@@ -63,11 +80,19 @@ const setup = ( form, data, index ) => {
 				delete wrapper.dataset.hbQtyHidden;
 				wrapper.style.removeProperty( 'display' );
 			}
+			// Don't leave the visible field on the placeholder 0.
+			if ( ! ( parseFloat( input.value ) > 0 ) ) {
+				setQuantity( quantities[ 0 ] || Math.max( 1, parseFloat( input.min ) || 1 ) );
+			}
+			updateButton();
 			return;
 		}
 
 		const current = parseInt( input.value, 10 );
-		const selected = quantities.includes( current ) ? current : quantities[ 0 ];
+		let selected = null;
+		if ( chosen ) {
+			selected = quantities.includes( current ) ? current : quantities[ 0 ];
+		}
 
 		list.innerHTML = '';
 		quantities.forEach( ( qty ) => {
@@ -84,21 +109,38 @@ const setup = ( form, data, index ) => {
 			li.querySelector( '.hb-qty-choices__price' ).innerHTML = prices ? prices[ qty ] : '';
 			const radio = li.querySelector( 'input' );
 			radio.checked = qty === selected;
-			radio.addEventListener( 'change', () => setQuantity( qty ) );
+			radio.addEventListener( 'change', () => {
+				chosen = true;
+				setQuantity( qty );
+				updateButton();
+			} );
 			list.appendChild( li );
 		} );
 
 		list.hidden = false;
 		wrapper.dataset.hbQtyHidden = '1';
 		wrapper.style.setProperty( 'display', 'none', 'important' );
-		setQuantity( selected );
+		setQuantity( selected ?? 0 );
+		updateButton();
 	};
 
 	// Typed/changed elsewhere (e.g. WooCommerce clamping to a variation's max): reflect it.
 	input.addEventListener( 'change', () => {
+		if ( ! chosen ) {
+			return;
+		}
 		const radio = list.querySelector( `input[value="${ parseInt( input.value, 10 ) }"]` );
 		if ( radio ) {
 			radio.checked = true;
+		}
+	} );
+
+	// Safety net for submits that skip the button (e.g. pressing Enter in another field).
+	form.addEventListener( 'submit', ( e ) => {
+		if ( ! list.hidden && ! chosen ) {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			list.querySelector( 'input' )?.focus();
 		}
 	} );
 
