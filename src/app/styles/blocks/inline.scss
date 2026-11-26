@@ -1,3 +1,423 @@
+
+body.single-product.product_cat-courses main p a, body.single-product.product_cat-courses main li a, body.single-post main p a, body.single-post main li a, .yellow-link a {
+  text-decoration: underline;
+  text-decoration-color: #f8af00;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+body.single-product.product_cat-courses main p a:hover, body.single-product.product_cat-courses main li a:hover, body.single-post main p a:hover, body.single-post main li a:hover, .yellow-link a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Blog posts – images */
+body.single-post main img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+/* Secondary images: centred, max 700px */
+body.single-post main img.alignnone, body.single-post main img.aligncenter, body.single-post main .wp-caption {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1.5em;
+  max-width: min(100%, 700px);
+}
+
+/* Images without a credit: a little more space below */
+body.single-post main img.alignnone:not(.wp-caption img), body.single-post main img.aligncenter:not(.wp-caption img) {
+  margin-bottom: 2em;
+}
+
+/* Stop tall (portrait) images taking over the screen */
+body.single-post main img:not(.blog-lead) {
+  max-height: 600px;
+  width: auto;
+}
+
+/* Main image: full text width */
+body.single-post main img.blog-lead, body.single-post main .wp-caption:has(img.blog-lead) {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+/* Images with a credit: centre the image above its credit */
+body.single-post main .wp-caption img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.4em;
+}
+
+body.single-post main .wp-caption-text {
+  text-align: center;
+}
+
+/* Blog posts – tidier lists (post text only) */
+body.single-post main ul:not([class]), body.single-post main ol:not([class]) {
+  margin: 0.4em 0 1.4em;
+  padding-left: 1.4em;
+}
+
+body.single-post main :is(ul, ol):not([class]) > li {
+  margin-bottom: 0.5em;
+}
+
+body.single-post main :is(ul, ol):not([class]) > li::marker {
+  color: #f8af00;
+}
+
+/* Blog posts – hide the date */
+body.single-post .wp-block-post-date, body.single-post time.entry-date, body.single-post .wp-block-post-author-name + p {
+  display: none;
+}
+
+body.single-post .posted-on {
+  display: none !important;
+}
+
+/* Checkout dropdowns – stop text being cut off */
+.woocommerce-checkout select {
+  height: auto;
+  min-height: 44px;
+  line-height: 1.4;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Checkout dropdowns – add a down arrow */
+.woocommerce-checkout select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%233b332d' stroke-width='1.8'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  background-size: 12px 8px !important;
+  padding-right: 44px !important;
+}
+
+/* Rounded video and map (add class hb-rounded / hb-map-rounded) */
+.wp-block-embed.hb-rounded iframe, .wp-block-embed.hb-rounded .wp-block-embed__wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.hb-map-rounded, .hb-map-rounded .wp-block-getwid-map__container {
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Crop black side bars off a 3:2 video in a 16:9 YouTube player (add class hb-crop-video) */
+.wp-block-embed.hb-crop-video {
+  max-width: 800px;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.wp-block-embed.hb-crop-video .wp-block-embed__wrapper {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.wp-block-embed.hb-crop-video .wp-block-embed__wrapper::before {
+  display: none;
+}
+
+.wp-block-embed.hb-crop-video .wp-block-embed__wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: -9.26%;
+  width: 118.52% !important;
+  max-width: none !important;
+  height: 100%;
+}
+
+/* Displays carousel: WordPress only loads its featured-image CSS when another featured image is on the page, so pages with just the carousel showed images zoomed in */
+.wp-block-display-categories-slider .wp-block-post-featured-image a {
+  display: block;
+  height: 100%;
+}
+
+.wp-block-display-categories-slider .wp-block-post-featured-image img {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  vertical-align: bottom;
+}
+
+/* Large text: slightly tighter letter spacing */
+.has-large-font-size {
+  letter-spacing: -0.01em;
+}
+
+/* Displays carousel titles: Figma HB/Labels/Label 1 (Large on desktop, Small on mobile). Weight 400 is the Gotham Narrow Medium file */
+.wp-block-display-categories-slider h3, .wp-block-display-categories-slider h3 a {
+  font-size: 20px !important;
+  line-height: 24px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0;
+}
+
+@media (max-width: 781px) {
+  .wp-block-display-categories-slider h3, .wp-block-display-categories-slider h3 a {
+    font-size: 20px !important;
+    line-height: 24px !important;
+  }
+
+  /* H3 Small 20/24 on mobile (was Label 1 Small 16/20), Rich 2026-11-11 */
+}
+
+
+/* Rounded boxes (overlap style or own corner radius): 32px inset on desktop so text clears the 24px corner radius.
+   Only boxes using the 24px spacing step; image cards and deeper bottoms are left alone */
+@media (min-width: 782px) {
+  :is(.is-style-overlap, .wp-block-group[style*="radius"])[style*="padding-left:var(--wp--preset--spacing--30)"] {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+
+  :is(.is-style-overlap, .wp-block-group[style*="radius"])[style*="padding-top:var(--wp--preset--spacing--30)"] {
+    padding-top: 32px !important;
+  }
+
+  :is(.is-style-overlap, .wp-block-group[style*="radius"])[style*="padding-bottom:var(--wp--preset--spacing--30)"] {
+    padding-bottom: 32px !important;
+  }
+}
+
+/* Buttons: Figma DS Button / Button-dark. 40px high including the 1px border, Label 16/20.
+   With the arrow: 15px from text to arrow, 19px from arrow to edge (the DS 24px icon box) */
+/* Icon-only buttons (header search and account) keep their own zero padding so the 24px icon fills the 40px button */
+.wp-block-button .wp-block-button__link:not(:has(> img)) {
+  padding: 9px 15px !important;
+  line-height: 20px !important;
+}
+
+.wp-block-button[class*="has-icon__"] .wp-block-button__link {
+  padding-right: 18px !important;
+  gap: 15px !important;
+}
+
+/* Displays carousel spacing: 16px card gap on mobile (slider default is 10px, off the 8px grid; desktop stays 32px).
+   Titles stop 16px short of the card edge so two-line titles clear the next card's text */
+@media (max-width: 781px) {
+  .wp-block-display-categories-slider .tns-item {
+    padding-right: 16px !important;
+  }
+}
+
+.wp-block-display-categories-slider h3 {
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+/* Figma HB/Labels/Label 1, for headings that should look like a label (add class hb-type-label-1). Weight 400 is the Gotham Narrow Medium file */
+.hb-type-label-1 {
+  font-size: 16px !important;
+  line-height: 20px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+@media (min-width: 782px) {
+  .hb-type-label-1 {
+    font-size: 20px !important;
+    line-height: 24px !important;
+  }
+}
+
+
+/* Footer contact and hours: lines in a list sit at line height, not 21px apart (matches the landing page Visit us) */
+footer.wp-block-template-part .wp-block-columns :is(.wp-block-group, .wp-block-column) > p + p:not(#hb) {
+  margin-top: 0 !important;
+  margin-block-start: 0 !important; }
+
+footer.wp-block-template-part .wp-block-columns .is-layout-flex:has(> p + p) {
+  row-gap: 0 !important;
+}
+
+footer.wp-block-template-part .wp-block-columns .is-layout-flex:has(> p + p) > :is(h2, h3, h4, h5, h6) {
+  margin-bottom: 16px !important;
+}
+
+/* Homepage Our Brands on mobile: two logos a row, no scrolling box, three rows (the full list is on the Our Brands page) */
+@media (max-width: 781px) {
+  body.home .wp-block-group#our-brands:not(#hb) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  body.home .wp-block-group#our-brands > :nth-child(n+7) {
+    display: none !important;
+  }
+}
+
+/* Mobile overflow: the theme drops the side padding on groups that hold an overlap sheet, but full-width children still pulled out by the 30px root padding, so pages were 60px wider than the phone */
+@media (max-width: 781px) {
+  .wp-block-group.has-global-padding:has(> .is-style-overlap):not(.keep-mobile-padding) > .alignfull, .wp-block-group.has-global-padding:not(.keep-mobile-padding)[style*="padding-left:0"] > .alignfull {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
+/* Mobile grid (Figma: 4 columns, 16px margins and gutters, 8px baseline). Image cards sit on the 16px margin; FAQ sheets run edge to edge like the other sheets */
+@media (max-width: 781px) {
+  body.home .wp-block-card.wp-block-card-block-dark:not(#hb) {
+    margin-left: calc(16px - var(--wp--style--root--padding-left)) !important;
+    margin-right: calc(16px - var(--wp--style--root--padding-right)) !important;
+  }
+
+  .wp-block-group.faqs-top:not(#hb), .wp-block-group.faqs-bottom:not(#hb) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* Maps in a sheet line up with the sheet text (24px from the edge), not the sheet's 8px padding */
+  .is-style-default[style*="radius"] > .wp-block-group:has(> .wp-block-getwid-map) {
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+  }
+}
+
+/* Desktop: image card text uses the same 32px inset as the rounded sheets (it was 24) */
+@media (min-width: 782px) {
+  .wp-block-card > .wp-block-group[style*="padding-left"] {
+    padding-left: 32px !important;
+    padding-right: 32px !important;
+  }
+}
+
+/* Mobile image cards (Meet the Designer, About Us): the image fills its half of the card. The image block's inline height:auto left it as a short strip with a gap below */
+@media (max-width: 781px) {
+  .wp-block-card.wp-block-card-block-dark > figure img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  /* Meet the Designer banner: centre the crop on the two people (they sit left of centre in the wide photo) */
+  .wp-block-card > figure img[src*="Meet-the-Designer-Banner"] {
+    object-position: 30% 50%;
+  }
+}
+
+/* H1 headlines balance their lines, so a long hero sentence never ends on one word */
+.hb-type-h1 {
+  text-wrap: balance;
+}
+
+/* Our Brands page on mobile: two logos a row, matching the homepage box */
+@media (max-width: 781px) {
+  .wp-block-group.brand-logos.is-layout-grid:not(#hb) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+  }
+}
+
+/* Mobile menu: Contact Us is highlighted as the call to action (Figma Mobile/Menu 2): charcoal with white text and arrow */
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item a.wp-block-navigation-item__content[href*="/contact-us"] {
+  background-color: var(--wp--preset--color--brand-charcoal, #3a3632) !important;
+  color: #fff !important;
+}
+
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation-item a.wp-block-navigation-item__content[href*="/contact-us"]::after {
+  background-color: #fff !important;
+}
+
+/* Our Brands page on mobile (Figma Mobile/Our-Brands): the yellow Newsletter sheet overlaps the bottom of the charcoal brands sheet, like the other stacked sheets */
+@media (max-width: 781px) {
+  body.page-id-51032 .entry-content > .alignfull:last-child > .is-style-overlap:last-child {
+    padding-bottom: 48px !important;
+  }
+
+  body.page-id-51032 .newsletter-signup-wrapper {
+    margin-top: -24px !important;
+    position: relative;
+    z-index: 2;
+    background: transparent !important;
+  }
+
+  body.page-id-51032 .newsletter-signup-wrapper .has-white-background-color {
+    background: transparent !important;
+  }
+}
+
+/* Mobile: a card after a section that ends in an overlap sheet (Our Brands, then About Us) sat 96px below it, because the sheet is lifted 48px but keeps its space. Pull the card section up so the gap is 48, like the others */
+@media (max-width: 781px) {
+  .alignfull:has(> .is-style-overlap:last-child) + .alignfull:has(> .wp-block-card) {
+    margin-top: -48px !important;
+  }
+}
+
+/* carousel-smooth-release: cards decelerate into place after a swipe or autoplay step, instead of the default ease (Rich 2026-11-11). Duration stays the theme's 0.6s so drags still track the finger */
+.wp-block-display-categories-slider .tns-slider, .wp-block-query.is-style-slider .tns-slider {
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+}
+
+/* mobile-button-44: buttons get 2px more top and bottom padding on mobile, 44px high (Rich 2026-11-11). Desktop stays 40px */
+@media (max-width: 781px) {
+  .wp-block-button .wp-block-button__link:not(:has(> img)) {
+    padding-top: 12px !important;
+    padding-bottom: 11px !important;
+  }
+
+  /* 12 top optically centres the caps, 45px high */
+}
+
+/* dark-box-button-48: charcoal boxes ending in a button (Our Brands, Inspiration) get 48px below the button on mobile, was 32 (Rich 2026-11-11) */
+@media (max-width: 781px) {
+  body.home .wp-block-group.is-style-overlap.has-brand-charcoal-background-color:has(> .wp-block-buttons:last-child):not(#hb) {
+    padding-bottom: 48px !important;
+  }
+}
+
+/* displays-card-3-cols: on mobile the centre Displays card is exactly 3 grid columns wide ((100vw - 80px) / 4 * 3 + 32px = 75vw - 28px) with 16px gutters, centred so the previous and next cards peek in equally (Rich 2026-11-11). The slider box is 6px wider than the card (tiny-slider 10px gutter offset, 16px card gap), hence 75vw - 22px and the 3px nudge */
+@media (max-width: 781px) {
+  .wp-block-display-categories-slider:not(#hb), .wp-block-query.is-style-slider:not(#hb) {
+    max-width: none !important;
+    width: calc(75vw - 22px) !important;
+    position: relative;
+    left: 3px;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .wp-block-query.is-style-slider .tns-item {
+    padding-right: 16px !important;
+  }
+
+  .wp-block-query.is-style-slider .tns-slider:not(#hb) {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* theme pulls the track 14px left, off centre */
+  /* All carousel card titles on mobile are H3 Small 20/24, like Displays (Courses used an H4 at 16/19) */
+  .wp-block-query.is-style-slider .wp-block-post-title:not(#hb), .wp-block-query.is-style-slider .wp-block-post-title a {
+    font-size: 20px !important;
+    line-height: 24px !important;
+    font-weight: 400 !important;
+  }
+}
+
+/* read-more-grey: excerpt Read more links in the body text grey, underlined so they still read as links; yellow was distracting and fails contrast on white (Rich 2026-11-11) */
+a.wp-block-post-excerpt__more-link:not(#hb) {
+  color: #736b63 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+a.wp-block-post-excerpt__more-link:not(#hb):hover {
+  color: #3a3632 !important;
+}
+
 /* faq-mobile-tidy (Rich 2026-11-11): on mobile the FAQ rows sit on the grid (16px from each edge) instead of running edge to edge, rows are 56px like Figma, keyline is lighter, and the space is balanced: 32px from the intro to the first row, 48px from the last row to the Newsletter */
 @media (max-width: 781px) {
   .wp-block-group.faqs-top:not(#hb) {
@@ -65,16 +485,166 @@
   }
 }
 
-/* Mobile image cards (Meet the Designer, About Us): the image fills its half of the card. The image block's inline height:auto left it as a short strip with a gap below */
-@media (max-width: 781px) {
-  .wp-block-card.wp-block-card-block-dark > figure img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
+/* course-faq-details (Rich 2026-11-11): FAQ dropdowns in course and product descriptions (plain <details>) use the same divider style as the homepage FAQs. Questions 16/24 charcoal, chevron on the right, thin warm-grey line above the first question and under each one, rows 64px apart */
+.woocommerce-Tabs-panel--description details:not(#hb) {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-bottom: 1px solid #e9e5e1;
+}
+
+.woocommerce-Tabs-panel--description :not(details) + details:not(#hb) {
+  margin-top: 32px !important;
+  border-top: 1px solid #e9e5e1;
+}
+
+.woocommerce-Tabs-panel--description details > summary:not(#hb) {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0 19px;
+  cursor: pointer;
+  color: #38332f;
+  font-size: 16px;
+  line-height: 24px;
+  background: none;
+}
+
+.woocommerce-Tabs-panel--description details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.woocommerce-Tabs-panel--description details > summary::marker {
+  content: '';
+}
+
+.woocommerce-Tabs-panel--description details > summary strong {
+  font-weight: 400;
+}
+
+.woocommerce-Tabs-panel--description details > summary::after {
+  content: '';
+  flex: 0 0 12px;
+  width: 12px;
+  height: 8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%2338332f' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform .2s;
+}
+
+.woocommerce-Tabs-panel--description details[open] > summary::after {
+  transform: rotate(180deg);
+}
+
+.woocommerce-Tabs-panel--description details > :not(summary) {
+  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+}
+
+.woocommerce-Tabs-panel--description details > :last-child:not(summary) {
+  margin-bottom: 24px !important;
+}
+
+/* course-faq-heading: a bold label paragraph (e.g. FAQs) right above the FAQ list sits 16px above the first line, not 32 */
+.woocommerce-Tabs-panel--description p:has(> strong:only-child) + details:not(#hb) {
+  margin-top: 16px !important;
+}
+
+/* faq-answer-gap (Rich 2026-11-11): 8px more space between an open question and its answer */
+.woocommerce-Tabs-panel--description details[open] > summary:not(#hb) {
+  padding-bottom: 27px;
+}
+
+.wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper .wp-block-getwid-accordion__content:not(#hb) {
+  padding-top: 18px !important;
+}
+
+/* faq-open-speed (Rich 2026-11-11): Getwid slides answers open over a fixed 0.5s in its script. Show the answer at full height straight away and fade it in over 0.2s instead. Course page dropdowns get the same fade */
+.wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper.ui-accordion-content-active:not(#hb) {
+  height: auto !important;
+}
+
+.wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper:not(.ui-accordion-content-active):not(#hb) {
+  height: 0 !important;
+  overflow: hidden;
+}
+
+/* closed rows snap shut too; min-height keeps the row's bottom space */
+.wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper .wp-block-getwid-accordion__content:not(#hb) {
+  transition: opacity .2s ease-out !important;
+}
+
+@keyframes hb-faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
   }
 
-  /* Meet the Designer banner: centre the crop on the two people (they sit left of centre in the wide photo) */
-  .wp-block-card > figure img[src*="Meet-the-Designer-Banner"] {
-    object-position: 30% 50%;
+  to {
+    opacity: 1;
+    transform: none;
   }
+}
+
+.woocommerce-Tabs-panel--description details[open] > :not(summary) {
+  animation: hb-faq-in .2s ease-out;
+}
+
+/* hb-instafeed-grid (Rich 2026-11-11): homepage Inspiration box shows the @homebaseperth Instagram feed (Smash Balloon feed 1) in the placeholder's squares. Desktop 3 x 3, mobile 2 x 4; 16px gaps; no plugin header or buttons (the box has its own Visit Instagram button) */
+.hb-instafeed #sb_instagram:not(#hb) {
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.hb-instafeed .sb_instagram_header, .hb-instafeed #sbi_load, .hb-instafeed .sbi_follow_btn {
+  display: none !important;
+}
+
+.hb-instafeed #sb_instagram #sbi_images:not(#hb) {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px !important;
+  max-width: 932px;
+  margin: 16px auto !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.hb-instafeed #sb_instagram .sbi_item:not(#hb) {
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: block !important;
+}
+
+.hb-instafeed #sb_instagram .sbi_item:nth-child(n+10):not(#hb) {
+  display: none !important;
+}
+
+.hb-instafeed #sb_instagram .sbi_photo_wrap, .hb-instafeed #sb_instagram .sbi_photo:not(#hb) {
+  display: block;
+  aspect-ratio: 1 / 1;
+  height: auto !important;
+  overflow: hidden;
+}
+
+.hb-instafeed #sb_instagram .sbi_photo img:not(#hb) {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+@media (max-width: 781px) {
+  .hb-instafeed #sb_instagram #sbi_images:not(#hb) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hb-instafeed #sb_instagram .sbi_item:nth-child(n+9):not(#hb) {
+    display: none !important;
+  }
+}
+
+/* search-inner-radius (Rich 2026-11-11): the search bar is 12px round with 4px padding, so the category dropdown and search button inside it are 8px round (12 - 4) to sit snugly in the corners */
+.search-inner select.categories:not(#hb), .search-inner > button:not(.close):not(#hb), .search-inner button[type="submit"]:not(#hb) {
+  border-radius: 8px !important;
 }
