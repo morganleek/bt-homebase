@@ -273,16 +273,3 @@
 	}
 }
 
-/* Mobile image cards (Meet the Designer, About Us): the image fills its half of the card. The image block's inline height:auto left it as a short strip with a gap below */
-@media (max-width: 781px) {
-  .wp-block-card.wp-block-card-block-dark > figure img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
-  }
-
-  /* Meet the Designer banner: centre the crop on the two people (they sit left of centre in the wide photo) */
-  .wp-block-card > figure img[src*="Meet-the-Designer-Banner"] {
-    object-position: 30% 50%;
-  }
-}

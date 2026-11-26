@@ -1,0 +1,80 @@
+/* faq-mobile-tidy (Rich 2026-11-11): on mobile the FAQ rows sit on the grid (16px from each edge) instead of running edge to edge, rows are 56px like Figma, keyline is lighter, and the space is balanced: 32px from the intro to the first row, 48px from the last row to the Newsletter */
+@media (max-width: 781px) {
+  .wp-block-group.faqs-top:not(#hb) {
+    padding-bottom: 32px !important;
+  }
+
+  .wp-block-group.faqs-bottom:not(#hb) {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    padding-bottom: 32px !important;
+  }
+
+  /* + the 16px gap above the Newsletter = 48 */
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__header-wrapper:not(#hb) {
+    border-color: #e9e5e1 !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper:not(#hb) {
+    border-color: #e9e5e1 !important;
+    min-height: 16px !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__header-wrapper > .wp-block-getwid-accordion__header:not(#hb) {
+    padding-top: 15px !important;
+  }
+}
+
+/* faq-mobile-dividers (Rich 2026-11-11): on mobile the FAQs are a plain list, not boxes. Questions start at 24px, flush with the FAQs heading and intro; chevrons line up 24px from the right; a thin line above the first question and under each one */
+@media (max-width: 781px) {
+  .wp-block-group.faqs-bottom:not(#hb) {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__header-wrapper:not(#hb) {
+    border: 0 !important;
+    border-radius: 0 !important;
+    margin-top: 0 !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__header-wrapper:first-child:not(#hb) {
+    border-top: 1px solid #e9e5e1 !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper:not(#hb) {
+    border: 0 !important;
+    border-bottom: 1px solid #e9e5e1 !important;
+    border-radius: 0 !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__header-wrapper > .wp-block-getwid-accordion__header:not(#hb) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-top: 20px !important;
+  }
+
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper:not(#hb) {
+    min-height: 20px !important;
+  }
+
+  /* rows 64px apart (Rich: slightly taller) */
+  .faqs-bottom .wp-block-getwid-accordion .wp-block-getwid-accordion__content-wrapper .wp-block-getwid-accordion__content:not(#hb) {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/* Mobile image cards (Meet the Designer, About Us): the image fills its half of the card. The image block's inline height:auto left it as a short strip with a gap below */
+@media (max-width: 781px) {
+  .wp-block-card.wp-block-card-block-dark > figure img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover;
+  }
+
+  /* Meet the Designer banner: centre the crop on the two people (they sit left of centre in the wide photo) */
+  .wp-block-card > figure img[src*="Meet-the-Designer-Banner"] {
+    object-position: 30% 50%;
+  }
+}
