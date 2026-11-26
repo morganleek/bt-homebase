@@ -354,8 +354,12 @@ const initSuburbAutocomplete = ( input ) => {
 	} );
 };
 
+
 const SUBURB_FIELDS = [ 'a1_project_suburb', 'a2_project_suburb', 'a3_project_suburb' ];
-const SUBURB_SELECTOR = SUBURB_FIELDS.map( ( name ) => `input[name='${ name }']` ).join( ', ' );
+const SUBURB_SELECTOR = [
+	...SUBURB_FIELDS.map( ( name ) => `input[name='${ name }']` ),
+	'.is-suburb input',
+].join( ', ' );
 const attachSuburbAutocomplete = () => {
 	document.querySelectorAll( SUBURB_SELECTOR ).forEach( initSuburbAutocomplete );
 };
