@@ -16,6 +16,11 @@
 		.wp-block-navigation__container {
 			header & {
 				gap: min(2.3vw, 40px);
+				& > .wp-block-navigation-item {
+					& > .wp-block-navigation-item__content {
+						text-align: center;
+					}
+				}
 			}
 		}
 	}
