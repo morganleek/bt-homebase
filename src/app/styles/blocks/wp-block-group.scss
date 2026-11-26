@@ -2,11 +2,15 @@
 	--home-base--overlap--gap: 48px;
 }
 
+@media (max-width: 781px) {
+  .wp-block-group.has-global-padding:has(> .is-style-overlap):not(.keep-mobile-padding) > .alignfull, 
+	.wp-block-group.has-global-padding:not(.keep-mobile-padding)[style*="padding-left:0"] > .alignfull {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+
 .wp-block-group {
-	&:has(> .wp-block-display-categories-slider) {
-		max-width: 100vw;
-		overflow: hidden;
-	}
 	&.alignwide:has(.review-slider) {
 		overflow: hidden;
 		@media (max-width: 781px) { 
