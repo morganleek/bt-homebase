@@ -3,6 +3,10 @@
 }
 
 .wp-block-group {
+	&:has(> .wp-block-display-categories-slider) {
+		max-width: 100vw;
+		overflow: hidden;
+	}
 	&.alignwide:has(.review-slider) {
 		overflow: hidden;
 		@media (max-width: 781px) { 
